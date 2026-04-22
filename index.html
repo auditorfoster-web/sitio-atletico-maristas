@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Club Atletico Maristas — Liga La Reina</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Preconnect para reducir latencia de fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Font Awesome cargado de forma no bloqueante -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" /></noscript>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="ticker-wrap">
+        <div class="ticker-track">
+          <span><i class="fas fa-futbol"></i> Temporada AP. 2026 en marcha &nbsp;|&nbsp; 5 series en Liga La Reina &nbsp;|&nbsp; Junior · Senior · Super Senior · Dorada · Diamante &nbsp;|&nbsp; <i class="fas fa-futbol"></i> Temporada AP. 2026 en marcha &nbsp;|&nbsp; 5 series en Liga La Reina &nbsp;|&nbsp; Junior · Senior · Super Senior · Dorada · Diamante &nbsp;|&nbsp;</span>
+          <span aria-hidden="true"><i class="fas fa-futbol"></i> Temporada AP. 2026 en marcha &nbsp;|&nbsp; 5 series en Liga La Reina &nbsp;|&nbsp; Junior · Senior · Super Senior · Dorada · Diamante &nbsp;|&nbsp; <i class="fas fa-futbol"></i> Temporada AP. 2026 en marcha &nbsp;|&nbsp; 5 series en Liga La Reina &nbsp;|&nbsp; Junior · Senior · Super Senior · Dorada · Diamante &nbsp;|&nbsp;</span>
+        </div>
+      </div>
+      <div class="top-social">
+        <a href="https://www.instagram.com/clubatleticomarista/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/watch?v=WgElhfWOMTs" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="header" id="header">
+    <div class="wrap nav-wrap">
+      <button class="burger" id="burger"><i class="fas fa-bars"></i></button>
+      <a href="#inicio" class="logo">
+        <img src="escudo.png" alt="Club Atletico Maristas" />
+        <span>Club Atletico <strong>Maristas</strong></span>
+      </a>
+      <nav id="nav">
+        <a href="#inicio">Inicio</a>
+        <a href="#noticias">Noticias</a>
+        <a href="#competencia">Tabla de Posiciones</a>
+        <a href="#plantel">Plantel</a>
+        <a href="#goleadores">Goleadores</a>
+        <a href="#copas">Copas</a>
+        <a href="#admision">Admisión</a>
+        <a href="https://www.ligalareina.cl/bases" target="_blank" rel="noopener" style="color:var(--red);font-weight:700">Bases Generales 2026</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="nav-socials">
+        <a href="https://www.instagram.com/clubatleticomarista/" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/watch?v=WgElhfWOMTs" target="_blank" rel="noopener" title="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-slider" id="heroSlider">
+      <div class="hs-slide active" style="background-image:url('fotos/dorada/DSC_1090.jpg')"></div>
+      <div class="hs-slide" data-bg="fotos/junior/DSC_9721.jpg"></div>
+      <div class="hs-slide" data-bg="fotos/super senior/DSC_1381.jpg"></div>
+      <div class="hs-slide" data-bg="fotos/dorada/DSC_0499.jpg"></div>
+      <div class="hs-slide" data-bg="fotos/junior/DSC_9304.jpg"></div>
+      <div class="hs-slide" data-bg="fotos/super senior/DSC_2155.jpg"></div>
+      <div class="hs-slide" data-bg="fotos/dorada/DSC_0563.jpg"></div>
+      <div class="hs-slide" data-bg="fotos/junior/DSC_9856.jpg"></div>
+      <div class="hs-slide" data-bg="fotos/super senior/DSC_1737.jpg"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-body wrap">
+      <span class="hero-tag"><i class="fas fa-map-marker-alt"></i> Liga La Reina · AP. 2026</span>
+      <h1>Club Atletico<br /><em>Maristas</em></h1>
+      <p>Pasión &middot; Esfuerzo &middot; Respeto</p>
+      <div class="hero-btns">
+        <a href="#series" class="btn-red">Nuestras Series</a>
+      </div>
+    </div>
+    <button class="hs-arrow hs-prev" aria-label="Anterior">&#10094;</button>
+    <button class="hs-arrow hs-next" aria-label="Siguiente">&#10095;</button>
+    <div class="hs-dots" id="hsDots"></div>
+  </section>
+
+  <!-- BANDA INFO CLUB -->
+  <div class="match-band">
+    <div class="wrap band-wrap">
+      <div class="band-block">
+        <span class="band-label">Liga</span>
+        <div class="band-val"><i class="fas fa-trophy"></i> Liga La Reina</div>
+      </div>
+      <div class="band-sep"></div>
+      <div class="band-block">
+        <span class="band-label">Director Técnico</span>
+        <div class="band-val"><i class="fas fa-user-tie"></i> Gabriel Pacheco</div>
+      </div>
+      <div class="band-sep"></div>
+      <div class="band-block">
+        <span class="band-label">Series</span>
+        <div class="band-val"><i class="fas fa-users"></i> 5 Categorías</div>
+      </div>
+      <div class="band-sep"></div>
+      <div class="band-block">
+        <span class="band-label">Temporada</span>
+        <div class="band-val"><i class="fas fa-calendar"></i> AP. 2026</div>
+      </div>
+      <div class="band-sep"></div>
+      <div class="band-block">
+        <span class="band-label">Estadísticas en vivo</span>
+        <a href="https://futbol.aira.cl/lig/defaultTorneo.aspx" target="_blank" rel="noopener" class="band-link">Ver en AIRA <i class="fas fa-external-link-alt"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTICIAS -->
+  <section class="section" id="noticias">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Noticias</h2>
+        <a href="#" class="ver-mas">Ver todas <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <!-- PROXIMA-FECHA -->
+      <div class="proxima-block">
+        <div class="proxima-head">
+          <span><i class="fas fa-calendar-alt"></i> Próxima Fecha — Atletico Maristas</span>
+          <span class="proxima-updated">Actualizado: 22-04-2026</span>
+        </div>
+        <div class="proxima-table-wrap">
+          <table class="tabla proxima-tabla">
+            <thead>
+              <tr><th>Serie</th><th>Fecha</th><th>Programación</th><th>Local</th><th>Visita</th><th>Cancha</th></tr>
+            </thead>
+            <tbody id="proxima-tbody">
+              <tr>
+                <td class="serie-badge">Super Senior</td>
+                <td style="text-align:center;white-space:nowrap">2</td>
+                <td style="white-space:nowrap">19/04/2026 12:20</td>
+                <td><strong style="color:var(--red)">Atletico Marista Super Senior</strong></td>
+                <td>Fluminense Super Senior</td>
+                <td style="white-space:nowrap">Cancha 3</td>
+              </tr>
+              <tr>
+                <td class="serie-badge">Diamante</td>
+                <td style="text-align:center;white-space:nowrap">2</td>
+                <td style="white-space:nowrap">19/04/2026 11:00</td>
+                <td><strong style="color:var(--red)">Atletico Marista Diamante</strong></td>
+                <td>Jaguares Diamantes</td>
+                <td style="white-space:nowrap">Cancha 2</td>
+              </tr>
+              <tr>
+                <td class="serie-badge">Junior</td>
+                <td style="text-align:center;white-space:nowrap">2</td>
+                <td style="white-space:nowrap">18/04/2026 15:00</td>
+                <td><strong style="color:var(--red)">Atletico Marista Junior</strong></td>
+                <td>San Nicolas Fc Junior</td>
+                <td style="white-space:nowrap">Cancha 3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- /PROXIMA-FECHA -->
+
+      <div class="news-grid" id="newsGrid"></div>
+    </div>
+  </section>
+
+  <!-- NUESTRAS SERIES -->
+  <section class="section bg-gray" id="series">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Nuestras 5 Series</h2>
+        <span class="sec-sub">Fecha 1 jugada · AP. 2026 · Liga La Reina</span>
+      </div>
+
+      <div class="series-grid">
+
+        <div class="serie-card">
+          <div class="serie-header junior" style="background-image:url('fotos/junior/DSC_9292.jpg')">
+            <div class="serie-header-overlay"></div>
+            <i class="fas fa-running"></i>
+            <h3>Junior</h3>
+          </div>
+          <div class="serie-body">
+            <div class="serie-stat-row">
+              <span>Posición actual</span><strong>Pos. 8</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>Equipos en grupo</span><strong>14</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>PJ</span><strong>1</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>Puntos</span><strong>0 pts</strong>
+            </div>
+            <div class="serie-rivals">
+              <span class="rivals-label">Rivales en el grupo:</span>
+              <ul>
+                <li>Ciclon Junior</li>
+                <li>Climazul Junior</li>
+                <li>Dinastia FC Junior</li>
+                <li>AC Lo Campino Junior</li>
+                <li>Alianza Junior</li>
+                <li>America Junior</li>
+                <li>Manchester Unido Junior</li>
+                <li>San Nicolas FC Junior</li>
+                <li>Union Marista Junior</li>
+                <li>Juventus Junior</li>
+                <li>Doveramigos Junior</li>
+                <li>Estudiantes Junior</li>
+                <li>Jaguares Junior</li>
+              </ul>
+            </div>
+            <a href="https://futbol.aira.cl/ini/lstPosicionPublico.aspx?data=gq9ZM97tn1LZhuzyHIiaoEVAwTrkKT3SuUKJBHi%2fN%2bzauN4r7BNrazBh4wj4oZcAMmJm1mRBORCUAx2TJ6PnaGP0lUb6uX84XnErieYEHjs-" target="_blank" rel="noopener" class="serie-link">Ver tabla oficial <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="serie-card">
+          <div class="serie-header senior" style="background-image:url('fotos/dorada/DSC_0683.jpg')">
+            <div class="serie-header-overlay"></div>
+            <i class="fas fa-futbol"></i>
+            <h3>Senior</h3>
+          </div>
+          <div class="serie-body">
+            <div class="serie-stat-row">
+              <span>Posición actual</span><strong>Pos. 3</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>Equipos en grupo</span><strong>14</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>PJ</span><strong>1</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>Puntos</span><strong>3 pts</strong>
+            </div>
+            <div class="serie-rivals">
+              <span class="rivals-label">Rivales en el grupo:</span>
+              <ul>
+                <li>CD Improvisados Senior</li>
+                <li>Charkaplax FC Senior</li>
+                <li>Ciclon Senior</li>
+                <li>Banco Bice Senior</li>
+                <li>AC Lo Campino Senior</li>
+                <li>Alianza Senior</li>
+                <li>Mapuches Senior</li>
+                <li>San Nicolas FC Senior</li>
+                <li>Union Marista Senior</li>
+                <li>Manchester Unido Senior</li>
+                <li>Climazul Senior</li>
+                <li>Dinastia FC Senior</li>
+                <li>Doveramigos Senior</li>
+              </ul>
+            </div>
+            <a href="https://futbol.aira.cl/ini/lstPosicionPublico.aspx?data=gq9ZM97tn1LZhuzyHIiaoIjHu2Djrcrl4dWqeajctZF2YUgFykt9RM2dT3MnpzNwt5BW4z%2fdvq0JpT0f5ob6bx07QN1mL51rFQfhYIxOJEc-" target="_blank" rel="noopener" class="serie-link">Ver tabla oficial <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="serie-card">
+          <div class="serie-header supersenior" style="background-image:url('fotos/super%20senior/DSC_1302.jpg')">
+            <div class="serie-header-overlay"></div>
+            <i class="fas fa-shield-alt"></i>
+            <h3>Super Senior</h3>
+          </div>
+          <div class="serie-body">
+            <div class="serie-stat-row">
+              <span>Posición actual</span><strong>Pos. 10</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>Equipos en grupo</span><strong>12</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>PJ</span><strong>1</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>Puntos</span><strong>0 pts</strong>
+            </div>
+            <div class="serie-rivals">
+              <span class="rivals-label">Rivales en el grupo:</span>
+              <ul>
+                <li>Charkaplax FC Super Senior</li>
+                <li>Ciclon Super Senior</li>
+                <li>Defensor Super Senior</li>
+                <li>Fluminense Super Senior</li>
+                <li>Banco Bice Super Senior</li>
+                <li>Union Marista Super Senior</li>
+                <li>Leyenda 216 Super Senior</li>
+                <li>Doveramigos Super Senior</li>
+                <li>Manchester Unido Super Senior</li>
+                <li>Mapuches Super Senior</li>
+              </ul>
+            </div>
+            <a href="https://futbol.aira.cl/ini/lstPosicionPublico.aspx?data=gq9ZM97tn1LZhuzyHIiaoAJ7vYjvBCE3KQ4z2dlNdw9x5mnq3Pv3NAW6%2fD5d262rxlb8EI56Y%2bbe9Zq1CTF8MMUzJo0n626Xem2ppV4%2bR34AMD6GjD5AvA--" target="_blank" rel="noopener" class="serie-link">Ver tabla oficial <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="serie-card">
+          <div class="serie-header dorada" style="background-image:url('fotos/dorada/DSC_0546.jpg')">
+            <div class="serie-header-overlay"></div>
+            <i class="fas fa-star"></i>
+            <h3>Dorada</h3>
+          </div>
+          <div class="serie-body">
+            <div class="serie-stat-row">
+              <span>Posición actual</span><strong>Pos. 2</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>Equipos en grupo</span><strong>12</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>PJ</span><strong>1</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>Puntos</span><strong>3 pts</strong>
+            </div>
+            <div class="serie-rivals">
+              <span class="rivals-label">Rivales en el grupo:</span>
+              <ul>
+                <li>Banco Bice Dorados</li>
+                <li>Ciclon Dorados</li>
+                <li>Climazul Dorados</li>
+                <li>Alianza Dorados</li>
+                <li>America Dorados</li>
+                <li>Juventus Dorados</li>
+                <li>Mapuches Dorados</li>
+                <li>Union Marista Dorados</li>
+                <li>Doveramigos Dorados</li>
+                <li>Estudiantes Dorados</li>
+                <li>Jaguares Dorados</li>
+              </ul>
+            </div>
+            <a href="https://futbol.aira.cl/ini/lstPosicionPublico.aspx?data=gq9ZM97tn1LZhuzyHIiaoKd%2bM1oqx%2bPGORbhSuH6aGYHyrWnyolEuY%2bgsrnzT4aDQ%2bez7H1pH%2fltrpTuQcV7jyvCY0%2fOhwTKgeZI%2brIbqoU-" target="_blank" rel="noopener" class="serie-link">Ver tabla oficial <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="serie-card">
+          <div class="serie-header diamante">
+            <div class="serie-header-overlay"></div>
+            <i class="fas fa-gem"></i>
+            <h3>Diamante</h3>
+          </div>
+          <div class="serie-body">
+            <div class="serie-stat-row">
+              <span>Posición actual</span><strong>Pos. 12</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>Equipos en grupo</span><strong>12</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>PJ</span><strong>1</strong>
+            </div>
+            <div class="serie-stat-row">
+              <span>Puntos</span><strong>0 pts</strong>
+            </div>
+            <div class="serie-rivals">
+              <span class="rivals-label">Rivales en el grupo:</span>
+              <ul>
+                <li>Doveramigos Diamantes</li>
+                <li>Estudiantes Diamantes</li>
+                <li>Jaguares Diamantes</li>
+                <li>Alianza Diamantes</li>
+                <li>Ciclon Diamantes</li>
+                <li>Union Marista Diamantes</li>
+                <li>Universitario Diamantes</li>
+                <li>Juventus Diamantes</li>
+                <li>Mapuches Diamantes</li>
+                <li>Stadio Italiano Diamantes</li>
+              </ul>
+            </div>
+            <a href="https://futbol.aira.cl/ini/lstPosicionPublico.aspx?data=gq9ZM97tn1LZhuzyHIiaoC%2f1ptTQXTjNgSTqdeWI91XtXp3tcdydeoWTXbQ1KZQBYevgdSiQ4vTMLSDgfS7OZqlOs2EeKkSfMQUoSIJk2tE-" target="_blank" rel="noopener" class="serie-link">Ver tabla oficial <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETENCIA -->
+  <section class="section" id="competencia">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Competencia AP. 2026</h2>
+        <a href="https://futbol.aira.cl/lig/defaultTorneo.aspx" target="_blank" rel="noopener" class="ver-mas">Ver en AIRA <i class="fas fa-external-link-alt"></i></a>
+      </div>
+
+      <div class="comp-tabs">
+        <button class="ctab active" data-tab="junior">Junior</button>
+        <button class="ctab" data-tab="senior">Senior</button>
+        <button class="ctab" data-tab="supersenior">Super Senior</button>
+        <button class="ctab" data-tab="dorada">Dorada</button>
+        <button class="ctab" data-tab="diamante">Diamante</button>
+      </div>
+
+      <!-- Todas las tablas -->
+      <div id="tab-junior" class="comp-table active-tab">
+<table class="tabla">
+          <thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>Pts</th></tr></thead>
+          <!-- TBODY:junior -->
+          <tbody>
+            <tr><td>1</td><td class="t-equipo"><span></span>Ac Lo Campino Junior</td><td>2</td><td>2</td><td>0</td><td>0</td><td>13</td><td>2</td><td><strong>6</strong></td></tr>
+            <tr><td>2</td><td class="t-equipo"><span></span>San Nicolas Fc Junior</td><td>1</td><td>1</td><td>0</td><td>0</td><td>7</td><td>1</td><td><strong>3</strong></td></tr>
+            <tr><td>3</td><td class="t-equipo"><span></span>Dinastia Fc Junior</td><td>1</td><td>1</td><td>0</td><td>0</td><td>7</td><td>2</td><td><strong>3</strong></td></tr>
+            <tr><td>4</td><td class="t-equipo"><span></span>America Junior</td><td>1</td><td>1</td><td>0</td><td>0</td><td>4</td><td>2</td><td><strong>3</strong></td></tr>
+            <tr><td>5</td><td class="t-equipo"><span></span>Jaguares Junior</td><td>1</td><td>1</td><td>0</td><td>0</td><td>3</td><td>1</td><td><strong>3</strong></td></tr>
+            <tr><td>6</td><td class="t-equipo"><span></span>Ciclon Junior</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>0</td><td><strong>3</strong></td></tr>
+            <tr><td>7</td><td class="t-equipo"><span></span>Doveramigos Junior</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>1</td><td><strong>3</strong></td></tr>
+            <tr class="yo"><td>8</td><td class="t-equipo"><img src="escudo.png" alt="" /><strong>Atletico Marista Junior</strong></td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>2</td><td><strong>0</strong></td></tr>
+            <tr><td>9</td><td class="t-equipo"><span></span>Estudiantes Junior</td><td>1</td><td>0</td><td>0</td><td>1</td><td>2</td><td>4</td><td><strong>0</strong></td></tr>
+            <tr><td>10</td><td class="t-equipo"><span></span>Union Marista Junior</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>2</td><td><strong>0</strong></td></tr>
+            <tr><td>11</td><td class="t-equipo"><span></span>Climazul Junior</td><td>1</td><td>0</td><td>0</td><td>1</td><td>2</td><td>5</td><td><strong>0</strong></td></tr>
+            <tr><td>12</td><td class="t-equipo"><span></span>Alianza Junior</td><td>1</td><td>0</td><td>0</td><td>1</td><td>2</td><td>7</td><td><strong>0</strong></td></tr>
+            <tr><td>13</td><td class="t-equipo"><span></span>Manchester Unido Junior</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>7</td><td><strong>0</strong></td></tr>
+            <tr><td>14</td><td class="t-equipo"><span></span>Juventus Junior</td><td>2</td><td>0</td><td>0</td><td>2</td><td>1</td><td>11</td><td><strong>0</strong></td></tr>
+          </tbody>
+          <!-- /TBODY:junior -->
+        </table>
+      </div>
+
+      <div id="tab-senior" class="comp-table">
+<table class="tabla">
+          <thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>Pts</th></tr></thead>
+          <!-- TBODY:senior -->
+          <tbody>
+            <tr class="yo"><td>1</td><td class="t-equipo"><img src="escudo.png" alt="" /><strong>Atletico Marista Senior</strong></td><td>2</td><td>2</td><td>0</td><td>0</td><td>9</td><td>3</td><td><strong>6</strong></td></tr>
+            <tr><td>2</td><td class="t-equipo"><span></span>Ac Lo Campino Senior</td><td>2</td><td>2</td><td>0</td><td>0</td><td>7</td><td>2</td><td><strong>6</strong></td></tr>
+            <tr><td>3</td><td class="t-equipo"><span></span>Dinastia Fc Senior</td><td>2</td><td>1</td><td>1</td><td>0</td><td>4</td><td>2</td><td><strong>4</strong></td></tr>
+            <tr><td>4</td><td class="t-equipo"><span></span>Ciclon Senior</td><td>2</td><td>1</td><td>0</td><td>1</td><td>6</td><td>2</td><td><strong>3</strong></td></tr>
+            <tr><td>5</td><td class="t-equipo"><span></span>Banco Bice Senior</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>0</td><td><strong>3</strong></td></tr>
+            <tr><td>6</td><td class="t-equipo"><span></span>San Nicolas Fc Senior</td><td>2</td><td>1</td><td>0</td><td>1</td><td>5</td><td>5</td><td><strong>3</strong></td></tr>
+            <tr><td>7</td><td class="t-equipo"><span></span>Manchester Unido Senior</td><td>2</td><td>1</td><td>0</td><td>1</td><td>7</td><td>9</td><td><strong>3</strong></td></tr>
+            <tr><td>8</td><td class="t-equipo"><span></span>Alianza Senior</td><td>1</td><td>0</td><td>1</td><td>0</td><td>2</td><td>2</td><td><strong>1</strong></td></tr>
+            <tr><td>9</td><td class="t-equipo"><span></span>Cd Improvisados Senior</td><td>2</td><td>0</td><td>1</td><td>1</td><td>6</td><td>8</td><td><strong>1</strong></td></tr>
+            <tr><td>10</td><td class="t-equipo"><span></span>Union Marista Senior</td><td>2</td><td>0</td><td>1</td><td>1</td><td>6</td><td>12</td><td><strong>1</strong></td></tr>
+            <tr><td>11</td><td class="t-equipo"><span></span>Libre</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+            <tr><td>12</td><td class="t-equipo"><span></span>Charkaplax Fc Senior</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td><strong>0</strong></td></tr>
+            <tr><td>13</td><td class="t-equipo"><span></span>Doveramigos Senior</td><td>2</td><td>0</td><td>0</td><td>2</td><td>7</td><td>11</td><td><strong>0</strong></td></tr>
+            <tr><td>14</td><td class="t-equipo"><span></span>Climazul Senior</td><td>1</td><td>0</td><td>0</td><td>1</td><td>2</td><td>6</td><td><strong>0</strong></td></tr>
+          </tbody>
+          <!-- /TBODY:senior -->
+        </table>
+      </div>
+
+      <div id="tab-supersenior" class="comp-table">
+<table class="tabla">
+          <thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>Pts</th></tr></thead>
+          <!-- TBODY:supersenior -->
+          <tbody>
+            <tr><td>1</td><td class="t-equipo"><span></span>Doveramigos Super Senior</td><td>1</td><td>1</td><td>0</td><td>0</td><td>5</td><td>2</td><td><strong>3</strong></td></tr>
+            <tr><td>2</td><td class="t-equipo"><span></span>Mapuches Super Senior</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>0</td><td><strong>3</strong></td></tr>
+            <tr><td>3</td><td class="t-equipo"><span></span>Defensor Super Senior</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>1</td><td><strong>3</strong></td></tr>
+            <tr><td>4</td><td class="t-equipo"><span></span>Ciclon Super Senior</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td><strong>3</strong></td></tr>
+            <tr><td>5</td><td class="t-equipo"><span></span>Banco Bice Super Senior</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td><strong>3</strong></td></tr>
+            <tr><td>6</td><td class="t-equipo"><span></span>Libre</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+            <tr><td>7</td><td class="t-equipo"><span></span>Leyenda 216 Super Senior</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+            <tr><td>8</td><td class="t-equipo"><span></span>Manchester Unido Super Senior</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>2</td><td><strong>0</strong></td></tr>
+            <tr><td>9</td><td class="t-equipo"><span></span>Union Marista Super Senior</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td><strong>0</strong></td></tr>
+            <tr class="yo"><td>10</td><td class="t-equipo"><img src="escudo.png" alt="" /><strong>Atletico Marista Super Senior</strong></td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td><strong>0</strong></td></tr>
+            <tr><td>11</td><td class="t-equipo"><span></span>Fluminense Super Senior</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>2</td><td><strong>0</strong></td></tr>
+            <tr><td>12</td><td class="t-equipo"><span></span>Charkaplax Fc Super Senior</td><td>1</td><td>0</td><td>0</td><td>1</td><td>2</td><td>5</td><td><strong>0</strong></td></tr>
+          </tbody>
+          <!-- /TBODY:supersenior -->
+        </table>
+      </div>
+
+      <div id="tab-dorada" class="comp-table">
+<table class="tabla">
+          <thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>Pts</th></tr></thead>
+          <!-- TBODY:dorada -->
+          <tbody>
+            <tr class="yo"><td>1</td><td class="t-equipo"><img src="escudo.png" alt="" /><strong>Atletico Marista Dorados</strong></td><td>2</td><td>2</td><td>0</td><td>0</td><td>6</td><td>1</td><td><strong>6</strong></td></tr>
+            <tr><td>2</td><td class="t-equipo"><span></span>Estudiantes Dorados</td><td>2</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td><strong>4</strong></td></tr>
+            <tr><td>3</td><td class="t-equipo"><span></span>Mapuches Dorados</td><td>1</td><td>1</td><td>0</td><td>0</td><td>7</td><td>0</td><td><strong>3</strong></td></tr>
+            <tr><td>4</td><td class="t-equipo"><span></span>Union Marista Dorados</td><td>1</td><td>1</td><td>0</td><td>0</td><td>3</td><td>1</td><td><strong>3</strong></td></tr>
+            <tr><td>5</td><td class="t-equipo"><span></span>Doveramigos Dorados</td><td>2</td><td>1</td><td>0</td><td>1</td><td>3</td><td>2</td><td><strong>3</strong></td></tr>
+            <tr><td>6</td><td class="t-equipo"><span></span>America Dorados</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td><strong>1</strong></td></tr>
+            <tr><td>7</td><td class="t-equipo"><span></span>Climazul Dorados</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td><strong>1</strong></td></tr>
+            <tr><td>8</td><td class="t-equipo"><span></span>Alianza Dorados</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td><strong>1</strong></td></tr>
+            <tr><td>9</td><td class="t-equipo"><span></span>Juventus Dorados</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>3</td><td><strong>0</strong></td></tr>
+            <tr><td>10</td><td class="t-equipo"><span></span>Ciclon Dorados</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>3</td><td><strong>0</strong></td></tr>
+            <tr><td>11</td><td class="t-equipo"><span></span>Banco Bice Dorados</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>3</td><td><strong>0</strong></td></tr>
+            <tr><td>12</td><td class="t-equipo"><span></span>Jaguares Dorados</td><td>2</td><td>0</td><td>0</td><td>2</td><td>1</td><td>10</td><td><strong>0</strong></td></tr>
+          </tbody>
+          <!-- /TBODY:dorada -->
+        </table>
+      </div>
+
+      <div id="tab-diamante" class="comp-table">
+<table class="tabla">
+          <thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>Pts</th></tr></thead>
+          <!-- TBODY:diamante -->
+          <tbody>
+            <tr><td>1</td><td class="t-equipo"><span></span>Doveramigos Diamantes</td><td>2</td><td>1</td><td>1</td><td>0</td><td>5</td><td>3</td><td><strong>4</strong></td></tr>
+            <tr><td>2</td><td class="t-equipo"><span></span>Mapuches Diamantes</td><td>1</td><td>1</td><td>0</td><td>0</td><td>3</td><td>0</td><td><strong>3</strong></td></tr>
+            <tr><td>3</td><td class="t-equipo"><span></span>Union Marista Diamantes</td><td>1</td><td>1</td><td>0</td><td>0</td><td>3</td><td>1</td><td><strong>3</strong></td></tr>
+            <tr><td>4</td><td class="t-equipo"><span></span>Alianza Diamantes</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>1</td><td><strong>3</strong></td></tr>
+            <tr><td>5</td><td class="t-equipo"><span></span>Estudiantes Diamantes</td><td>2</td><td>0</td><td>1</td><td>1</td><td>3</td><td>4</td><td><strong>1</strong></td></tr>
+            <tr><td>6</td><td class="t-equipo"><span></span>Jaguares Diamantes</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+            <tr><td>7</td><td class="t-equipo"><span></span>Libre</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+            <tr><td>8</td><td class="t-equipo"><span></span>Stadio Italiano Diamantes</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+            <tr><td>9</td><td class="t-equipo"><span></span>Universitario Diamantes</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+            <tr><td>10</td><td class="t-equipo"><span></span>Ciclon Diamantes</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>3</td><td><strong>0</strong></td></tr>
+            <tr><td>11</td><td class="t-equipo"><span></span>Juventus Diamantes</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>3</td><td><strong>0</strong></td></tr>
+            <tr class="yo"><td>12</td><td class="t-equipo"><img src="escudo.png" alt="" /><strong>Atletico Marista Diamante</strong></td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>3</td><td><strong>0</strong></td></tr>
+          </tbody>
+          <!-- /TBODY:diamante -->
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GOLEADORES -->
+  <section class="section" id="goleadores">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Goleadores del Club</h2>
+        <span class="sec-sub">Ranking general AP. 2026</span>
+      </div>
+
+      <table class="tabla goles-tabla">
+        <thead><tr><th>#</th><th>Jugador</th><th>Serie</th><th><i class="fas fa-futbol"></i> Goles</th></tr></thead>
+        <!-- GOLES:maristas -->
+          <tbody>
+            <tr class="yo"><td>🥇 </td><td><img src="escudo.png" alt="" style="width:16px;vertical-align:middle;margin-right:4px"/><strong>Garcia Gonzalez Victor Marcelo</strong></td><td><span class="serie-badge">Dorada</span></td><td><strong>2</strong> ⚽</td></tr>
+            <tr class="yo"><td>🥈 </td><td><img src="escudo.png" alt="" style="width:16px;vertical-align:middle;margin-right:4px"/><strong>Zamudio Abad Victor Simon</strong></td><td><span class="serie-badge">Dorada</span></td><td><strong>2</strong> ⚽</td></tr>
+            <tr class="yo"><td>🥉 </td><td><img src="escudo.png" alt="" style="width:16px;vertical-align:middle;margin-right:4px"/><strong>Guerra (Nuevo) Marcelo</strong></td><td><span class="serie-badge">Senior</span></td><td><strong>1</strong> ⚽</td></tr>
+          </tbody>
+        <!-- /GOLES:maristas -->
+      </table>
+
+      <div class="news-share" style="margin-top:18px;justify-content:center">
+        <span class="news-share-label">Compartir ranking:</span>
+        <a class="ns-btn ns-wa" href="javascript:void(0)" onclick="(function(){var u=encodeURIComponent(window.location.href);var t=encodeURIComponent('🏆 Goleadores del Club Atlético Maristas — Ranking AP. 2026');window.open('https://wa.me/?text='+t+'%20'+u,'_blank')})()" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <button class="ns-btn ns-ig" onclick="(function(){if(navigator.share){navigator.share({title:'Goleadores del Club Atlético Maristas',url:window.location.href})}else{alert('Abre Instagram en tu celular para compartir.')}})()" title="Instagram / Compartir"><i class="fab fa-instagram"></i></button>
+        <button class="ns-btn ns-copy" onclick="(function(b){navigator.clipboard&&navigator.clipboard.writeText(window.location.href).then(function(){var o=b.innerHTML;b.innerHTML='<i class=\'fas fa-check\'></i>';setTimeout(function(){b.innerHTML=o},1500)})})(this)" title="Copiar enlace"><i class="fas fa-link"></i></button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PLANTEL -->
+  <section class="section bg-gray" id="plantel">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Plantel 2026</h2>
+        <span class="sec-sub">D.T. Gabriel Pacheco</span>
+      </div>
+      <div class="dt-card">
+        <img src="fotos/Gabriel DT.jpg" alt="Gabriel - Director Técnico" loading="lazy" />
+        <div class="dt-info">
+          <span class="dt-role">Director Técnico</span>
+          <h3>Gabriel Pacheco</h3>
+          <p>Conduce las 5 series del Club Atletico Maristas en la Liga La Reina, temporada AP. 2026.</p>
+        </div>
+      </div>
+
+      <!-- Tabs por serie -->
+      <div class="comp-tabs">
+        <button class="ctab active" data-stab="junior">Junior</button>
+        <button class="ctab" data-stab="senior">Senior</button>
+        <button class="ctab" data-stab="supersenior">Super Senior</button>
+        <button class="ctab" data-stab="dorada">Dorada</button>
+        <button class="ctab" data-stab="diamante">Diamante</button>
+      </div>
+
+      <!-- JUNIOR -->
+      <div class="squad-tab active-tab" id="stab-junior">
+        <div class="squad-serie-banner junior-banner">
+          <img src="fotos/junior/DSC_9446.jpg" alt="Junior" loading="lazy" />
+          <div class="ssb-overlay">
+            <span>Serie Junior · AP. 2026</span>
+          </div>
+        </div>
+        <div class="squad">
+          <div class="pcard">
+            <div class="pcard-avatar portero"><span class="pnum">1</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Aroca Baltazar</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar defensa"><span class="pnum">2</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Calquin Gaston</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar defensa"><span class="pnum">3</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Maldonado Nicolas</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar defensa"><span class="pnum">4</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Pino Martin</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar defensa"><span class="pnum">5</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Sanchez Emiliano</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar medio"><span class="pnum">6</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Viscarra Alonso</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar medio"><span class="pnum">7</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Zolezzi Luciano</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar medio"><span class="pnum">8</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Ansieta Gutierrez Maximiliano</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar delantero"><span class="pnum">9</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Aroca Soto Martin Alexis</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar delantero"><span class="pnum">10</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Gomez Valencia Diego Alonso</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar delantero"><span class="pnum">11</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Maldonado Duarte Javier Alonso</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar delantero"><span class="pnum">12</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Quilodran Sanhueza Bastian</h3></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SENIOR -->
+      <div class="squad-tab" id="stab-senior">
+        <div class="squad-serie-banner senior-banner">
+          <img src="fotos/dorada/DSC_0429.jpg" alt="Senior" loading="lazy" />
+          <div class="ssb-overlay">
+            <span>Serie Senior · AP. 2026</span>
+          </div>
+        </div>
+        <div class="squad">
+          <div class="pcard">
+            <div class="pcard-avatar portero"><span class="pnum">1</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Avellaneda Albert</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar defensa"><span class="pnum">2</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Espinoza Sebastian</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar defensa"><span class="pnum">3</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Jimenez Flavio</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar defensa"><span class="pnum">4</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Perez Rodrigo</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar defensa"><span class="pnum">5</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Castillo Salas Juan Esteban</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar medio"><span class="pnum">6</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Cornejo Freire Marcelo Andres</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar medio"><span class="pnum">7</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Espinoza Borquez Mario Esteban</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar medio"><span class="pnum">8</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Gonzalez Munoz Joel Ignacio</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar delantero"><span class="pnum">9</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Jeno Torres Willy Esteban</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar delantero"><span class="pnum">10</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Luna Osorio Cristofferr Guillermo</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar delantero"><span class="pnum">11</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Olivares Jara Andres Ignacio</h3></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-avatar delantero"><span class="pnum">12</span><i class="fas fa-user"></i></div>
+            <div class="pcard-info"><h3>Silva Fuentes Ariel Esteban</h3></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUPER SENIOR -->
+      <div class="squad-tab" id="stab-supersenior">
+        <div class="squad-serie-banner supersenior-banner">
+          <img src="fotos/super%20senior/DSC_1559.jpg" alt="Super Senior" loading="lazy" />
+          <div class="ssb-overlay">
+            <span>Serie Super Senior · AP. 2026</span>
+          </div>
+        </div>
+        <div class="squad">
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">1</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Gabriel Diaz Fernandez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">2</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Alexis Foster Molina</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">3</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Armin Torres</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">4</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Seba Toledo</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">5</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Diego Alcota</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">6</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Felipe Arancibia</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">7</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Sebastian Rodriguez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">8</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Claudio Curkovic Pena</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">9</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Vicente Hernandez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">10</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Elias Rubio</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">11</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Pedro Perez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">12</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Miguel Hernandez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">13</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Francisco Montesinos</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">14</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Felipe Fontecilla</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">15</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Marcelo Teuber</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">16</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Ruben Gebhard</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">17</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Francisco Cabezas</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">18</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Cesar Castro Jara</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">19</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Jose Saez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">20</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Rene Ortiz Leblanc</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">21</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Pablo Hernandez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar supersenior"><span class="pnum">22</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Francisco Aguero Asenjo</h3></div></div>
+        </div>
+      </div>
+
+      <!-- DORADA -->
+      <div class="squad-tab" id="stab-dorada">
+        <div class="squad-serie-banner dorada-banner">
+          <img src="fotos/dorada/DSC_0892.jpg" alt="Dorada" loading="lazy" />
+          <div class="ssb-overlay">
+            <span>Serie Dorada · AP. 2026</span>
+          </div>
+        </div>
+        <div class="squad">
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">1</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Alfredo Quezada Martinez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">2</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Hervy Aroca</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">3</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Cristian Zurita</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">4</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Alex Tobar</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">5</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Michel Roman</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">6</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Luis Ayala</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">7</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Raul Coccio</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">8</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Americo Vargas</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">9</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Gerard Aguirre</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">10</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Victor Zamudio</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">11</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Mario Silva</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">12</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Cristian Cancino</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">13</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Nelson Morales</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">14</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Carlos Madrid</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">15</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Moises Martinez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">16</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Patricio Diaz</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">17</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Javier Bravo</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">18</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Mauricio Perez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">19</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Lucho Elgueta</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">20</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Nicolas Petrovic</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">21</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Remigio Flores</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">22</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Victor Garcia</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">23</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Cristian Cornejo</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">24</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Fernando Riquelme</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">25</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Wilbur Chipao</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">26</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Angel Gomez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">27</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Luis Suarez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar dorada"><span class="pnum">28</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Ricardo Zuñiga</h3></div></div>
+        </div>
+      </div>
+
+      <!-- DIAMANTE -->
+      <div class="squad-tab" id="stab-diamante">
+        <div class="squad-serie-banner diamante-banner">
+          <div class="ssb-overlay ssb-no-photo">
+            <i class="fas fa-gem"></i>
+            <span>Serie Diamante · AP. 2026</span>
+          </div>
+        </div>
+        <div class="squad">
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">1</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Rene Murillo</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">2</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Fernando Navarro</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">3</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Bruno Fertilio</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">4</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Nelson Morales</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">5</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Pedro Corona</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">6</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Enrique Alberto Urbina</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">7</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Carlos Ivan Villalobos</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">8</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Angelo Javier Sanchez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">9</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Marcelo Leonardo Garrido</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">10</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Julio Italo Panez</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">11</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Roberto Gerardo Soto</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">12</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Osvaldo Sandoval</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">13</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Axel Oliver Duran</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">14</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Ricardo Antonio Matus</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">15</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Oscar Arias</h3></div></div>
+          <div class="pcard"><div class="pcard-avatar diamante"><span class="pnum">16</span><i class="fas fa-user"></i></div><div class="pcard-info"><h3>Carlos Andres Jelvez</h3></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO DE LA SEMANA -->
+  <section class="section bg-gray" id="equipo-semana">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="esm-titulo">Jugador de la Semana</h2>
+        <span class="sec-sub" id="esm-subtitulo"></span>
+      </div>
+      <div class="jsm-grid" id="jsm-grid"></div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="section" id="galeria">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Galería</h2>
+        <span class="sec-sub">AP. 2026</span>
+      </div>
+
+      <div class="gallery active-tab" id="galeria-grid">
+        <div class="gitem" data-src="fotos/dorada/DSC_0201.jpg"><img src="fotos/dorada/DSC_0201.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/junior/DSC_9292.jpg"><img src="fotos/junior/DSC_9292.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/super%20senior/DSC_1302.jpg"><img src="fotos/super%20senior/DSC_1302.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/dorada/DSC_0392.jpg"><img src="fotos/dorada/DSC_0392.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/junior/DSC_9446.jpg"><img src="fotos/junior/DSC_9446.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/super%20senior/DSC_1559.jpg"><img src="fotos/super%20senior/DSC_1559.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/dorada/DSC_0546.jpg"><img src="fotos/dorada/DSC_0546.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/junior/DSC_9629.jpg"><img src="fotos/junior/DSC_9629.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/super%20senior/DSC_1829.jpg"><img src="fotos/super%20senior/DSC_1829.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/dorada/DSC_0892.jpg"><img src="fotos/dorada/DSC_0892.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/junior/DSC_9749.jpg"><img src="fotos/junior/DSC_9749.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/super%20senior/DSC_2050.jpg"><img src="fotos/super%20senior/DSC_2050.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/dorada/DSC_1135.jpg"><img src="fotos/dorada/DSC_1135.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/junior/DSC_9875.jpg"><img src="fotos/junior/DSC_9875.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+        <div class="gitem" data-src="fotos/super%20senior/DSC_2295.jpg"><img src="fotos/super%20senior/DSC_2295.jpg" alt="" loading="lazy" /><div class="gover"><i class="fas fa-expand"></i></div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COPAS GANADAS -->
+  <section class="section bg-gray" id="copas">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Copas Ganadas</h2>
+        <span class="sec-sub">Historia de victorias</span>
+      </div>
+      <div class="copas-grid">
+        <div class="copa-card">
+          <i class="fas fa-trophy copa-icon" style="color:#f59e0b"></i>
+          <span class="copa-year">2024</span>
+          <p class="copa-name">Copa de Plata</p>
+          <span class="copa-serie">Super Senior · Ap. 2024</span>
+        </div>
+        <div class="copa-card">
+          <i class="fas fa-trophy copa-icon" style="color:#f59e0b"></i>
+          <span class="copa-year">2023</span>
+          <p class="copa-name">Copa de Bronce</p>
+          <span class="copa-serie">Dorada · Ap. 2023</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button id="lbClose"><i class="fas fa-times"></i></button>
+    <button id="lbPrev"><i class="fas fa-chevron-left"></i></button>
+    <button id="lbNext"><i class="fas fa-chevron-right"></i></button>
+    <img id="lbImg" src="" alt="" />
+    <span id="lbCount"></span>
+  </div>
+
+  <!-- CONTACTO -->
+  <section class="section bg-gray" id="contacto">
+    <div class="wrap">
+      <div class="sec-head"><h2>Contacto</h2></div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="citem"><div class="cicon"><i class="fas fa-map-marker-alt"></i></div><div><h4>Liga</h4><p>Liga La Reina</p></div></div>
+          <div class="citem"><div class="cicon"><i class="fas fa-envelope"></i></div><div><h4>Email</h4><p><a href="mailto:atleticomarista@gmail.com" style="color:var(--red)">atleticomarista@gmail.com</a></p></div></div>
+          <div class="citem"><div class="cicon"><i class="fas fa-crown"></i></div><div><h4>Presidente</h4><p>Luis Ayala</p></div></div>
+          <div class="citem"><div class="cicon"><i class="fas fa-briefcase"></i></div><div><h4>Gerente Deportivo</h4><p>Carlos Madrid</p></div></div>
+          <div class="citem"><div class="cicon"><i class="fas fa-user-tie"></i></div><div><h4>Director Técnico</h4><p>Gabriel Pacheco</p></div></div>
+          <div class="citem"><div class="cicon"><i class="fas fa-chart-bar"></i></div><div><h4>Estadísticas Oficiales</h4><p><a href="https://futbol.aira.cl/lig/defaultTorneo.aspx" target="_blank" rel="noopener" style="color:var(--red)">futbol.aira.cl</a></p></div></div>
+          <div class="c-socials">
+            <a href="https://www.instagram.com/clubatleticomarista/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.youtube.com/watch?v=WgElhfWOMTs" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <form id="contactForm" action="https://formspree.io/f/meevglpw" method="POST">
+          <input type="hidden" name="_subject" value="Mensaje desde el sitio web - Club Atletico Maristas" />
+          <div class="form-row">
+            <input type="text" name="nombre" placeholder="Nombre" required />
+            <input type="email" name="email" placeholder="Email" required />
+          </div>
+          <input type="text" name="asunto" placeholder="Asunto" />
+          <textarea rows="4" name="mensaje" placeholder="Mensaje..."></textarea>
+          <button type="submit">Enviar <i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO DE ADMISIÓN -->
+  <section class="section" id="admision">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Formulario de Admisión</h2>
+        <span class="sec-sub">Liga La Reina</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;margin-top:24px">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSctH3BoVPQXFHnAP0PN1vAMjQPo0r4v6rliRdzPoBO0h3zFvA/viewform" target="_blank" rel="noopener" class="admision-card admision-primary">
+          <div class="admision-icon"><i class="fas fa-file-alt"></i></div>
+          <h3>Formulario de Admisión</h3>
+          <p>FORMULARIO EXCLUSIVAMENTE PARA JUGADORES SERIES JÚNIOR, SÉNIOR Y SÚPER SÉNIOR</p>
+          <span class="admision-cta">Acceder al formulario <i class="fas fa-arrow-right"></i></span>
+        </a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdNU3wcdd_pfJW59JL-BHMvjxKZht32gGKgRyFLXJFZsm38TA/viewform" target="_blank" rel="noopener" class="admision-card">
+          <div class="admision-icon"><i class="fas fa-file-alt"></i></div>
+          <h3>Formulario de Admisión</h3>
+          <p>FORMULARIO EXCLUSIVO PARA SERIES DORADA, DIAMANTE Y PLATINO</p>
+          <span class="admision-cta">Acceder al formulario <i class="fas fa-arrow-right"></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUSPICIADORES -->
+  <section class="section sponsors-section" id="auspiciadores">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Nuestros Auspiciadores</h2>
+        <span class="sec-sub">Gracias a quienes hacen posible el sueño</span>
+      </div>
+      <div class="sponsors-grid">
+        <a href="https://agromarketing.cl/" target="_blank" rel="noopener" class="sponsor-card">
+          <div class="sponsor-logo-wrap">
+            <img src="https://agromarketing.cl/favicon.ico" alt="Agromarketing" class="sponsor-favicon" onerror="this.style.display='none'" />
+            <span class="sponsor-name">Agromarketing</span>
+          </div>
+          <span class="sponsor-url">agromarketing.cl</span>
+        </a>
+        <a href="https://curicontainer.cl/" target="_blank" rel="noopener" class="sponsor-card">
+          <div class="sponsor-logo-wrap">
+            <img src="https://curicontainer.cl/favicon.ico" alt="Curicontainer" class="sponsor-favicon" onerror="this.style.display='none'" />
+            <span class="sponsor-name">Curicontainer</span>
+          </div>
+          <span class="sponsor-url">curicontainer.cl</span>
+        </a>
+        <a href="https://rays.cl/" target="_blank" rel="noopener" class="sponsor-card">
+          <div class="sponsor-logo-wrap">
+            <img src="https://rays.cl/favicon.ico" alt="Rays" class="sponsor-favicon" onerror="this.style.display='none'" />
+            <span class="sponsor-name">Rays</span>
+          </div>
+          <span class="sponsor-url">rays.cl</span>
+        </a>
+        <a href="https://toshiba.com/" target="_blank" rel="noopener" class="sponsor-card">
+          <div class="sponsor-logo-wrap">
+            <img src="https://toshiba.com/favicon.ico" alt="Toshiba" class="sponsor-favicon" onerror="this.style.display='none'" />
+            <span class="sponsor-name">Toshiba</span>
+          </div>
+          <span class="sponsor-url">toshiba.com</span>
+        </a>
+        <a href="http://www.marisquerialouta.cl/" target="_blank" rel="noopener" class="sponsor-card">
+          <div class="sponsor-logo-wrap">
+            <img src="http://www.marisquerialouta.cl/favicon.ico" alt="Marisqueria Louta" class="sponsor-favicon" onerror="this.style.display='none'" />
+            <span class="sponsor-name">Marisqueria Louta</span>
+          </div>
+          <span class="sponsor-url">marisquerialouta.cl</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <img src="escudo.png" alt="Escudo" loading="lazy" />
+        <div>
+          <h3>Club Atletico Maristas</h3>
+          <p>Liga La Reina · 5 Series · D.T. Gabriel</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#noticias">Noticias</a>
+        <a href="#series">Series</a>
+        <a href="#competencia">Tabla de Posiciones</a>
+        <a href="#plantel">Plantel</a>
+        <a href="#galeria">Galería</a>
+        <a href="#admision">Admisión</a>
+        <a href="https://www.ligalareina.cl/bases" target="_blank" rel="noopener">Bases Generales 2026 <i class="fas fa-external-link-alt" style="font-size:10px"></i></a>
+        <a href="#contacto">Contacto</a>
+        <a href="https://futbol.aira.cl/lig/defaultTorneo.aspx" target="_blank" rel="noopener">AIRA <i class="fas fa-external-link-alt" style="font-size:10px"></i></a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/clubatleticomarista/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.youtube.com/watch?v=WgElhfWOMTs" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Club Atletico Maristas · Liga La Reina · Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="equipo-semana.js"></script>
+  <script src="noticias.js"></script>
+  <script src="script.js" defer></script>
+
+  <script>
+    (function() {
+      if (typeof EQUIPO_SEMANA === 'undefined') return;
+      var d = EQUIPO_SEMANA;
+      if (d.titulo)    document.getElementById('esm-titulo').textContent    = d.titulo;
+      if (d.subtitulo) document.getElementById('esm-subtitulo').textContent = d.subtitulo;
+
+      var grid = document.getElementById('jsm-grid');
+      if (!d.jugadores || !d.jugadores.length) {
+        grid.innerHTML = '<p style="text-align:center;color:var(--muted)">Sin jugadores seleccionados esta semana.</p>';
+        return;
+      }
+
+      var serieClass = { 'Junior':'junior','Senior':'senior','Super Senior':'supersenior','Dorada':'dorada','Diamante':'diamante' };
+
+      function starFallback() {
+        return '<img src="star-ucl.svg" alt="estrella" class="jsm-star-img">';
+      }
+      function playerCard(j) {
+        var sc = serieClass[j.serie] || 'junior';
+        var avatar = j.imagen
+          ? '<img src="' + j.imagen + '" alt="" onerror="this.parentNode.innerHTML=\'<img src=\\\"star-ucl.svg\\\" alt=\\\"estrella\\\" class=\\\"jsm-star-img\\\">\'">'
+          : starFallback();
+        var nombre = j.nombre || '<em style="color:var(--muted);font-style:italic">Por definir</em>';
+        var pos = j.posicion ? '<span class="jsm-pos">' + j.posicion + '</span>' : '';
+        return '<div class="jsm-card">'
+          + '<div class="jsm-serie-bar ' + sc + '">' + j.serie + '</div>'
+          + '<div class="jsm-avatar-wrap"><div class="jsm-avatar">' + avatar + '</div></div>'
+          + '<div class="jsm-info"><p class="jsm-name">' + nombre + '</p>' + pos + '</div>'
+          + '</div>';
+      }
+
+      var dtCard = '';
+      if (d.dt && d.dt.nombre) {
+        var dtAvatar = d.dt.imagen
+          ? '<img src="' + d.dt.imagen + '" alt="" onerror="this.style.display=\'none\'">'
+          : '<i class="fas fa-user-tie" style="font-size:2.4rem;color:#c8a94a"></i>';
+        dtCard = '<div class="jsm-card jsm-dt-card">'
+          + '<div class="jsm-serie-bar jsm-dt-bar"><i class="fas fa-whistle"></i> Director Técnico</div>'
+          + '<div class="jsm-avatar-wrap"><div class="jsm-avatar jsm-dt-avatar">' + dtAvatar + '</div></div>'
+          + '<div class="jsm-info"><p class="jsm-name">' + d.dt.nombre + '</p>'
+          + '<span class="jsm-pos">D.T.</span></div>'
+          + '</div>';
+      }
+
+      grid.innerHTML = dtCard + d.jugadores.map(playerCard).join('');
+    })();
+  </script>
+</body>
+</html>

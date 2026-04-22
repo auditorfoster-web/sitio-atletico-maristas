@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="60%">
+      <stop offset="0%"  stop-color="#1a3a6e"/>
+      <stop offset="100%" stop-color="#0d1f42"/>
+    </radialGradient>
+    <radialGradient id="starGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%"  stop-color="#7ecef4"/>
+      <stop offset="55%" stop-color="#4aa8e0"/>
+      <stop offset="100%" stop-color="#1a6bbf"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Fondo -->
+  <rect width="200" height="200" fill="url(#bg)" rx="8"/>
+
+  <!-- Pentagones / escudos alrededor (oscuros, estilo UCL) -->
+  <!-- Arriba izquierda -->
+  <polygon points="100,18 58,46 62,90 100,100 100,18"  fill="#0f2650" opacity="0.85"/>
+  <!-- Arriba derecha -->
+  <polygon points="100,18 142,46 138,90 100,100 100,18" fill="#0f2650" opacity="0.85"/>
+  <!-- Izquierda -->
+  <polygon points="58,46 20,78 28,124 70,128 100,100 62,90 58,46" fill="#0f2650" opacity="0.85"/>
+  <!-- Derecha -->
+  <polygon points="142,46 180,78 172,124 130,128 100,100 138,90 142,46" fill="#0f2650" opacity="0.85"/>
+  <!-- Abajo izquierda -->
+  <polygon points="70,128 28,124 50,172 100,160 100,100" fill="#0f2650" opacity="0.85"/>
+  <!-- Abajo derecha -->
+  <polygon points="130,128 172,124 150,172 100,160 100,100" fill="#0f2650" opacity="0.85"/>
+
+  <!-- Estrella central UCL -->
+  <polygon
+    points="100,20 112,62 156,62 121,87 134,130 100,106 66,130 79,87 44,62 88,62"
+    fill="url(#starGrad)"
+    filter="url(#glow)"
+    stroke="#aad9f5"
+    stroke-width="1.2"
+    stroke-opacity="0.5"
+  />
+</svg>

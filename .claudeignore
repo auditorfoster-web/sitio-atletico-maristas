@@ -1,0 +1,4 @@
+node_modules/
+fotos/
+logs/
+package-lock.json

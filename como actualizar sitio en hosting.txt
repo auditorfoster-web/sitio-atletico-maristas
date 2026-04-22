@@ -1,0 +1,12 @@
+Tu sitio es estático — index.html + styles.css + script.js + fotos. DonWeb lo soporta perfectamente con el Plan 1 (~$1.800/mes).
+
+Lo que sí debes entender sobre tu arquitectura:
+
+admin-server.js y actualizar.js corren en tu computador, no en el servidor. DonWeb no ejecuta Node.js. Eso está bien porque ya está diseñado así: tú actualizas el index.html localmente y solo subes los archivos al hosting.
+Para subir archivos usas FTP (incluido en todos los planes).
+Flujo de trabajo con hosting:
+
+Corres node actualizar.js localmente → actualiza index.html
+Usas el panel admin local para editar noticias/fotos
+Subes los archivos cambiados al hosting vía FTP (o el panel de control de DonWeb)
+El Plan 1 es suficiente. Lo único que podrías necesitar evaluar es el espacio según cuántas fotos tengas en fotos/.

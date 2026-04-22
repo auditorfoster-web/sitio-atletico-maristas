@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "admin": "node admin-server.js",
+    "actualizar": "node actualizar.js"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
+  }
+}

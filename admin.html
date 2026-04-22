@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin — Club Atletico Maristas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --red:    #c8102e;
+      --red-d:  #a00e25;
+      --bg:     #111;
+      --panel:  #1a1a1a;
+      --card:   #222;
+      --border: #2e2e2e;
+      --text:   #e0e0e0;
+      --muted:  #777;
+      --white:  #fff;
+      --green:  #22c55e;
+      --yellow: #FFD700;
+      --r: 8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ---- Layout ---- */
+    .app { display: grid; grid-template-columns: 210px 1fr; min-height: 100vh; }
+
+    /* ---- Sidebar ---- */
+    .sidebar {
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      position: sticky; top: 0; height: 100vh; overflow-y: auto;
+    }
+    .sidebar-brand {
+      padding: 22px 18px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 11px;
+    }
+    .sidebar-brand img { width: 38px; height: 38px; object-fit: contain; }
+    .brand-text strong {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 15px; color: var(--white); letter-spacing: 1px; display: block;
+    }
+    .brand-text span {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--red);
+    }
+    .sidebar-nav { padding: 12px 0; flex: 1; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 18px; cursor: pointer;
+      color: var(--muted); font-weight: 600; font-size: 13px;
+      border-left: 3px solid transparent;
+      transition: all .18s; user-select: none;
+    }
+    .nav-item i { width: 15px; text-align: center; font-size: 13px; flex-shrink: 0; }
+    .nav-item:hover { color: var(--white); background: rgba(255,255,255,.04); }
+    .nav-item.active { color: var(--white); border-left-color: var(--red); background: rgba(200,16,46,.07); }
+    .sidebar-footer {
+      padding: 14px 18px; border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .status-row { display: flex; align-items: center; gap: 7px; }
+    .dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.35} }
+    .status-label { font-size: 11px; color: var(--muted); }
+    .site-link {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 7px; border: 1px solid var(--border); border-radius: var(--r);
+      font-size: 11px; font-weight: 600; color: var(--muted);
+      transition: all .18s;
+    }
+    .site-link:hover { color: var(--white); border-color: var(--red); }
+
+    /* ---- Main ---- */
+    .main { overflow-y: auto; display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* ---- Tab content ---- */
+    .tab { display: none; padding: 28px 30px; flex: 1; }
+    .tab.active { display: block; }
+
+    /* ---- Section header ---- */
+    .tab-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      border-bottom: 2px solid var(--red); padding-bottom: 12px; margin-bottom: 22px;
+    }
+    .tab-header h2 { font-family: 'Bebas Neue', cursive; font-size: 22px; color: var(--white); letter-spacing: 1.5px; }
+    .tab-header p { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    /* ---- Botones ---- */
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 20px; border-radius: var(--r);
+      font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 13px;
+      cursor: pointer; border: none; transition: all .18s;
+    }
+    .btn-red { background: var(--red); color: var(--white); }
+    .btn-red:hover { background: var(--red-d); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .btn-outline:hover { color: var(--white); border-color: #555; }
+    .btn-green { background: #15803d; color: var(--white); }
+    .btn-green:hover { background: #166534; }
+    .btn-danger { background: transparent; color: #f87171; border: 1px solid rgba(248,113,113,.25); font-size: 12px; padding: 6px 12px; }
+    .btn-danger:hover { background: rgba(248,113,113,.1); }
+    .btn-sm { padding: 6px 13px; font-size: 12px; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; }
+
+    /* ---- Noticias lista ---- */
+    .news-list { display: flex; flex-direction: column; gap: 8px; }
+    .news-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r); display: flex; align-items: center; gap: 14px;
+      padding: 12px 16px; transition: border-color .18s;
+    }
+    .news-card:hover { border-color: rgba(200,16,46,.35); }
+    .news-card.principal { border-left: 3px solid var(--red); }
+    .thumb {
+      width: 68px; height: 50px; border-radius: 5px;
+      object-fit: cover; flex-shrink: 0; background: var(--border);
+    }
+    .thumb-ph {
+      width: 68px; height: 50px; border-radius: 5px;
+      background: var(--border); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 18px;
+    }
+    .news-info { flex: 1; min-width: 0; }
+    .news-info h3 {
+      font-size: 14px; font-weight: 700; color: var(--white);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 5px;
+    }
+    .news-meta { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+    .badge-principal { background: var(--red); color: var(--white); font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; }
+    .badge-serie { background: rgba(200,16,46,.18); color: #f87171; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 3px; }
+    .badge-date { font-size: 11px; color: var(--muted); }
+    .news-actions { display: flex; gap: 7px; flex-shrink: 0; }
+    .empty { text-align: center; padding: 48px 20px; color: var(--muted); }
+    .empty i { font-size: 34px; opacity: .25; display: block; margin-bottom: 12px; }
+    .empty p { font-size: 13px; }
+
+    /* ---- Modal overlay ---- */
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .overlay.hidden { display: none; }
+    .modal {
+      background: #1e1e1e; border: 1px solid var(--border); border-radius: 12px;
+      width: 100%; max-width: 540px; max-height: 92vh; overflow-y: auto;
+    }
+    .modal-header {
+      padding: 18px 22px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-header h3 { font-family: 'Bebas Neue', cursive; font-size: 20px; color: var(--white); letter-spacing: 1px; }
+    .modal-body { padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+    .modal-footer { padding: 14px 22px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; }
+    .close-btn { background: none; border: none; color: var(--muted); font-size: 16px; cursor: pointer; padding: 4px 6px; border-radius: 4px; }
+    .close-btn:hover { color: var(--white); background: rgba(255,255,255,.08); }
+
+    /* ---- Form ---- */
+    .form-group label {
+      display: block; font-size: 10px; font-weight: 700;
+      letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%; padding: 10px 13px;
+      background: rgba(255,255,255,.05); border: 1px solid var(--border);
+      border-radius: var(--r); color: var(--white);
+      font-family: 'Barlow', sans-serif; font-size: 14px;
+      transition: border-color .18s;
+    }
+    .form-control:focus { outline: none; border-color: var(--red); }
+    .form-control::placeholder { color: rgba(255,255,255,.22); }
+    select.form-control option { background: #1e1e1e; }
+    .input-row { display: flex; gap: 8px; }
+    .input-row .form-control { flex: 1; }
+    .img-preview { width: 100%; aspect-ratio: 16/7; object-fit: cover; border-radius: var(--r); border: 1px solid var(--border); display: none; margin-top: 8px; }
+    .img-preview.show { display: block; }
+
+    /* ---- Photo picker ---- */
+    .picker { position: fixed; inset: 0; background: rgba(0,0,0,.88); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .picker.hidden { display: none; }
+    .picker-panel { background: #1e1e1e; border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 680px; max-height: 86vh; display: flex; flex-direction: column; }
+    .picker-header { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .picker-header h3 { font-family: 'Bebas Neue', cursive; font-size: 18px; color: var(--white); letter-spacing: 1px; }
+    .picker-filters { display: flex; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .filter-chip { padding: 4px 13px; border-radius: 20px; font-size: 11px; font-weight: 700; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all .15s; font-family: 'Barlow', sans-serif; }
+    .filter-chip.active { background: var(--red); border-color: var(--red); color: var(--white); }
+    .picker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 7px; padding: 14px; overflow-y: auto; flex: 1; }
+    .picker-item { aspect-ratio: 4/3; border-radius: 5px; overflow: hidden; cursor: pointer; border: 2px solid transparent; background: var(--border); transition: border-color .15s; }
+    .picker-item:hover { border-color: var(--red); }
+    .picker-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ---- Fotos tab ---- */
+    .upload-zone {
+      border: 2px dashed var(--border); border-radius: 10px;
+      padding: 36px 20px; text-align: center; cursor: pointer;
+      transition: all .2s; margin-bottom: 20px;
+    }
+    .upload-zone:hover, .upload-zone.drag { border-color: var(--red); background: rgba(200,16,46,.04); }
+    .upload-zone i { font-size: 30px; color: var(--muted); display: block; margin-bottom: 10px; }
+    .upload-zone p { font-size: 13px; color: var(--muted); }
+    .upload-zone p strong { color: var(--white); }
+    .upload-zone input { display: none; }
+    .folder-chips { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 16px; }
+    .folder-chip { padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all .15s; font-family: 'Barlow', sans-serif; }
+    .folder-chip.active { background: var(--red); border-color: var(--red); color: var(--white); }
+    .upload-status { font-size: 12px; color: var(--green); text-align: center; min-height: 18px; margin: -12px 0 16px; }
+    .fotos-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .fotos-section-header label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); }
+    .fotos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 7px; }
+    .foto-item { aspect-ratio: 4/3; border-radius: var(--r); overflow: hidden; position: relative; background: var(--border); }
+    .foto-item img { width: 100%; height: 100%; object-fit: cover; }
+    .foto-hover { position: absolute; inset: 0; background: rgba(0,0,0,0); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; opacity: 0; transition: all .18s; }
+    .foto-item:hover .foto-hover { opacity: 1; background: rgba(0,0,0,.72); }
+    .fh-btn { background: rgba(255,255,255,.12); color: var(--white); border: none; border-radius: 4px; padding: 5px 10px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: 'Barlow', sans-serif; transition: background .15s; }
+    .fh-btn:hover { background: rgba(255,255,255,.22); }
+    .fh-btn.del { background: rgba(239,68,68,.2); color: #f87171; }
+    .fh-btn.del:hover { background: rgba(239,68,68,.35); }
+
+    /* ---- Actualizar tab ---- */
+    .info-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 22px; }
+    .info-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 18px; }
+    .info-card i { font-size: 22px; color: var(--red); display: block; margin-bottom: 10px; }
+    .info-card h3 { font-family: 'Bebas Neue', cursive; font-size: 15px; color: var(--white); letter-spacing: 1px; margin-bottom: 5px; }
+    .info-card p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .alert { border-radius: var(--r); padding: 11px 15px; font-size: 13px; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 9px; }
+    .alert-info { background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.25); color: #93c5fd; }
+    .alert-success { background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.25); color: #86efac; }
+    .terminal {
+      background: #0d1117; border: 1px solid var(--border); border-radius: var(--r);
+      padding: 14px; font-family: 'Courier New', monospace; font-size: 12px;
+      line-height: 1.65; min-height: 180px; max-height: 360px;
+      overflow-y: auto; color: #58a6ff; white-space: pre-wrap;
+    }
+    .t-ok   { color: #3fb950; }
+    .t-err  { color: #f85149; }
+    .t-dim  { color: #6e7681; }
+
+    /* ---- Horario tab ---- */
+    .schedule-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; margin-bottom: 14px; }
+    .schedule-card h3 { font-family: 'Bebas Neue', cursive; font-size: 17px; color: var(--white); letter-spacing: 1px; margin-bottom: 8px; }
+    .schedule-card p { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 10px; }
+    .code-block { background: #0d1117; border-radius: 5px; padding: 10px 13px; font-family: 'Courier New', monospace; font-size: 13px; color: #58a6ff; border: 1px solid var(--border); }
+
+    /* ---- Toast ---- */
+    .toast { position: fixed; bottom: 20px; right: 20px; background: #333; color: var(--white); padding: 10px 16px; border-radius: var(--r); font-size: 12px; z-index: 9999; transition: opacity .3s; pointer-events: none; }
+
+    /* ---- Responsive ---- */
+    @media(max-width: 700px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; flex-direction: row; flex-wrap: wrap; }
+      .sidebar-brand { padding: 12px 14px; }
+      .sidebar-nav { display: flex; padding: 0; overflow-x: auto; }
+      .nav-item { padding: 10px 14px; border-left: none; border-bottom: 3px solid transparent; white-space: nowrap; }
+      .nav-item.active { border-bottom-color: var(--red); border-left: none; }
+      .sidebar-footer { display: none; }
+      .tab { padding: 18px 14px; }
+      .fotos-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ======= SIDEBAR ======= -->
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <img src="/escudo.png" alt="Maristas" onerror="this.style.display='none'">
+      <div class="brand-text">
+        <strong>Atletico Maristas</strong>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" onclick="showTab('noticias',this)">
+        <i class="fas fa-newspaper"></i> Noticias
+      </div>
+      <div class="nav-item" onclick="showTab('fotos',this)">
+        <i class="fas fa-images"></i> Fotos
+      </div>
+      <div class="nav-item" onclick="showTab('actualizar',this)">
+        <i class="fas fa-sync-alt"></i> Actualizar AIRA
+      </div>
+      <div class="nav-item" onclick="showTab('equipo',this)">
+        <i class="fas fa-star"></i> Equipo Semana
+      </div>
+      <div class="nav-item" onclick="showTab('horario',this)">
+        <i class="fas fa-clock"></i> Horario Auto
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="status-row">
+        <span class="dot"></span>
+        <span class="status-label">Servidor activo en :3001</span>
+      </div>
+      <a href="../index.html" target="_blank" class="site-link">
+        <i class="fas fa-external-link-alt"></i> Ver sitio web
+      </a>
+    </div>
+  </div>
+
+  <!-- ======= MAIN ======= -->
+  <div class="main">
+
+    <!-- ===== NOTICIAS ===== -->
+    <div id="tab-noticias" class="tab active">
+      <div class="tab-header">
+        <div>
+          <h2>Noticias</h2>
+          <p>La primera noticia aparece grande. Las demas como secundarias.</p>
+        </div>
+        <button class="btn btn-red" onclick="openForm(-1)">
+          <i class="fas fa-plus"></i> Nueva Noticia
+        </button>
+      </div>
+      <div id="noticias-list">
+        <div class="empty"><i class="fas fa-spinner fa-spin"></i><p>Cargando...</p></div>
+      </div>
+    </div>
+
+    <!-- ===== FOTOS ===== -->
+    <div id="tab-fotos" class="tab">
+      <div class="tab-header">
+        <div>
+          <h2>Galeria de Fotos</h2>
+          <p>Sube fotos y copia las rutas para usarlas en noticias.</p>
+        </div>
+      </div>
+
+      <label style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px">Carpeta de destino al subir</label>
+      <div class="folder-chips" id="upload-folder-chips">
+        <button class="folder-chip active" onclick="setUploadFolder('junior',this)">Junior</button>
+        <button class="folder-chip" onclick="setUploadFolder('senior',this)">Senior</button>
+        <button class="folder-chip" onclick="setUploadFolder('super senior',this)">Super Senior</button>
+        <button class="folder-chip" onclick="setUploadFolder('dorada',this)">Dorada</button>
+        <button class="folder-chip" onclick="setUploadFolder('diamante',this)">Diamante</button>
+      </div>
+
+      <div class="upload-zone" id="drop-zone"
+           onclick="document.getElementById('file-input').click()"
+           ondragover="event.preventDefault();this.classList.add('drag')"
+           ondragleave="this.classList.remove('drag')"
+           ondrop="handleDrop(event)">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p><strong>Haz clic o arrastra fotos aqui</strong></p>
+        <p style="margin-top:4px">JPG, PNG, WEBP — puedes seleccionar varios archivos</p>
+        <input type="file" id="file-input" multiple accept="image/*" onchange="handleFileInput(event)">
+      </div>
+      <div class="upload-status" id="upload-status"></div>
+
+      <div class="fotos-section-header">
+        <label>Fotos existentes</label>
+        <div id="filter-chips" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+      </div>
+      <div id="fotos-grid" class="fotos-grid"></div>
+    </div>
+
+    <!-- ===== ACTUALIZAR ===== -->
+    <div id="tab-actualizar" class="tab">
+      <div class="tab-header">
+        <h2>Actualizar Datos AIRA</h2>
+      </div>
+      <div class="info-cards">
+        <div class="info-card">
+          <i class="fas fa-table"></i>
+          <h3>Tablas de Posicion</h3>
+          <p>Descarga y actualiza el ranking de las 5 series directamente en el sitio.</p>
+        </div>
+        <div class="info-card">
+          <i class="fas fa-calendar-alt"></i>
+          <h3>Proxima Fecha</h3>
+          <p>Sincroniza los proximos partidos de Atletico Maristas.</p>
+        </div>
+        <div class="info-card">
+          <i class="fas fa-check-circle"></i>
+          <h3>index.html</h3>
+          <p>Los datos se escriben directo en el HTML. No hace falta backend.</p>
+        </div>
+      </div>
+      <div class="alert alert-info">
+        <i class="fas fa-info-circle" style="margin-top:1px;flex-shrink:0"></i>
+        <span>El proceso tarda hasta 40 segundos. El sitio se actualiza automaticamente cada Miercoles y Jueves a las 07:00 si configuraste las tareas programadas.</span>
+      </div>
+      <div style="margin-bottom:16px">
+        <button class="btn btn-green" id="btn-actualizar" onclick="runActualizar()">
+          <i class="fas fa-sync-alt"></i> Actualizar Ahora
+        </button>
+      </div>
+      <label style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px">Salida del proceso</label>
+      <div class="terminal" id="terminal">Haz clic en "Actualizar Ahora" para iniciar la sincronizacion con AIRA...</div>
+    </div>
+
+    <!-- ===== EQUIPO DE LA SEMANA ===== -->
+    <div id="tab-equipo" class="tab">
+      <div class="tab-header">
+        <div>
+          <h2>Jugador de la Semana</h2>
+          <p>Un jugador destacado por cada serie.</p>
+        </div>
+      </div>
+
+      <!-- Director Técnico -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:20px">
+        <h3 style="margin-bottom:12px;font-size:14px"><i class="fas fa-user-tie"></i> Director Técnico</h3>
+        <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap">
+          <div class="form-group" style="flex:1;min-width:180px;margin:0">
+            <label>Nombre</label>
+            <input type="text" class="form-control" id="dt-nombre" placeholder="Gabriel Pacheco">
+          </div>
+          <div class="form-group" style="flex:1;min-width:180px;margin:0">
+            <label>Foto (ruta relativa)</label>
+            <input type="text" class="form-control" id="dt-imagen" placeholder="fotos/Gabriel DT.jpg">
+          </div>
+          <button class="btn btn-green btn-sm" onclick="saveDT()" style="flex-shrink:0;height:42px;margin-top:22px">
+            <i class="fas fa-save"></i> Guardar DT
+          </button>
+        </div>
+      </div>
+
+      <!-- Subtitulo / Fecha -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:20px">
+        <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+          <div class="form-group" style="flex:1;min-width:180px;margin:0">
+            <label>Subtitulo / Fecha</label>
+            <input type="text" class="form-control" id="esm-subtitulo" placeholder="Fecha 1 · AP. 2026">
+          </div>
+          <button class="btn btn-green btn-sm" onclick="saveEquipoConfig()" style="flex-shrink:0;height:42px">
+            <i class="fas fa-save"></i> Guardar
+          </button>
+        </div>
+      </div>
+
+      <!-- 5 slots fijos por serie -->
+      <div id="equipo-list">
+        <div class="empty"><i class="fas fa-spinner fa-spin"></i><p>Cargando...</p></div>
+      </div>
+    </div>
+
+    <!-- ===== HORARIO ===== -->
+    <div id="tab-horario" class="tab">
+      <div class="tab-header">
+        <h2>Actualizacion Automatica</h2>
+      </div>
+
+      <div class="alert alert-info" style="margin-bottom:20px">
+        <i class="fas fa-info-circle" style="margin-top:1px;flex-shrink:0"></i>
+        <span>El Programador de Tareas de Windows ejecuta el script automaticamente cada Miercoles y Jueves a las 07:00 AM, aunque el sitio no este abierto.</span>
+      </div>
+
+      <div class="info-cards" style="margin-bottom:22px">
+        <div class="info-card">
+          <i class="fas fa-calendar-week"></i>
+          <h3>Miercoles 07:00</h3>
+          <p>Actualizacion automatica todos los Miercoles a las 7 de la manana.</p>
+        </div>
+        <div class="info-card">
+          <i class="fas fa-calendar-week"></i>
+          <h3>Jueves 07:00</h3>
+          <p>Actualizacion automatica todos los Jueves a las 7 de la manana.</p>
+        </div>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Activar actualizacion automatica</h3>
+        <p>Haz doble clic en este archivo para configurar las tareas. Si hay error de permisos, haz clic derecho → "Ejecutar como administrador".</p>
+        <div class="code-block">programar-actualizacion.bat</div>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Desactivar actualizacion automatica</h3>
+        <p>Para cancelar las tareas programadas:</p>
+        <div class="code-block">cancelar-actualizacion.bat</div>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Ver logs de actualizaciones</h3>
+        <p>Cada ejecucion automatica guarda su resultado en:</p>
+        <div class="code-block">logs\actualizacion.log</div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ===== FORM MODAL ===== -->
+<div class="overlay hidden" id="form-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="form-title">Nueva Noticia</h3>
+      <button class="close-btn" onclick="closeForm()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Serie</label>
+        <select class="form-control" id="f-serie">
+          <option>Institucional</option>
+          <option>Junior</option>
+          <option>Senior</option>
+          <option>Super Senior</option>
+          <option>Dorada</option>
+          <option>Diamante</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Titulo *</label>
+        <input type="text" class="form-control" id="f-titulo" placeholder="Titulo de la noticia...">
+      </div>
+      <div class="form-group">
+        <label>Fecha</label>
+        <input type="text" class="form-control" id="f-fecha" placeholder="16 Abril 2026">
+      </div>
+      <div class="form-group">
+        <label>Resumen <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;font-size:11px">(opcional — solo visible en noticia principal)</span></label>
+        <textarea class="form-control" id="f-resumen" rows="3" placeholder="Descripcion breve..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Imagen</label>
+        <div class="input-row">
+          <input type="text" class="form-control" id="f-imagen" placeholder="fotos/dorada/DSC_0201.jpg" oninput="updatePreview()">
+          <button class="btn btn-outline btn-sm" type="button" onclick="openPicker()" style="flex-shrink:0">
+            <i class="fas fa-folder-open"></i> Buscar
+          </button>
+        </div>
+        <img id="f-preview" class="img-preview" src="" alt="" onerror="this.classList.remove('show')">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeForm()">Cancelar</button>
+      <button class="btn btn-red" onclick="saveNoticia()"><i class="fas fa-save"></i> Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL JUGADOR ===== -->
+<div class="overlay hidden" id="player-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="player-form-title">Agregar Jugador</h3>
+      <button class="close-btn" onclick="closePlayerForm()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;gap:10px">
+        <div class="form-group" style="width:80px;flex-shrink:0">
+          <label>N°</label>
+          <input type="number" class="form-control" id="pf-numero" placeholder="1" min="1" max="99">
+        </div>
+        <div class="form-group" style="flex:1">
+          <label>Nombre *</label>
+          <input type="text" class="form-control" id="pf-nombre" placeholder="Nombre del jugador">
+        </div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <div class="form-group" style="flex:1">
+          <label>Serie</label>
+          <select class="form-control" id="pf-serie">
+            <option>Junior</option>
+            <option>Senior</option>
+            <option>Super Senior</option>
+            <option>Dorada</option>
+            <option>Diamante</option>
+          </select>
+        </div>
+        <div class="form-group" style="flex:1">
+          <label>Posicion</label>
+          <select class="form-control" id="pf-posicion">
+            <option value="Portero">Portero</option>
+            <option value="Defensa">Defensa</option>
+            <option value="Medio">Medio</option>
+            <option value="Delantero">Delantero</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Imagen <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;font-size:11px">(opcional)</span></label>
+        <div class="input-row">
+          <input type="text" class="form-control" id="pf-imagen" placeholder="fotos/junior/foto.jpg" oninput="updatePlayerPreview()">
+          <button class="btn btn-outline btn-sm" type="button" onclick="openPickerForPlayer()" style="flex-shrink:0">
+            <i class="fas fa-folder-open"></i> Buscar
+          </button>
+        </div>
+        <img id="pf-preview" class="img-preview" src="" alt="" onerror="this.classList.remove('show')">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closePlayerForm()">Cancelar</button>
+      <button class="btn btn-red" onclick="savePlayer()"><i class="fas fa-save"></i> Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PHOTO PICKER ===== -->
+<div class="picker hidden" id="picker-overlay">
+  <div class="picker-panel">
+    <div class="picker-header">
+      <h3>Seleccionar Foto</h3>
+      <button class="close-btn" onclick="closePicker()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="picker-filters" id="picker-filters"></div>
+    <div class="picker-grid" id="picker-grid"></div>
+  </div>
+</div>
+
+<script>
+// ==========================================================
+// Estado
+// ==========================================================
+let noticias      = [];
+let fotos         = [];
+let editIdx       = -1;
+let uploadFolder  = 'junior';
+let fotosFilter   = 'all';
+let pickerFilter  = 'all';
+let equipo        = { titulo: '', subtitulo: '', jugadores: [] };
+let editPlayerIdx = -1;
+let pickerTarget  = 'noticia';
+
+// ==========================================================
+// Navegacion de tabs
+// ==========================================================
+function showTab(name, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  el.classList.add('active');
+  if (name === 'fotos') loadFotos();
+}
+
+// ==========================================================
+// Noticias — carga y render
+// ==========================================================
+async function loadNoticias() {
+  try {
+    const r = await fetch('/api/noticias');
+    noticias = await r.json();
+  } catch { noticias = []; }
+  renderNoticias();
+}
+
+function renderNoticias() {
+  const el = document.getElementById('noticias-list');
+  if (!noticias.length) {
+    el.innerHTML = '<div class="empty"><i class="fas fa-newspaper"></i><p>Sin noticias. Haz clic en "Nueva Noticia" para agregar.</p></div>';
+    return;
+  }
+  el.innerHTML = '<div class="news-list">' + noticias.map((n, i) => `
+    <div class="news-card ${i === 0 ? 'principal' : ''}">
+      ${n.imagen
+        ? `<img class="thumb" src="/${esc(n.imagen)}" alt="" onerror="this.className='thumb-ph';this.innerHTML='<i class=\\'fas fa-image\\'></i>'">`
+        : `<div class="thumb-ph"><i class="fas fa-image"></i></div>`}
+      <div class="news-info">
+        <h3>${esc(n.titulo)}</h3>
+        <div class="news-meta">
+          ${i === 0 ? '<span class="badge-principal">principal</span>' : ''}
+          <span class="badge-serie">${esc(n.serie)}</span>
+          <span class="badge-date">${esc(n.fecha)}</span>
+        </div>
+      </div>
+      <div class="news-actions">
+        <button class="btn btn-outline btn-sm" onclick="openForm(${i})" title="Editar"><i class="fas fa-edit"></i></button>
+        ${i > 0 ? `<button class="btn btn-outline btn-sm" onclick="moveUp(${i})" title="Subir a principal"><i class="fas fa-arrow-up"></i></button>` : ''}
+        <button class="btn btn-danger" onclick="deleteNoticia(${i})" title="Eliminar"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('') + '</div>';
+}
+
+async function postNoticias() {
+  await fetch('/api/noticias', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(noticias)
+  });
+}
+
+// ==========================================================
+// Noticias — CRUD
+// ==========================================================
+function openForm(idx) {
+  editIdx = idx;
+  const n = idx >= 0 ? noticias[idx] : {};
+  document.getElementById('form-title').textContent = idx >= 0 ? 'Editar Noticia' : 'Nueva Noticia';
+  document.getElementById('f-serie').value   = n.serie   || 'Institucional';
+  document.getElementById('f-titulo').value  = n.titulo  || '';
+  document.getElementById('f-fecha').value   = n.fecha   || todayStr();
+  document.getElementById('f-resumen').value = n.resumen || '';
+  document.getElementById('f-imagen').value  = n.imagen  || '';
+  updatePreview();
+  document.getElementById('form-overlay').classList.remove('hidden');
+}
+
+function closeForm() {
+  document.getElementById('form-overlay').classList.add('hidden');
+}
+
+async function saveNoticia() {
+  const n = {
+    serie:   document.getElementById('f-serie').value,
+    titulo:  document.getElementById('f-titulo').value.trim(),
+    fecha:   document.getElementById('f-fecha').value.trim(),
+    resumen: document.getElementById('f-resumen').value.trim(),
+    imagen:  document.getElementById('f-imagen').value.trim()
+  };
+  if (!n.titulo) { alert('El titulo es obligatorio.'); return; }
+  if (editIdx >= 0) {
+    noticias[editIdx] = n;
+  } else {
+    noticias.unshift(n);
+  }
+  await postNoticias();
+  renderNoticias();
+  closeForm();
+  toast('Noticia guardada correctamente');
+}
+
+async function deleteNoticia(idx) {
+  if (!confirm('¿Eliminar esta noticia?')) return;
+  noticias.splice(idx, 1);
+  await postNoticias();
+  renderNoticias();
+  toast('Noticia eliminada');
+}
+
+async function moveUp(idx) {
+  if (idx <= 0) return;
+  [noticias[idx - 1], noticias[idx]] = [noticias[idx], noticias[idx - 1]];
+  await postNoticias();
+  renderNoticias();
+  toast('Noticia movida a principal');
+}
+
+function updatePreview() {
+  const val = document.getElementById('f-imagen').value.trim();
+  const img = document.getElementById('f-preview');
+  if (val) { img.src = '/' + val; img.classList.add('show'); }
+  else      { img.classList.remove('show'); }
+}
+
+// ==========================================================
+// Photo picker
+// ==========================================================
+async function openPicker() {
+  pickerTarget = 'noticia';
+  if (!fotos.length) await loadFotos();
+  renderPickerGrid(pickerFilter);
+  document.getElementById('picker-overlay').classList.remove('hidden');
+}
+
+async function openPickerForPlayer() {
+  pickerTarget = 'player';
+  if (!fotos.length) await loadFotos();
+  renderPickerGrid(pickerFilter);
+  document.getElementById('picker-overlay').classList.remove('hidden');
+}
+
+function closePicker() {
+  document.getElementById('picker-overlay').classList.add('hidden');
+}
+
+function renderPickerGrid(filter) {
+  pickerFilter = filter;
+  const folders = getUniqueFolders(fotos);
+  document.getElementById('picker-filters').innerHTML =
+    ['all', ...folders].map(f =>
+      `<button class="filter-chip ${pickerFilter === f ? 'active' : ''}" onclick="renderPickerGrid('${f}')">${f === 'all' ? 'Todas' : f}</button>`
+    ).join('');
+  const filtered = filter === 'all' ? fotos : fotos.filter(f => f.startsWith(filter + '/'));
+  document.getElementById('picker-grid').innerHTML = filtered.length
+    ? filtered.map(f => `
+        <div class="picker-item" onclick="pickFoto('fotos/${esc(f)}')" title="${esc(f)}">
+          <img src="/fotos/${encPath(f)}" alt="" loading="lazy">
+        </div>`).join('')
+    : '<p style="color:var(--muted);font-size:12px;padding:8px;grid-column:1/-1">Sin fotos en esta carpeta</p>';
+}
+
+function pickFoto(path) {
+  if (pickerTarget === 'player') {
+    document.getElementById('pf-imagen').value = path;
+    updatePlayerPreview();
+  } else {
+    document.getElementById('f-imagen').value = path;
+    updatePreview();
+  }
+  closePicker();
+}
+
+// ==========================================================
+// Jugador de la Semana
+// ==========================================================
+const SERIES_FIJAS = ['Junior','Senior','Super Senior','Dorada','Diamante'];
+
+async function loadEquipo() {
+  try {
+    const r = await fetch('/api/equipo-semana');
+    equipo = await r.json();
+  } catch { equipo = { titulo: 'Jugador de la Semana', subtitulo: '', jugadores: [] }; }
+  // Asegurar que siempre existen los 5 slots
+  SERIES_FIJAS.forEach(serie => {
+    if (!equipo.jugadores.find(j => j.serie === serie)) {
+      equipo.jugadores.push({ serie, nombre: '', posicion: '', numero: 0, imagen: '' });
+    }
+  });
+  equipo.jugadores.sort((a, b) => SERIES_FIJAS.indexOf(a.serie) - SERIES_FIJAS.indexOf(b.serie));
+  document.getElementById('esm-subtitulo').value = equipo.subtitulo || '';
+  renderEquipo();
+}
+
+function renderEquipo() {
+  const el = document.getElementById('equipo-list');
+  el.innerHTML = '<div class="news-list">' + equipo.jugadores.map((j, i) => `
+    <div class="news-card">
+      ${j.imagen
+        ? `<img class="thumb" src="/${esc(j.imagen)}" alt="" onerror="this.className='thumb-ph';this.innerHTML='<i class=\\'fas fa-user\\'></i>'">`
+        : `<div class="thumb-ph"><i class="fas fa-user"></i></div>`}
+      <div class="news-info">
+        <h3>${j.nombre ? '#' + (j.numero||'?') + ' — ' + esc(j.nombre) : '<em style="color:var(--muted)">Sin jugador asignado</em>'}</h3>
+        <div class="news-meta">
+          <span class="badge-serie">${esc(j.serie)}</span>
+          ${j.posicion ? `<span class="badge-date">${esc(j.posicion)}</span>` : ''}
+        </div>
+      </div>
+      <div class="news-actions">
+        <button class="btn btn-outline btn-sm" onclick="openPlayerForm(${i})" title="Editar"><i class="fas fa-edit"></i></button>
+        ${j.nombre ? `<button class="btn btn-danger" onclick="clearPlayer(${i})" title="Limpiar"><i class="fas fa-times"></i></button>` : ''}
+      </div>
+    </div>
+  `).join('') + '</div>';
+}
+
+async function postEquipo() {
+  equipo.titulo    = 'Jugador de la Semana';
+  equipo.subtitulo = document.getElementById('esm-subtitulo').value.trim() || '';
+  await fetch('/api/equipo-semana', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(equipo)
+  });
+}
+
+async function saveEquipoConfig() {
+  await postEquipo();
+  toast('Configuracion guardada');
+}
+
+function openPlayerForm(idx) {
+  editPlayerIdx = idx;
+  const j = equipo.jugadores[idx] || {};
+  document.getElementById('player-form-title').textContent = 'Jugador ' + (j.serie || '');
+  document.getElementById('pf-numero').value   = j.numero   || '';
+  document.getElementById('pf-nombre').value   = j.nombre   || '';
+  document.getElementById('pf-serie').value    = j.serie    || 'Junior';
+  document.getElementById('pf-posicion').value = j.posicion || 'Portero';
+  document.getElementById('pf-imagen').value   = j.imagen   || '';
+  updatePlayerPreview();
+  document.getElementById('player-overlay').classList.remove('hidden');
+}
+
+function closePlayerForm() {
+  document.getElementById('player-overlay').classList.add('hidden');
+}
+
+async function savePlayer() {
+  const j = {
+    serie:    equipo.jugadores[editPlayerIdx].serie,
+    numero:   parseInt(document.getElementById('pf-numero').value) || 0,
+    nombre:   document.getElementById('pf-nombre').value.trim(),
+    posicion: document.getElementById('pf-posicion').value,
+    imagen:   document.getElementById('pf-imagen').value.trim()
+  };
+  if (!j.nombre) { alert('El nombre es obligatorio.'); return; }
+  equipo.jugadores[editPlayerIdx] = j;
+  await postEquipo();
+  renderEquipo();
+  closePlayerForm();
+  toast('Jugador guardado');
+}
+
+async function clearPlayer(idx) {
+  const serie = equipo.jugadores[idx].serie;
+  equipo.jugadores[idx] = { serie, nombre: '', posicion: '', numero: 0, imagen: '' };
+  await postEquipo();
+  renderEquipo();
+  toast('Jugador eliminado');
+}
+
+function updatePlayerPreview() {
+  const val = document.getElementById('pf-imagen').value.trim();
+  const img = document.getElementById('pf-preview');
+  if (val) { img.src = '/' + val; img.classList.add('show'); }
+  else      { img.classList.remove('show'); }
+}
+
+// ==========================================================
+// Fotos — carga y render
+// ==========================================================
+async function loadFotos() {
+  try {
+    const r = await fetch('/api/fotos');
+    fotos = await r.json();
+  } catch {
+    fotos = [];
+    const status = document.getElementById('upload-status');
+    if (status) {
+      status.style.color = '#f87171';
+      status.textContent = 'Servidor no encontrado — ejecuta: node admin-server.js  y abre http://localhost:3001';
+    }
+  }
+  renderFotosGrid(fotosFilter);
+}
+
+function renderFotosGrid(filter) {
+  fotosFilter = filter;
+  const folders = getUniqueFolders(fotos);
+  document.getElementById('filter-chips').innerHTML =
+    ['all', ...folders].map(f =>
+      `<button class="folder-chip ${fotosFilter === f ? 'active' : ''}" onclick="renderFotosGrid('${f}')">${f === 'all' ? 'Todas' : f}</button>`
+    ).join('');
+  const filtered = filter === 'all' ? fotos : fotos.filter(f => f.startsWith(filter + '/'));
+  const grid = document.getElementById('fotos-grid');
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><i class="fas fa-images"></i><p>Sin fotos aqui</p></div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(f => `
+    <div class="foto-item">
+      <img src="/fotos/${encPath(f)}" alt="" loading="lazy">
+      <div class="foto-hover">
+        <button class="fh-btn" onclick="copyPath('fotos/${esc(f)}')"><i class="fas fa-copy"></i> Copiar ruta</button>
+        <button class="fh-btn del" onclick="deleteFoto('fotos/${esc(f)}')"><i class="fas fa-trash"></i> Eliminar</button>
+      </div>
+    </div>`).join('');
+}
+
+function setUploadFolder(folder, el) {
+  uploadFolder = folder;
+  document.querySelectorAll('#upload-folder-chips .folder-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function handleFileInput(e) {
+  uploadFiles(Array.from(e.target.files));
+  e.target.value = '';
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('drag');
+  uploadFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')));
+}
+
+async function uploadFiles(files) {
+  if (!files.length) return;
+  const status = document.getElementById('upload-status');
+  status.style.color = 'var(--text)';
+  try {
+    for (let i = 0; i < files.length; i++) {
+      status.textContent = `Subiendo ${i + 1}/${files.length}: ${files[i].name}...`;
+      const base64 = await toBase64(files[i]);
+      const r = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename: files[i].name, folder: uploadFolder, data: base64.split(',')[1] })
+      });
+      const d = await r.json();
+      if (!d.ok) { status.style.color = '#f87171'; status.textContent = 'Error: ' + d.error; return; }
+    }
+    status.style.color = 'var(--green)';
+    status.textContent = `✓ ${files.length} foto(s) subidas a "${uploadFolder}"`;
+    await loadFotos();
+    setTimeout(() => { status.textContent = ''; }, 3500);
+  } catch (err) {
+    status.style.color = '#f87171';
+    status.textContent = 'Error de conexion: ¿esta corriendo el servidor?';
+  }
+}
+
+async function deleteFoto(fotoPath) {
+  if (!confirm('¿Eliminar esta foto del servidor?')) return;
+  await fetch('/api/delete-foto', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ path: fotoPath })
+  });
+  await loadFotos();
+  toast('Foto eliminada');
+}
+
+function copyPath(p) {
+  navigator.clipboard.writeText(p).then(() => toast('Ruta copiada: ' + p));
+}
+
+// ==========================================================
+// Actualizar AIRA
+// ==========================================================
+async function runActualizar() {
+  const btn  = document.getElementById('btn-actualizar');
+  const term = document.getElementById('terminal');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualizando...';
+  term.innerHTML = '<span class="t-dim">Conectando con futbol.aira.cl...</span>\n';
+
+  const r    = await fetch('/api/actualizar', { method: 'POST' });
+  const data = await r.json();
+
+  term.textContent = '';
+  (data.output || '').split('\n').forEach(line => {
+    const s = document.createElement('span');
+    if (/OK|✓|actualizado|Posiciones|Proxima/.test(line)) s.className = 't-ok';
+    else if (/Error|error|✗|No se pudo/.test(line))       s.className = 't-err';
+    else if (!line.trim())                                  s.className = 't-dim';
+    s.textContent = line;
+    term.appendChild(s);
+    term.appendChild(document.createTextNode('\n'));
+  });
+  term.scrollTop = term.scrollHeight;
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-sync-alt"></i> Actualizar Ahora';
+  toast(data.ok ? 'Actualizacion completada' : 'Hubo errores — revisa la salida');
+}
+
+// ==========================================================
+// Utilidades
+// ==========================================================
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function encPath(p) {
+  return p.split('/').map(encodeURIComponent).join('/');
+}
+
+function toBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload  = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+function getUniqueFolders(list) {
+  const set = new Set();
+  list.forEach(f => { const parts = f.split('/'); if (parts.length > 1) set.add(parts[0]); });
+  return [...set].sort();
+}
+
+function todayStr() {
+  const d = new Date();
+  const m = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function toast(msg) {
+  const t = Object.assign(document.createElement('div'), { className: 'toast', textContent: msg });
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2200);
+}
+
+// ==========================================================
+// Init
+// ==========================================================
+loadNoticias();
+loadFotos();
+loadEquipo();
+</script>
+</body>
+</html>
