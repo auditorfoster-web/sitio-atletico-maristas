@@ -1,0 +1,54 @@
+name: Actualizar Standings y Fixtures
+
+on:
+  schedule:
+    # Miércoles 17:00-23:00 UTC (14:00-20:00 CLT invierno / 15:00-21:00 verano)
+    - cron: '0 17-23 * * 3'
+    # Jueves 00:00-12:00 UTC (21:00 anterior-09:00 CLT invierno / 20:00-15:00 verano)
+    - cron: '0 0-12 * * 4'
+  # Permite ejecutar manualmente desde la UI de GitHub
+  workflow_dispatch:
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Ejecutar actualizar.js
+        run: node actualizar.js
+        continue-on-error: true
+
+      - name: Verificar cambios
+        id: verify
+        run: |
+          if git diff --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Configurar Git
+        if: steps.verify.outputs.has_changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Commit cambios
+        if: steps.verify.outputs.has_changes == 'true'
+        run: |
+          git add -A
+          git commit -m "chore: actualizar standings y fixtures [skip ci]"
+
+      - name: Push a main
+        if: steps.verify.outputs.has_changes == 'true'
+        run: git push
