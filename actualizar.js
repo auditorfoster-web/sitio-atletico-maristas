@@ -131,8 +131,9 @@ function generarRankingMaristas(todos) {
     return '<tbody><tr><td colspan="4" style="text-align:center;color:var(--muted);padding:16px">Sin goleadores registrados aún.</td></tr></tbody>';
   }
   const sorted = todos.slice().sort((a, b) => b.goles - a.goles);
-  const lineas = sorted.map((f, i) => {
-    const medal = i === 0 ? '🥇 ' : i === 1 ? '🥈 ' : i === 2 ? '🥉 ' : `${i + 1}`;
+  const top3 = sorted.slice(0, 3);
+  const lineas = top3.map((f, i) => {
+    const medal = i === 0 ? '🥇 ' : i === 1 ? '🥈 ' : '🥉 ';
     return `            <tr class="yo"><td>${medal}</td><td><img src="escudo.png" alt="" style="width:16px;vertical-align:middle;margin-right:4px"/><strong>${toTitleCase(f.jugador)}</strong></td><td><span class="serie-badge">${f.serie}</span></td><td><strong>${f.goles}</strong> ⚽</td></tr>`;
   });
   return '          <tbody>\n' + lineas.join('\n') + '\n          </tbody>';
