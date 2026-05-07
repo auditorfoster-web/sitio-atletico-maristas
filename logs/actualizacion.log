@@ -135,3 +135,33 @@ Descubriendo series desde futbol.aira.cl...
   ✓  index.html actualizado (5/5 series)
 
 [23-04-2026  7:00:05,89] Fin. 
+ 
+[07-05-2026 13:01:52,22] Iniciando actualizacion automatica... 
+
+Descubriendo series desde futbol.aira.cl...
+
+  ✓  5 series encontradas: Junior, Senior, Super Senior, Dorada, Diamante
+
+  Posiciones junior       ... OK (14 equipos)
+  Programacion junior    ... OK (1 partidos de Maristas)
+  Goleadores   junior    ... OK (4 goleadores de Maristas)
+  Posiciones senior       ... OK (14 equipos)
+  Programacion senior    ... OK (1 partidos de Maristas)
+  Goleadores   senior    ... OK (5 goleadores de Maristas)
+  Posiciones supersenior  ... OK (12 equipos)
+  Programacion supersenior... OK (1 partidos de Maristas)
+  Goleadores   supersenior... OK (5 goleadores de Maristas)
+  Posiciones dorada       ... OK (12 equipos)
+  Programacion dorada    ... OK (1 partidos de Maristas)
+  Goleadores   dorada    ... OK (6 goleadores de Maristas)
+  Posiciones diamante     ... OK (12 equipos)
+  Programacion diamante  ... OK (2 partidos de Maristas)
+  Goleadores   diamante  ... OK (1 goleadores de Maristas)
+
+  Goleadores Maristas: 21 jugador(es) en el ranking
+
+  Proxima fecha: 6 partido(s) listado(s)
+
+  ✓  index.html actualizado (5/5 series)
+
+[07-05-2026 13:01:58,82] Fin. 

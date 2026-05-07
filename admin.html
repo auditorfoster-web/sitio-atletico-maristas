@@ -292,6 +292,9 @@
       <div class="nav-item" onclick="showTab('horario',this)">
         <i class="fas fa-clock"></i> Horario Auto
       </div>
+      <div class="nav-item" onclick="showTab('instagram',this)">
+        <i class="fab fa-instagram"></i> Instagram
+      </div>
     </nav>
     <div class="sidebar-footer">
       <div class="status-row">
@@ -484,6 +487,22 @@
       </div>
     </div>
 
+    <!-- ===== INSTAGRAM ===== -->
+    <div id="tab-instagram" class="tab">
+      <div class="tab-header">
+        <div>
+          <h2>Posts de Instagram</h2>
+          <p>Gestiona los posts que se muestran en la sección de Instagram.</p>
+        </div>
+        <button class="btn btn-red" onclick="openInstagramForm(-1)">
+          <i class="fas fa-plus"></i> Nuevo Post
+        </button>
+      </div>
+      <div id="instagram-list">
+        <div class="empty"><i class="fas fa-spinner fa-spin"></i><p>Cargando...</p></div>
+      </div>
+    </div>
+
   </div><!-- /main -->
 </div><!-- /app -->
 
@@ -593,6 +612,44 @@
   </div>
 </div>
 
+<!-- ===== INSTAGRAM FORM ===== -->
+<div class="overlay hidden" id="ig-form-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="ig-form-title">Nuevo Post Instagram</h3>
+      <button class="close-btn" onclick="closeInstagramForm()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Caption / Descripción *</label>
+        <textarea class="form-control" id="ig-caption" rows="3" placeholder="Escribe el texto del post..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Fecha</label>
+        <input type="text" class="form-control" id="ig-fecha" placeholder="19 Abril 2026">
+      </div>
+      <div class="form-group">
+        <label>Imagen *</label>
+        <div class="input-row">
+          <input type="text" class="form-control" id="ig-imagen" placeholder="fotos/dorada/DSC_0201.jpg" oninput="updateInstagramPreview()">
+          <button class="btn btn-outline btn-sm" type="button" onclick="openPickerForInstagram()" style="flex-shrink:0">
+            <i class="fas fa-folder-open"></i> Buscar
+          </button>
+        </div>
+        <img id="ig-preview" class="img-preview" src="" alt="" onerror="this.classList.remove('show')">
+      </div>
+      <div class="form-group">
+        <label>Enlace de Instagram (opcional)</label>
+        <input type="text" class="form-control" id="ig-enlace" placeholder="https://www.instagram.com/clubatleticomaristas?igsh=ZHB0bXBuOTNpOTRv">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeInstagramForm()">Cancelar</button>
+      <button class="btn btn-red" onclick="saveInstagramPost()"><i class="fas fa-save"></i> Guardar</button>
+    </div>
+  </div>
+</div>
+
 <!-- ===== PHOTO PICKER ===== -->
 <div class="picker hidden" id="picker-overlay">
   <div class="picker-panel">
@@ -611,7 +668,9 @@
 // ==========================================================
 let noticias      = [];
 let fotos         = [];
+let instagram     = [];
 let editIdx       = -1;
+let editInstIdx   = -1;
 let uploadFolder  = 'junior';
 let fotosFilter   = 'all';
 let pickerFilter  = 'all';
@@ -781,6 +840,9 @@ function pickFoto(path) {
   if (pickerTarget === 'player') {
     document.getElementById('pf-imagen').value = path;
     updatePlayerPreview();
+  } else if (pickerTarget === 'instagram') {
+    document.getElementById('ig-imagen').value = path;
+    updateInstagramPreview();
   } else {
     document.getElementById('f-imagen').value = path;
     updatePreview();
@@ -1061,10 +1123,113 @@ function toast(msg) {
 }
 
 // ==========================================================
+// Instagram Posts — carga y CRUD
+// ==========================================================
+async function loadInstagram() {
+  try {
+    const r = await fetch('/api/instagram');
+    instagram = await r.json();
+  } catch { instagram = []; }
+  renderInstagram();
+}
+
+function renderInstagram() {
+  const el = document.getElementById('instagram-list');
+  if (!instagram.length) {
+    el.innerHTML = '<div class="empty"><i class="fab fa-instagram"></i><p>Sin posts. Haz clic en "Nuevo Post" para agregar.</p></div>';
+    return;
+  }
+  el.innerHTML = '<div class="news-list">' + instagram.map((p, i) => `
+    <div class="news-card">
+      ${p.imagen
+        ? `<img class="thumb" src="/${esc(p.imagen)}" alt="" onerror="this.className='thumb-ph';this.innerHTML='<i class=\\'fas fa-image\\'></i>'">`
+        : `<div class="thumb-ph"><i class="fas fa-image"></i></div>`}
+      <div class="news-info">
+        <h3>${esc(p.caption.substring(0, 50))}${p.caption.length > 50 ? '...' : ''}</h3>
+        <div class="news-meta">
+          <span class="badge-date">${esc(p.fecha)}</span>
+        </div>
+      </div>
+      <div class="news-actions">
+        <button class="btn btn-outline btn-sm" onclick="openInstagramForm(${i})" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-danger" onclick="deleteInstagram(${i})" title="Eliminar"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('') + '</div>';
+}
+
+async function postInstagram() {
+  await fetch('/api/instagram', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(instagram)
+  });
+}
+
+function openInstagramForm(idx) {
+  editInstIdx = idx;
+  const p = idx >= 0 ? instagram[idx] : {};
+  document.getElementById('ig-form-title').textContent = idx >= 0 ? 'Editar Post' : 'Nuevo Post Instagram';
+  document.getElementById('ig-caption').value  = p.caption  || '';
+  document.getElementById('ig-fecha').value    = p.fecha    || todayStr();
+  document.getElementById('ig-imagen').value   = p.imagen   || '';
+  document.getElementById('ig-enlace').value   = p.enlace   || '';
+  updateInstagramPreview();
+  document.getElementById('ig-form-overlay').classList.remove('hidden');
+}
+
+function closeInstagramForm() {
+  document.getElementById('ig-form-overlay').classList.add('hidden');
+}
+
+async function saveInstagramPost() {
+  const p = {
+    imagen:  document.getElementById('ig-imagen').value.trim(),
+    caption: document.getElementById('ig-caption').value.trim(),
+    fecha:   document.getElementById('ig-fecha').value.trim(),
+    enlace:  document.getElementById('ig-enlace').value.trim()
+  };
+  if (!p.imagen) { alert('La imagen es obligatoria.'); return; }
+  if (!p.caption) { alert('La descripción es obligatoria.'); return; }
+  if (editInstIdx >= 0) {
+    instagram[editInstIdx] = p;
+  } else {
+    instagram.unshift(p);
+  }
+  await postInstagram();
+  renderInstagram();
+  closeInstagramForm();
+  toast('Post guardado correctamente');
+}
+
+async function deleteInstagram(idx) {
+  if (!confirm('¿Eliminar este post?')) return;
+  instagram.splice(idx, 1);
+  await postInstagram();
+  renderInstagram();
+  toast('Post eliminado');
+}
+
+function updateInstagramPreview() {
+  const val = document.getElementById('ig-imagen').value.trim();
+  const img = document.getElementById('ig-preview');
+  if (val) { img.src = '/' + val; img.classList.add('show'); }
+  else      { img.classList.remove('show'); }
+}
+
+async function openPickerForInstagram() {
+  pickerTarget = 'instagram';
+  if (!fotos.length) await loadFotos();
+  renderPickerGrid(pickerFilter);
+  document.getElementById('picker-overlay').classList.remove('hidden');
+}
+
+// ==========================================================
 // Init
 // ==========================================================
 loadNoticias();
 loadFotos();
+loadInstagram();
 loadEquipo();
 </script>
 </body>

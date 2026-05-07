@@ -14,9 +14,10 @@ const { exec } = require('child_process');
 
 const PORT = 3001;
 const BASE = __dirname;
-const NOTICIAS_FILE = path.join(BASE, 'noticias.js');
-const EQUIPO_FILE   = path.join(BASE, 'equipo-semana.js');
-const FOTOS_DIR     = path.join(BASE, 'fotos');
+const NOTICIAS_FILE     = path.join(BASE, 'noticias.js');
+const EQUIPO_FILE       = path.join(BASE, 'equipo-semana.js');
+const INSTAGRAM_FILE    = path.join(BASE, 'instagram-posts.js');
+const FOTOS_DIR         = path.join(BASE, 'fotos');
 
 // ---- Utilidades ----
 
@@ -134,6 +135,39 @@ ${jugadores}
   fs.writeFileSync(EQUIPO_FILE, out, 'utf8');
 }
 
+// ---- Instagram Posts ----
+
+function getInstagram() {
+  try {
+    const content = fs.readFileSync(INSTAGRAM_FILE, 'utf8');
+    const start = content.indexOf('[');
+    const end   = content.lastIndexOf(']');
+    if (start === -1 || end === -1) return [];
+    return (new Function('return ' + content.slice(start, end + 1)))();
+  } catch { return []; }
+}
+
+function saveInstagram(arr) {
+  const lines = arr.map((post, i) => {
+    return `  {\n    imagen:  ${JSON.stringify(post.imagen  || '')},\n    caption: ${JSON.stringify(post.caption || '')},\n    fecha:   ${JSON.stringify(post.fecha   || '')},\n    enlace:  ${JSON.stringify(post.enlace  || '')}\n  }`;
+  });
+
+  const out = `// ================================================================
+//  INSTAGRAM POSTS — Club Atletico Maristas
+//  Editado desde el panel de administracion — admin-server.js
+//
+//  Array de posts para mostrar en la sección de Instagram
+// ================================================================
+
+const INSTAGRAM_POSTS = [
+
+${lines.join(',\n\n')}
+
+];
+`;
+  fs.writeFileSync(INSTAGRAM_FILE, out, 'utf8');
+}
+
 // ---- Fotos ----
 
 function listFotos() {
@@ -210,6 +244,21 @@ const server = http.createServer(async (req, res) => {
         let parsed;
         try { parsed = JSON.parse(body.toString('utf8')); } catch { return sendJSON(res, { ok: false, error: 'JSON invalido' }, 400); }
         saveEquipo(parsed);
+        return sendJSON(res, { ok: true });
+      }
+    }
+
+    // ---- API: Instagram Posts ----
+    if (pathname === '/api/instagram') {
+      if (method === 'GET') {
+        return sendJSON(res, getInstagram());
+      }
+      if (method === 'POST') {
+        const body = await readBody(req);
+        let parsed;
+        try { parsed = JSON.parse(body.toString('utf8')); } catch { return sendJSON(res, { ok: false, error: 'JSON invalido' }, 400); }
+        if (!Array.isArray(parsed)) return sendJSON(res, { ok: false, error: 'Se esperaba un arreglo' }, 400);
+        saveInstagram(parsed);
         return sendJSON(res, { ok: true });
       }
     }

@@ -326,11 +326,32 @@ document.querySelectorAll('td.t-equipo').forEach(td => {
   }
 });
 
+// ---- INSTAGRAM POSTS ----
+(function () {
+  const grid = document.getElementById('instagramGrid');
+  if (!grid || typeof INSTAGRAM_POSTS === 'undefined' || !INSTAGRAM_POSTS.length) return;
+
+  function postCard(post) {
+    return `<div class="ig-post">
+      <img src="${post.imagen}" alt="${post.caption}" class="ig-post-img" loading="lazy" />
+      <div class="ig-post-body">
+        <p class="ig-post-caption">${post.caption}</p>
+        <div class="ig-post-footer">
+          <span class="ig-post-date">${post.fecha}</span>
+          ${post.enlace ? `<a href="${post.enlace}" target="_blank" rel="noopener" class="ig-post-link"><i class="fab fa-instagram"></i> Ver</a>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  grid.innerHTML = INSTAGRAM_POSTS.map(postCard).join('');
+})();
+
 // ---- SCROLL REVEAL ----
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; obs.unobserve(e.target); } });
 }, { threshold: 0.08 });
-document.querySelectorAll('.news-big,.news-small,.result,.pcard,.gitem').forEach(el => {
+document.querySelectorAll('.news-big,.news-small,.result,.pcard,.gitem,.ig-post').forEach(el => {
   el.style.cssText += 'opacity:0;transform:translateY(18px);transition:opacity .4s ease,transform .4s ease';
   obs.observe(el);
 });
