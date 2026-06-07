@@ -1,9 +1,9 @@
 /**
  * scheduler.js — Club Atletico Maristas
- * Ejecuta actualizar.js automáticamente todos los miércoles 14:00 a jueves 12:00
+ * Ejecuta actualizar.js automáticamente todos los días a las 09:00
  *
  * Uso: node scheduler.js
- * (Ejecutar en segundo plano o como servicio del sistema)
+ * (Ejecutar en segundo plano o como servicio — PM2, NSSM, etc.)
  */
 
 const { spawn } = require('child_process');
@@ -11,47 +11,28 @@ const path = require('path');
 
 const ACTUALIZAR_SCRIPT = path.join(__dirname, 'actualizar.js');
 
-// Intervalo de ejecución en minutos
-const EXECUTION_INTERVAL = 60; // Cada hora
+// Hora objetivo (formato 24h)
+const TARGET_HOUR = 9;
+const TARGET_MINUTE = 0;
 
-// Retorna true si estamos en el período de ejecución
-function isExecutionTime() {
-  const now = new Date();
-  const dayOfWeek = now.getDay(); // 0=domingo, 1=lunes, ..., 3=miércoles, 4=jueves
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  const totalMinutes = hours * 60 + minutes;
+let lastRunDate = null; // 'YYYY-MM-DD' del último disparo
 
-  // Miércoles (3) desde las 14:00 (840 minutos) hasta las 23:59
-  if (dayOfWeek === 3 && totalMinutes >= 840) {
-    return true;
-  }
-
-  // Jueves (4) desde las 00:00 (0 minutos) hasta las 12:00 (720 minutos)
-  if (dayOfWeek === 4 && totalMinutes <= 720) {
-    return true;
-  }
-
-  return false;
+function todayString() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
-// Ejecuta actualizar.js
 function runActualizar() {
   const now = new Date().toLocaleString('es-CL');
   console.log(`[${now}] Ejecutando actualizar.js...`);
 
-  const child = spawn('node', [ACTUALIZAR_SCRIPT]);
-
-  let output = '';
-  let errorOutput = '';
+  const child = spawn('node', [ACTUALIZAR_SCRIPT], { cwd: __dirname });
 
   child.stdout.on('data', (data) => {
-    output += data.toString();
     console.log(`[STDOUT] ${data.toString().trim()}`);
   });
 
   child.stderr.on('data', (data) => {
-    errorOutput += data.toString();
     console.error(`[ERROR] ${data.toString().trim()}`);
   });
 
@@ -69,54 +50,48 @@ function runActualizar() {
   });
 }
 
-// Verifica si ya se ejecutó en esta ventana de tiempo (para evitar duplicados)
-let lastExecutionWindow = null;
-
 function checkAndExecute() {
-  if (isExecutionTime()) {
-    // Obtén la ventana actual (miércoles-jueves)
-    const now = new Date();
-    const windowId = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
+  const now = new Date();
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+  const today = todayString();
 
-    // Si es una ventana diferente de la última ejecución, ejecuta
-    if (lastExecutionWindow !== windowId) {
-      // Se ejecuta cada hora durante el período
-      runActualizar();
-      lastExecutionWindow = windowId;
-    } else {
-      // Ya se ejecutó en esta ventana (pero se ejecutará de nuevo en la próxima hora)
-      // Esto permite múltiples ejecuciones durante el período
-      runActualizar();
-    }
+  // Dispara si es la hora objetivo y aún no corrió hoy
+  if (hour === TARGET_HOUR && minute === TARGET_MINUTE && lastRunDate !== today) {
+    lastRunDate = today;
+    runActualizar();
   }
 }
 
-// Inicia el scheduler
-console.log('🚀 Scheduler iniciado');
-console.log(`⏰ Se ejecutará cada ${EXECUTION_INTERVAL} minutos`);
-console.log('📅 Horario: Miércoles 14:00 - Jueves 12:00 (hora local)\n');
+// Revisa cada 30 segundos (suficientemente preciso, sin sobrecargar)
+setInterval(checkAndExecute, 30 * 1000);
 
-// Ejecuta la verificación cada X minutos
-setInterval(checkAndExecute, EXECUTION_INTERVAL * 60 * 1000);
+// También ejecuta al iniciar si ya pasó las 9 AM de hoy y no ha corrido
+const now = new Date();
+if (now.getHours() >= TARGET_HOUR) {
+  const today = todayString();
+  console.log(`[INFO] Ya son las ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')} — ejecutando actualizar.js ahora (primera vez del día).`);
+  lastRunDate = today;
+  runActualizar();
+} else {
+  const minutosRestantes = (TARGET_HOUR - now.getHours()) * 60 - now.getMinutes();
+  console.log(`[INFO] Próxima ejecución en ~${minutosRestantes} minutos (hoy a las 09:00).`);
+}
 
-// También verifica al iniciar
-checkAndExecute();
+console.log('🚀 Scheduler iniciado — actualización diaria a las 09:00\n');
 
-// Manejo de señales para shutdown ordenado
+// Estado cada 6 horas
+setInterval(() => {
+  const ts = new Date().toLocaleString('es-CL');
+  console.log(`[${ts}] Scheduler activo | Último disparo: ${lastRunDate ?? 'ninguno'}`);
+}, 6 * 60 * 60 * 1000);
+
 process.on('SIGINT', () => {
-  console.log('\n\n⛔ Scheduler detenido por usuario');
+  console.log('\n⛔ Scheduler detenido por usuario');
   process.exit(0);
 });
 
 process.on('SIGTERM', () => {
-  console.log('\n\n⛔ Scheduler detenido');
+  console.log('\n⛔ Scheduler detenido');
   process.exit(0);
 });
-
-// Mostrar estado cada 6 horas
-setInterval(() => {
-  const now = new Date().toLocaleString('es-CL');
-  const inWindow = isExecutionTime();
-  const status = inWindow ? '✓ EN VENTANA DE EJECUCIÓN' : '✗ Fuera de horario';
-  console.log(`[${now}] Estado: ${status}`);
-}, 6 * 60 * 60 * 1000);
