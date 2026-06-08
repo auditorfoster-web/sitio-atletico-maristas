@@ -8,9 +8,9 @@
 const INSTAGRAM_POSTS = [
 
   {
-    imagen:  "fotos/dorada/DSC_1090.jpg",
-    caption: "¡Dorada dominó la cancha! Goleada de categoría. 🔴⚪ #AtleticoMaristas #LigaLaReina",
-    fecha:   "19 Abril 2026",
+    imagen:  "fotos/instagram.jpeg",
+    caption: "Síguenos en Instagram para más contenido del Club Atlético Maristas 🔴⚪ #AtleticoMaristas #LigaLaReina",
+    fecha:   "07 Mayo 2026",
     enlace:  "https://www.instagram.com/clubatleticomaristas?igsh=ZHB0bXBuOTNpOTRv"
   }
 
