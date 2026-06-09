@@ -821,16 +821,18 @@
   <script src="equipo-semana.js"></script>
   <script src="noticias.js"></script>
   <script src="instagram-posts.js"></script>
-  <script src="script.js" defer></script>
+  <script src="script.js?v=20260609b" defer></script>
 
   <script>
     (function() {
       if (typeof EQUIPO_SEMANA === 'undefined') return;
-      var d = EQUIPO_SEMANA;
-      if (d.titulo)    document.getElementById('esm-titulo').textContent    = d.titulo;
-      if (d.subtitulo) document.getElementById('esm-subtitulo').textContent = d.subtitulo;
-
       var grid = document.getElementById('jsm-grid');
+      if (!grid) return; // la seccion "equipo de la semana" no esta en esta pagina
+      var d = EQUIPO_SEMANA;
+      var elTit = document.getElementById('esm-titulo');
+      var elSub = document.getElementById('esm-subtitulo');
+      if (d.titulo && elTit)    elTit.textContent = d.titulo;
+      if (d.subtitulo && elSub) elSub.textContent = d.subtitulo;
       if (!d.jugadores || !d.jugadores.length) {
         grid.innerHTML = '<p style="text-align:center;color:var(--muted)">Sin jugadores seleccionados esta semana.</p>';
         return;

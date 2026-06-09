@@ -1,0 +1,4 @@
+# Netlify: forzar que el navegador revalide siempre el HTML y los JS,
+# para que los cambios (ej. script.js) lleguen sin quedar cacheados viejos.
+/*
+  Cache-Control: public, max-age=0, must-revalidate
