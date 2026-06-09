@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fixture Atlético Marista — Apertura 2026</title>
+  <link rel="icon" type="image/png" href="escudo.png" />
+  <link rel="apple-touch-icon" href="escudo.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" /></noscript>
+  <style>
+    .fx-hero { background:linear-gradient(135deg,var(--red),#7a0a1d); color:#fff; padding:40px 0 30px; }
+    .fx-hero h1 { font-family:'Bebas Neue',cursive; font-size:clamp(34px,6vw,56px); line-height:1; letter-spacing:1px; }
+    .fx-hero p { font-size:14px; opacity:.92; margin-top:8px; max-width:680px; }
+    .fx-disclaimer { font-size:11.5px; opacity:.8; margin-top:10px; max-width:680px; }
+    .fx-hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+    .fx-btn { display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:13px; padding:10px 18px; border-radius:var(--r); transition:transform var(--t),background var(--t); }
+    .fx-btn-pdf { background:#fff; color:var(--red); }
+    .fx-btn-home { background:rgba(255,255,255,.15); color:#fff; border:1px solid rgba(255,255,255,.5); }
+    .fx-btn:hover { transform:translateY(-1px); }
+
+    .fx-jump { display:flex; flex-wrap:wrap; gap:6px; padding:16px 0 0; }
+    .fx-jump a { font-size:12px; font-weight:700; padding:6px 11px; border-radius:20px; background:var(--gray,#f1f1f1); color:var(--text); border:1px solid var(--border); transition:all var(--t); }
+    .fx-jump a:hover { background:var(--red); color:#fff; border-color:var(--red); }
+
+    .fx-card { border:1px solid var(--border); border-radius:var(--r); overflow:hidden; margin-bottom:18px; box-shadow:0 1px 8px rgba(0,0,0,.06); scroll-margin-top:80px; }
+    .fx-card-head { background:var(--red); color:#fff; padding:11px 16px; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
+    .fx-card-head .fx-n { font-family:'Bebas Neue',cursive; font-size:24px; letter-spacing:1px; line-height:1; }
+    .fx-card-head .fx-date { font-size:12.5px; font-weight:600; opacity:.92; }
+    .fx-card-body { padding:6px 0; }
+
+    .fx-day { padding:8px 16px 4px; }
+    .fx-day-title { font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); border-bottom:2px solid var(--border); padding-bottom:5px; margin-bottom:6px; }
+
+    .fx-match { display:flex; align-items:center; gap:12px; padding:9px 4px; border-bottom:1px solid var(--gray,#f0f0f0); }
+    .fx-match:last-child { border-bottom:none; }
+    .fx-time { font-weight:800; font-size:13px; color:var(--red); min-width:48px; }
+    .fx-teams { flex:1; font-size:14px; line-height:1.3; }
+    .fx-teams strong { color:var(--text); }
+    .fx-meta { font-size:11px; color:var(--muted); text-align:right; white-space:nowrap; }
+    .fx-tag { display:inline-block; font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; padding:2px 6px; border-radius:3px; margin-left:6px; vertical-align:middle; }
+    .fx-tag.local { background:rgba(22,163,74,.12); color:#16a34a; }
+    .fx-tag.visita { background:rgba(200,16,46,.1); color:var(--red); }
+
+    .fx-note { margin:6px 16px 10px; font-size:12px; color:var(--muted); background:rgba(200,16,46,.05); border-left:3px solid var(--red); padding:8px 12px; border-radius:0 var(--r) var(--r) 0; }
+    .fx-foot-note { font-size:12px; color:var(--muted); text-align:center; margin:10px 0 0; }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="ticker-wrap">
+        <div class="ticker-track">
+          <span><i class="fas fa-futbol"></i> Fixture Torneo Apertura 2026 &nbsp;|&nbsp; Liga La Reina &nbsp;|&nbsp; Junior · Senior · Super Senior · Dorada · Diamante &nbsp;|&nbsp; <i class="fas fa-futbol"></i> Fixture Torneo Apertura 2026 &nbsp;|&nbsp; Liga La Reina &nbsp;|&nbsp;</span>
+          <span aria-hidden="true"><i class="fas fa-futbol"></i> Fixture Torneo Apertura 2026 &nbsp;|&nbsp; Liga La Reina &nbsp;|&nbsp; Junior · Senior · Super Senior · Dorada · Diamante &nbsp;|&nbsp; <i class="fas fa-futbol"></i> Fixture Torneo Apertura 2026 &nbsp;|&nbsp; Liga La Reina &nbsp;|&nbsp;</span>
+        </div>
+      </div>
+      <div class="top-social">
+        <a href="https://www.instagram.com/clubatleticomarista/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/watch?v=WgElhfWOMTs" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="header" id="header">
+    <div class="wrap nav-wrap">
+      <button class="burger" id="burger"><i class="fas fa-bars"></i></button>
+      <a href="index.html" class="logo">
+        <img src="escudo.png" alt="Club Atletico Maristas" />
+        <span>Club Atletico <strong>Maristas</strong></span>
+      </a>
+      <nav id="nav">
+        <a href="index.html#inicio">Inicio</a>
+        <a href="index.html#noticias">Noticias</a>
+        <a href="index.html#competencia">Tabla de Posiciones</a>
+        <a href="fixture.html" class="active">Fixture</a>
+        <a href="index.html#plantel">Plantel</a>
+        <a href="index.html#copas">Copas</a>
+        <a href="index.html#admision">Admisión</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+      <div class="nav-socials">
+        <a href="https://www.instagram.com/clubatleticomarista/" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/watch?v=WgElhfWOMTs" target="_blank" rel="noopener" title="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="fx-hero">
+    <div class="wrap">
+      <h1>Fixture Atlético Marista</h1>
+      <p>Todos los partidos de las 5 series de Atlético Marista en el Torneo Apertura 2026 — Liga La Reina.</p>
+      <p class="fx-disclaimer"><i class="fas fa-circle-info"></i> La planificación está sujeta a modificaciones por motivos de fuerza mayor o solicitudes de clubes aprobadas por el Directorio.</p>
+      <div class="fx-hero-actions">
+        <a href="documentos/fixture-apertura-2026.pdf" target="_blank" rel="noopener" class="fx-btn fx-btn-pdf" download><i class="fas fa-file-pdf"></i> Descargar fixture completo (PDF)</a>
+        <a href="index.html#proxima-fecha" class="fx-btn fx-btn-home"><i class="fas fa-arrow-left"></i> Volver al sitio</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:24px">
+    <div class="wrap">
+      <div class="fx-jump" id="fxJump"></div>
+      <div id="fxContent" style="margin-top:18px"></div>
+      <p class="fx-foot-note">El fixture original no detalla la serie por cada partido. Para el detalle por color/serie y los partidos de los demás equipos, descarga el <a href="documentos/fixture-apertura-2026.pdf" target="_blank" rel="noopener" style="color:var(--red);font-weight:700">PDF completo</a>.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <img src="escudo.png" alt="Escudo" loading="lazy" />
+        <div>
+          <h3>Club Atletico Maristas</h3>
+          <p>Liga La Reina · 5 Series · D.T. Gabriel</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html#inicio">Inicio</a>
+        <a href="index.html#noticias">Noticias</a>
+        <a href="index.html#competencia">Tabla de Posiciones</a>
+        <a href="fixture.html">Fixture</a>
+        <a href="index.html#plantel">Plantel</a>
+        <a href="index.html#admision">Admisión</a>
+        <a href="index.html#contacto">Contacto</a>
+        <a href="https://futbol.aira.cl/lig/defaultTorneo.aspx" target="_blank" rel="noopener">AIRA <i class="fas fa-external-link-alt" style="font-size:10px"></i></a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/clubatleticomarista/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/watch?v=WgElhfWOMTs" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Club Atletico Maristas · Liga La Reina · Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Menú móvil
+    var burger = document.getElementById('burger');
+    var nav = document.getElementById('nav');
+    if (burger) burger.addEventListener('click', function () { nav.classList.toggle('open'); });
+
+    // Datos: partidos de Atlético Marista por fecha (Apertura 2026)
+    var FIXTURE = [
+      { n:1, fecha:"11 y 12 de Abril", dias:[
+        { dia:"Sábado 11/04", p:[
+          { h:"11:10", c:"Cancha 2", vs:"Doveramigos", home:false },
+          { h:"12:50", c:"Cancha 2", vs:"Doveramigos", home:false },
+        ]},
+        { dia:"Domingo 12/04", p:[
+          { h:"9:40", c:"Cancha 2", vs:"BICE", home:false },
+          { h:"11:00", c:"Cancha 2", vs:"BICE", home:false },
+          { h:"11:00", c:"Cancha 3", vs:"Mapuches", home:false },
+        ]},
+      ]},
+      { n:2, fecha:"18 y 19 de Abril", dias:[
+        { dia:"Sábado 18/04", p:[
+          { h:"11:10", c:"Cancha 3", vs:"San Nicolás", home:true },
+        ]},
+        { dia:"Domingo 19/04", p:[
+          { h:"9:40", c:"Cancha 2", vs:"Jaguares", home:true },
+          { h:"11:00", c:"Cancha 2", vs:"Jaguares", home:true },
+          { h:"12:20", c:"Cancha 2", vs:"San Nicolás", home:true },
+          { h:"12:20", c:"Cancha 3", vs:"Fluminense", home:false },
+        ]},
+      ]},
+      { n:3, fecha:"25 de Abril (+ recuperativos)", nota:"El domingo 26/04 se postergó por la Maratón de Santiago. Algunos partidos se recuperaron en mayo.", dias:[
+        { dia:"Sábado 25/04", p:[
+          { h:"12:50", c:"Cancha 2", vs:"Estudiantes", home:true },
+          { h:"19:50", c:"Cancha 2", vs:"BICE", home:false },
+        ]},
+        { dia:"Recuperativo · Martes 05/05", p:[
+          { h:"21:30", c:"Cancha 1", vs:"Estudiantes", home:false },
+          { h:"21:30", c:"Cancha 3", vs:"Manchester", home:false },
+        ]},
+        { dia:"Recuperativo · Miércoles 13/05", p:[
+          { h:"20:00", c:"Cancha 1", vs:"Estudiantes", home:false },
+        ]},
+      ]},
+      { n:4, fecha:"9 y 10 de Mayo", dias:[
+        { dia:"Sábado 09/05", p:[
+          { h:"9:30", c:"Cancha 1", vs:"Climazul", home:false },
+          { h:"11:10", c:"Cancha 1", vs:"Climazul", home:false },
+        ]},
+        { dia:"Domingo 10/05", p:[
+          { h:"9:40", c:"Cancha 2", vs:"Ciclón", home:true },
+          { h:"11:00", c:"Cancha 2", vs:"Ciclón", home:true },
+          { h:"12:20", c:"Cancha 2", vs:"Ciclón", home:true },
+        ]},
+      ]},
+      { n:5, fecha:"16 y 17 de Mayo", nota:"Senior, Super Senior y Diamante: LIBRE (descansan) esta fecha.", dias:[
+        { dia:"Sábado 16/05", p:[
+          { h:"9:30", c:"Cancha 3", vs:"Jaguares", home:true },
+          { h:"16:50", c:"Cancha 3", vs:"Climazul", home:false },
+        ]},
+      ]},
+      { n:6, fecha:"30 y 31 de Mayo", nota:"Fecha de clásicos: Atlético Marista vs Unión Marista en todas las series.", dias:[
+        { dia:"Sábado 30/05", p:[
+          { h:"11:10", c:"Cancha 2", vs:"Unión Marista", home:false },
+        ]},
+        { dia:"Domingo 31/05", p:[
+          { h:"9:40", c:"Cancha 2", vs:"Unión Marista", home:true },
+          { h:"11:00", c:"Cancha 3", vs:"Unión Marista", home:true },
+          { h:"12:20", c:"Cancha 2", vs:"Unión Marista", home:false },
+          { h:"12:20", c:"Cancha 3", vs:"Unión Marista", home:true },
+        ]},
+      ]},
+      { n:7, fecha:"6 y 7 de Junio", dias:[
+        { dia:"Sábado 06/06", p:[
+          { h:"9:30", c:"Cancha 3", vs:"AC Lo Campino", home:false },
+          { h:"11:10", c:"Cancha 3", vs:"AC Lo Campino", home:false },
+        ]},
+        { dia:"Domingo 07/06", p:[
+          { h:"9:40", c:"Cancha 3", vs:"Mapuches", home:true },
+          { h:"11:00", c:"Cancha 3", vs:"Stadio Italiano", home:true },
+          { h:"12:20", c:"Cancha 3", vs:"Mapuches", home:true },
+        ]},
+      ]},
+      { n:8, fecha:"13 de Junio", dias:[
+        { dia:"Sábado 13/06", p:[
+          { h:"12:50", c:"Cancha 1", vs:"Manchester", home:false },
+          { h:"15:30", c:"Cancha 2", vs:"Doveramigos", home:false },
+          { h:"16:50", c:"Cancha 2", vs:"Doveramigos", home:false },
+          { h:"18:20", c:"Cancha 2", vs:"Doveramigos", home:false },
+          { h:"19:50", c:"Cancha 1", vs:"Manchester", home:false },
+        ]},
+      ]},
+      { n:9, fecha:"20 y 21 de Junio", dias:[
+        { dia:"Sábado 20/06", p:[
+          { h:"11:10", c:"Cancha 1", vs:"Improvisados", home:true },
+          { h:"12:50", c:"Cancha 1", vs:"América", home:true },
+        ]},
+        { dia:"Domingo 21/06", p:[
+          { h:"9:40", c:"Cancha 1", vs:"Alianza", home:true },
+          { h:"11:00", c:"Cancha 1", vs:"Alianza", home:true },
+          { h:"12:20", c:"Cancha 1", vs:"Defensor", home:true },
+        ]},
+      ]},
+      { n:10, fecha:"4 y 5 de Julio", dias:[
+        { dia:"Sábado 04/07", p:[
+          { h:"12:50", c:"Cancha 3", vs:"América", home:true },
+          { h:"19:50", c:"Cancha 3", vs:"Alianza", home:false },
+        ]},
+        { dia:"Domingo 05/07", p:[
+          { h:"9:40", c:"Cancha 1", vs:"América", home:true },
+          { h:"11:00", c:"Cancha 2", vs:"Universitario", home:true },
+          { h:"12:20", c:"Cancha 2", vs:"Leyenda 216", home:true },
+        ]},
+      ]},
+      { n:11, fecha:"11 y 12 de Julio", dias:[
+        { dia:"Sábado 11/07", p:[
+          { h:"9:30", c:"Cancha 2", vs:"Ciclón", home:true },
+          { h:"19:50", c:"Cancha 1", vs:"Ciclón", home:true },
+        ]},
+        { dia:"Domingo 12/07", p:[
+          { h:"9:40", c:"Cancha 1", vs:"Juventus", home:true },
+          { h:"11:00", c:"Cancha 1", vs:"Juventus", home:true },
+          { h:"12:20", c:"Cancha 2", vs:"Charkaplax", home:true },
+        ]},
+      ]},
+      { n:12, fecha:"25 de Julio", nota:"En esta fecha juegan Senior y Junior (las otras series inician su Clausura).", dias:[
+        { dia:"Sábado 25/07", p:[
+          { h:"9:30", c:"Cancha 2", vs:"Juventus", home:true },
+          { h:"11:10", c:"Cancha 2", vs:"Charkaplax", home:true },
+        ]},
+      ]},
+      { n:13, fecha:"1 de Agosto", nota:"Juegan Senior y Junior.", dias:[
+        { dia:"Sábado 01/08", p:[
+          { h:"9:30", c:"Cancha 1", vs:"Dinastía", home:true },
+          { h:"11:10", c:"Cancha 1", vs:"Dinastía", home:true },
+        ]},
+      ]},
+    ];
+
+    function matchHTML(m) {
+      var teams = m.home
+        ? '<strong>At. Marista</strong> vs ' + m.vs
+        : m.vs + ' vs <strong>At. Marista</strong>';
+      var tag = m.home
+        ? '<span class="fx-tag local">Local</span>'
+        : '<span class="fx-tag visita">Visita</span>';
+      return '<div class="fx-match">' +
+        '<span class="fx-time">' + m.h + '</span>' +
+        '<span class="fx-teams">' + teams + tag + '</span>' +
+        '<span class="fx-meta">' + m.c + '</span>' +
+      '</div>';
+    }
+
+    function render() {
+      var jump = document.getElementById('fxJump');
+      var cont = document.getElementById('fxContent');
+      var jhtml = '', chtml = '';
+      FIXTURE.forEach(function (f) {
+        jhtml += '<a href="#fecha-' + f.n + '">Fecha ' + f.n + '</a>';
+        var body = '';
+        if (f.nota) body += '<div class="fx-note"><i class="fas fa-circle-info"></i> ' + f.nota + '</div>';
+        f.dias.forEach(function (d) {
+          body += '<div class="fx-day"><div class="fx-day-title">' + d.dia + '</div>' +
+            d.p.map(matchHTML).join('') + '</div>';
+        });
+        chtml += '<div class="fx-card" id="fecha-' + f.n + '">' +
+          '<div class="fx-card-head"><span class="fx-n">Fecha ' + f.n + '</span>' +
+          '<span class="fx-date"><i class="far fa-calendar"></i> ' + f.fecha + '</span></div>' +
+          '<div class="fx-card-body">' + body + '</div></div>';
+      });
+      jump.innerHTML = jhtml;
+      cont.innerHTML = chtml;
+    }
+    render();
+  </script>
+</body>
+</html>
