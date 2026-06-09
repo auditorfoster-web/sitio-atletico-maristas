@@ -45,7 +45,7 @@ jobs:
         if: steps.verify.outputs.has_changes == 'true'
         run: |
           git add -A
-          git commit -m "chore: actualizar standings y fixtures [skip ci]"
+          git commit -m "chore: actualizar standings y fixtures"
 
       - name: Push a main
         if: steps.verify.outputs.has_changes == 'true'
