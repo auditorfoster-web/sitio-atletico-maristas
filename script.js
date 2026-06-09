@@ -377,8 +377,11 @@ document.querySelectorAll('.news-big,.news-small,.result,.pcard,.gitem,.ig-post'
   var id = decodeURIComponent(raw);
   var stop = false;
 
-  // Si el usuario empieza a navegar, dejamos de forzar el scroll.
-  ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
+  // Si el usuario empieza a navegar DE VERDAD, dejamos de forzar el scroll.
+  // Importante: usamos 'touchmove' (deslizar), NO 'touchstart' (tocar), porque
+  // al abrir el link desde Instagram el dedo ya esta tocando la pantalla y un
+  // 'touchstart' cancelaria el scroll antes de que ocurra.
+  ['wheel', 'touchmove', 'keydown'].forEach(function (ev) {
     window.addEventListener(ev, function () { stop = true; }, { passive: true, once: true });
   });
 
