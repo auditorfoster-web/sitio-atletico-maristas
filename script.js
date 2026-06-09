@@ -357,20 +357,37 @@ document.querySelectorAll('.news-big,.news-small,.result,.pcard,.gitem,.ig-post'
 });
 
 // ---- HASH SCROLL FIX (celular / enlaces externos) ----
-// Las noticias y otras secciones se inyectan por JS y las imagenes cargan
-// despues, lo que desplaza la posicion del ancla al abrir un enlace #seccion
-// directamente (sobre todo en el navegador interno de Instagram).
-// Re-posicionamos al ancla una vez que la pagina termino de cargar.
+// Las noticias, el equipo de la semana, los posts de Instagram y otras
+// secciones se inyectan por JS, y las imagenes + el widget de Behold cargan
+// despues. Esto desplaza la posicion del ancla al abrir un enlace #seccion
+// directamente (sobre todo en el navegador interno de Instagram, donde el
+// evento 'load' puede tardar mucho o no llegar). Por eso reintentamos por
+// nuestra cuenta y desactivamos la restauracion de scroll del navegador.
 (function () {
-  function scrollToHash() {
-    if (!location.hash) return;
-    var el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-    if (el) el.scrollIntoView({ block: 'start' });
+  if (!location.hash) return;
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  var id = decodeURIComponent(location.hash.slice(1));
+  var stop = false;
+
+  // Si el usuario empieza a navegar, dejamos de forzar el scroll.
+  ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
+    window.addEventListener(ev, function () { stop = true; }, { passive: true, once: true });
+  });
+
+  function go() {
+    if (stop) return;
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ block: 'start', behavior: 'auto' });
   }
-  if (location.hash) {
-    window.addEventListener('load', function () {
-      scrollToHash();              // tras cargar imagenes
-      setTimeout(scrollToHash, 350); // segundo intento por contenido tardio
-    });
-  }
+
+  // Reintentos mientras el contenido y las imagenes terminan de asentarse.
+  var tries = 0;
+  var timer = setInterval(function () {
+    go();
+    if (stop || ++tries >= 14) clearInterval(timer); // ~ hasta 7s
+  }, 500);
+
+  document.addEventListener('DOMContentLoaded', go);
+  window.addEventListener('load', go);
 })();
