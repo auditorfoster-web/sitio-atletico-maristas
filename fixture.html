@@ -67,6 +67,13 @@
     .fx-match.s-dorada      { border-left-color:#ffbf00; }
     .fx-match.s-diamante    { border-left-color:#91cf50; }
 
+    .fx-proxima-banner { display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; background:#fff; border:2px solid var(--red); border-radius:var(--r); padding:12px 16px; margin-bottom:16px; }
+    .fx-proxima-banner .lbl { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--red); display:inline-flex; align-items:center; gap:6px; }
+    .fx-proxima-banner .info { font-weight:700; font-size:15px; }
+    .fx-proxima-banner a.go { margin-left:auto; font-size:13px; font-weight:700; color:#fff; background:var(--red); padding:8px 14px; border-radius:var(--r); }
+    .fx-card.proxima { border-color:var(--red); box-shadow:0 0 0 2px rgba(200,16,46,.3), 0 1px 10px rgba(0,0,0,.08); }
+    .fx-prox-badge { background:#fff; color:var(--red); font-size:10px; font-weight:800; letter-spacing:.5px; padding:3px 9px; border-radius:20px; white-space:nowrap; }
+
     .fx-note { margin:6px 16px 10px; font-size:12px; color:var(--muted); background:rgba(200,16,46,.05); border-left:3px solid var(--red); padding:8px 12px; border-radius:0 var(--r) var(--r) 0; }
     .fx-foot-note { font-size:12px; color:var(--muted); text-align:center; margin:14px 0 0; }
 
@@ -137,6 +144,7 @@
 
   <section class="section" style="padding-top:24px">
     <div class="wrap">
+      <div id="fxProxima"></div>
       <div class="fx-filter" id="fxFilter"></div>
       <div class="fx-jump" id="fxJump"></div>
       <div id="fxContent" style="margin-top:18px"></div>
@@ -324,6 +332,21 @@
 
     var filtro = 'all';
 
+    // Fecha de fin de cada jornada (ultimo dia del fin de semana) para detectar
+    // automaticamente la PROXIMA FECHA segun el dia de hoy, sin depender de AIRA.
+    var FIN = {
+      1:'2026-04-12', 2:'2026-04-19', 3:'2026-04-26', 4:'2026-05-10', 5:'2026-05-17',
+      6:'2026-05-31', 7:'2026-06-07', 8:'2026-06-13', 9:'2026-06-21', 10:'2026-07-05',
+      11:'2026-07-12', 12:'2026-07-25', 13:'2026-08-01'
+    };
+    function todayISO() {
+      var d = new Date();
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+    var HOY = todayISO();
+    var proximaObj = FIXTURE.find(function (f) { return (FIN[f.n] || '9999') >= HOY; });
+    var proximaN = proximaObj ? proximaObj.n : null;
+
     function matchHTML(m) {
       var serie = SERIES[m.s] || { label:'', };
       var teams = m.home
@@ -350,9 +373,12 @@
           body += '<div class="fx-day"><div class="fx-day-title">' + d.dia + '</div>' +
             d.p.map(matchHTML).join('') + '</div>';
         });
-        chtml += '<div class="fx-card" id="fecha-' + f.n + '">' +
+        var esProxima = (f.n === proximaN);
+        var badge = esProxima ? '<span class="fx-prox-badge"><i class="fas fa-star"></i> PRÓXIMA</span>' : '';
+        chtml += '<div class="fx-card' + (esProxima ? ' proxima' : '') + '" id="fecha-' + f.n + '">' +
           '<div class="fx-card-head"><span class="fx-n">Fecha ' + f.n + '</span>' +
-          '<span class="fx-date"><i class="far fa-calendar"></i> ' + f.fecha + '</span></div>' +
+          '<span style="display:flex;align-items:center;gap:10px">' + badge +
+          '<span class="fx-date"><i class="far fa-calendar"></i> ' + f.fecha + '</span></span></div>' +
           '<div class="fx-card-body">' + body + '</div></div>';
       });
       jump.innerHTML = jhtml;
@@ -394,8 +420,19 @@
       });
     }
 
+    function buildProxima() {
+      var box = document.getElementById('fxProxima');
+      if (!proximaObj) { box.innerHTML = ''; return; }
+      box.innerHTML = '<div class="fx-proxima-banner">' +
+        '<span class="lbl"><i class="fas fa-star"></i> Próxima fecha</span>' +
+        '<span class="info">Fecha ' + proximaObj.n + ' · ' + proximaObj.fecha + '</span>' +
+        '<a class="go" href="#fecha-' + proximaObj.n + '">Ver partidos <i class="fas fa-arrow-down"></i></a>' +
+        '</div>';
+    }
+
     render();
     buildFilter();
+    buildProxima();
   </script>
 </body>
 </html>
