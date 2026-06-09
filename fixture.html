@@ -23,31 +23,60 @@
     .fx-btn-home { background:rgba(255,255,255,.15); color:#fff; border:1px solid rgba(255,255,255,.5); }
     .fx-btn:hover { transform:translateY(-1px); }
 
-    .fx-jump { display:flex; flex-wrap:wrap; gap:6px; padding:16px 0 0; }
+    /* Filtro por serie */
+    .fx-filter { display:flex; flex-wrap:wrap; gap:7px; align-items:center; margin-bottom:6px; }
+    .fx-filter-lbl { font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); margin-right:4px; }
+    .fx-fbtn { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:700; padding:6px 12px; border-radius:20px; border:1px solid var(--border); background:#fff; color:var(--text); cursor:pointer; transition:all var(--t); }
+    .fx-fbtn .dot { width:11px; height:11px; border-radius:50%; border:1px solid rgba(0,0,0,.25); }
+    .fx-fbtn.active { background:var(--red); color:#fff; border-color:var(--red); }
+    .fx-fbtn.active .dot { border-color:rgba(255,255,255,.6); }
+
+    .fx-jump { display:flex; flex-wrap:wrap; gap:6px; padding:14px 0 0; }
     .fx-jump a { font-size:12px; font-weight:700; padding:6px 11px; border-radius:20px; background:var(--gray,#f1f1f1); color:var(--text); border:1px solid var(--border); transition:all var(--t); }
     .fx-jump a:hover { background:var(--red); color:#fff; border-color:var(--red); }
 
     .fx-card { border:1px solid var(--border); border-radius:var(--r); overflow:hidden; margin-bottom:18px; box-shadow:0 1px 8px rgba(0,0,0,.06); scroll-margin-top:80px; }
+    .fx-card.hidden { display:none; }
     .fx-card-head { background:var(--red); color:#fff; padding:11px 16px; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
     .fx-card-head .fx-n { font-family:'Bebas Neue',cursive; font-size:24px; letter-spacing:1px; line-height:1; }
     .fx-card-head .fx-date { font-size:12.5px; font-weight:600; opacity:.92; }
     .fx-card-body { padding:6px 0; }
 
     .fx-day { padding:8px 16px 4px; }
+    .fx-day.hidden { display:none; }
     .fx-day-title { font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); border-bottom:2px solid var(--border); padding-bottom:5px; margin-bottom:6px; }
 
-    .fx-match { display:flex; align-items:center; gap:12px; padding:9px 4px; border-bottom:1px solid var(--gray,#f0f0f0); }
+    .fx-match { display:flex; align-items:center; gap:11px; padding:9px 4px 9px 10px; border-bottom:1px solid var(--gray,#f0f0f0); border-left:4px solid transparent; }
     .fx-match:last-child { border-bottom:none; }
-    .fx-time { font-weight:800; font-size:13px; color:var(--red); min-width:48px; }
+    .fx-match.hidden { display:none; }
+    .fx-time { font-weight:800; font-size:13px; color:var(--red); min-width:46px; }
     .fx-teams { flex:1; font-size:14px; line-height:1.3; }
     .fx-teams strong { color:var(--text); }
     .fx-meta { font-size:11px; color:var(--muted); text-align:right; white-space:nowrap; }
-    .fx-tag { display:inline-block; font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; padding:2px 6px; border-radius:3px; margin-left:6px; vertical-align:middle; }
-    .fx-tag.local { background:rgba(22,163,74,.12); color:#16a34a; }
-    .fx-tag.visita { background:rgba(200,16,46,.1); color:var(--red); }
+
+    /* Etiqueta de serie + borde por color (segun CLAVE del fixture oficial) */
+    .fx-serie { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.4px; padding:3px 6px; border-radius:4px; white-space:nowrap; min-width:78px; text-align:center; }
+    .sb-junior      { background:#ffffff; color:#1a1a1a; border:1px solid #bbb; }
+    .sb-senior      { background:#f9bf8e; color:#5a3410; }
+    .sb-supersenior { background:#702fa0; color:#ffffff; }
+    .sb-dorada      { background:#ffbf00; color:#4a3500; }
+    .sb-diamante    { background:#91cf50; color:#1f4d00; }
+    .fx-match.s-junior      { border-left-color:#cfcfcf; }
+    .fx-match.s-senior      { border-left-color:#f9bf8e; }
+    .fx-match.s-supersenior { border-left-color:#702fa0; }
+    .fx-match.s-dorada      { border-left-color:#ffbf00; }
+    .fx-match.s-diamante    { border-left-color:#91cf50; }
 
     .fx-note { margin:6px 16px 10px; font-size:12px; color:var(--muted); background:rgba(200,16,46,.05); border-left:3px solid var(--red); padding:8px 12px; border-radius:0 var(--r) var(--r) 0; }
-    .fx-foot-note { font-size:12px; color:var(--muted); text-align:center; margin:10px 0 0; }
+    .fx-foot-note { font-size:12px; color:var(--muted); text-align:center; margin:14px 0 0; }
+
+    @media(max-width:560px){
+      .fx-match { flex-wrap:wrap; gap:6px 10px; }
+      .fx-serie { order:1; }
+      .fx-time { order:2; }
+      .fx-meta { order:3; margin-left:auto; }
+      .fx-teams { order:4; flex-basis:100%; }
+    }
   </style>
 </head>
 <body>
@@ -97,7 +126,7 @@
   <section class="fx-hero">
     <div class="wrap">
       <h1>Fixture Atlético Marista</h1>
-      <p>Todos los partidos de las 5 series de Atlético Marista en el Torneo Apertura 2026 — Liga La Reina.</p>
+      <p>Todos los partidos de las 5 series de Atlético Marista en el Torneo Apertura 2026 — Liga La Reina. Cada partido está marcado con el color de su serie.</p>
       <p class="fx-disclaimer"><i class="fas fa-circle-info"></i> La planificación está sujeta a modificaciones por motivos de fuerza mayor o solicitudes de clubes aprobadas por el Directorio.</p>
       <div class="fx-hero-actions">
         <a href="documentos/fixture-apertura-2026.pdf" target="_blank" rel="noopener" class="fx-btn fx-btn-pdf" download><i class="fas fa-file-pdf"></i> Descargar fixture completo (PDF)</a>
@@ -108,9 +137,10 @@
 
   <section class="section" style="padding-top:24px">
     <div class="wrap">
+      <div class="fx-filter" id="fxFilter"></div>
       <div class="fx-jump" id="fxJump"></div>
       <div id="fxContent" style="margin-top:18px"></div>
-      <p class="fx-foot-note">El fixture original no detalla la serie por cada partido. Para el detalle por color/serie y los partidos de los demás equipos, descarga el <a href="documentos/fixture-apertura-2026.pdf" target="_blank" rel="noopener" style="color:var(--red);font-weight:700">PDF completo</a>.</p>
+      <p class="fx-foot-note">Para el detalle de los partidos de los demás equipos, descarga el <a href="documentos/fixture-apertura-2026.pdf" target="_blank" rel="noopener" style="color:var(--red);font-weight:700">PDF completo</a>.</p>
     </div>
   </section>
 
@@ -150,149 +180,161 @@
     var nav = document.getElementById('nav');
     if (burger) burger.addEventListener('click', function () { nav.classList.toggle('open'); });
 
-    // Datos: partidos de Atlético Marista por fecha (Apertura 2026)
+    // Series (color = CLAVE del fixture oficial)
+    var SERIES = {
+      junior:      { label:'Junior',       color:'#ffffff' },
+      senior:      { label:'Senior',       color:'#f9bf8e' },
+      supersenior: { label:'Super Senior', color:'#702fa0' },
+      dorada:      { label:'Dorada',       color:'#ffbf00' },
+      diamante:    { label:'Diamante',     color:'#91cf50' },
+    };
+
+    // Partidos de Atlético Marista por fecha. La serie (s) se extrajo del color
+    // del fixture PDF oficial y se validó contra los datos de AIRA.
     var FIXTURE = [
       { n:1, fecha:"11 y 12 de Abril", dias:[
         { dia:"Sábado 11/04", p:[
-          { h:"11:10", c:"Cancha 2", vs:"Doveramigos", home:false },
-          { h:"12:50", c:"Cancha 2", vs:"Doveramigos", home:false },
+          { h:"11:10", c:"Cancha 2", vs:"Doveramigos", home:false, s:"senior" },
+          { h:"12:50", c:"Cancha 2", vs:"Doveramigos", home:false, s:"junior" },
         ]},
         { dia:"Domingo 12/04", p:[
-          { h:"9:40", c:"Cancha 2", vs:"BICE", home:false },
-          { h:"11:00", c:"Cancha 2", vs:"BICE", home:false },
-          { h:"11:00", c:"Cancha 3", vs:"Mapuches", home:false },
+          { h:"9:40",  c:"Cancha 2", vs:"BICE", home:false, s:"dorada" },
+          { h:"11:00", c:"Cancha 2", vs:"BICE", home:false, s:"supersenior" },
+          { h:"11:00", c:"Cancha 3", vs:"Mapuches", home:false, s:"diamante" },
         ]},
       ]},
       { n:2, fecha:"18 y 19 de Abril", dias:[
         { dia:"Sábado 18/04", p:[
-          { h:"11:10", c:"Cancha 3", vs:"San Nicolás", home:true },
+          { h:"11:10", c:"Cancha 3", vs:"San Nicolás", home:true, s:"senior" },
         ]},
         { dia:"Domingo 19/04", p:[
-          { h:"9:40", c:"Cancha 2", vs:"Jaguares", home:true },
-          { h:"11:00", c:"Cancha 2", vs:"Jaguares", home:true },
-          { h:"12:20", c:"Cancha 2", vs:"San Nicolás", home:true },
-          { h:"12:20", c:"Cancha 3", vs:"Fluminense", home:false },
+          { h:"9:40",  c:"Cancha 2", vs:"Jaguares", home:true, s:"dorada" },
+          { h:"11:00", c:"Cancha 2", vs:"Jaguares", home:true, s:"diamante" },
+          { h:"12:20", c:"Cancha 2", vs:"San Nicolás", home:true, s:"junior" },
+          { h:"12:20", c:"Cancha 3", vs:"Fluminense", home:false, s:"supersenior" },
         ]},
       ]},
-      { n:3, fecha:"25 de Abril (+ recuperativos)", nota:"El domingo 26/04 se postergó por la Maratón de Santiago. Algunos partidos se recuperaron en mayo.", dias:[
+      { n:3, fecha:"25 de Abril (+ recuperativos)", nota:"El domingo 26/04 se postergó por la Maratón de Santiago. Los partidos se recuperaron en mayo.", dias:[
         { dia:"Sábado 25/04", p:[
-          { h:"12:50", c:"Cancha 2", vs:"Estudiantes", home:true },
-          { h:"19:50", c:"Cancha 2", vs:"BICE", home:false },
+          { h:"12:50", c:"Cancha 2", vs:"Estudiantes", home:true, s:"junior" },
+          { h:"19:50", c:"Cancha 2", vs:"BICE", home:false, s:"senior" },
         ]},
         { dia:"Recuperativo · Martes 05/05", p:[
-          { h:"21:30", c:"Cancha 1", vs:"Estudiantes", home:false },
-          { h:"21:30", c:"Cancha 3", vs:"Manchester", home:false },
+          { h:"21:30", c:"Cancha 1", vs:"Estudiantes", home:false, s:"dorada" },
+          { h:"21:30", c:"Cancha 3", vs:"Manchester", home:false, s:"supersenior" },
         ]},
         { dia:"Recuperativo · Miércoles 13/05", p:[
-          { h:"20:00", c:"Cancha 1", vs:"Estudiantes", home:false },
+          { h:"20:00", c:"Cancha 1", vs:"Estudiantes", home:false, s:"diamante" },
         ]},
       ]},
       { n:4, fecha:"9 y 10 de Mayo", dias:[
         { dia:"Sábado 09/05", p:[
-          { h:"9:30", c:"Cancha 1", vs:"Climazul", home:false },
-          { h:"11:10", c:"Cancha 1", vs:"Climazul", home:false },
+          { h:"9:30",  c:"Cancha 1", vs:"Climazul", home:false, s:"junior" },
+          { h:"11:10", c:"Cancha 1", vs:"Climazul", home:false, s:"senior" },
         ]},
         { dia:"Domingo 10/05", p:[
-          { h:"9:40", c:"Cancha 2", vs:"Ciclón", home:true },
-          { h:"11:00", c:"Cancha 2", vs:"Ciclón", home:true },
-          { h:"12:20", c:"Cancha 2", vs:"Ciclón", home:true },
+          { h:"9:40",  c:"Cancha 2", vs:"Ciclón", home:true, s:"dorada" },
+          { h:"11:00", c:"Cancha 2", vs:"Ciclón", home:true, s:"diamante" },
+          { h:"12:20", c:"Cancha 2", vs:"Ciclón", home:true, s:"supersenior" },
         ]},
       ]},
       { n:5, fecha:"16 y 17 de Mayo", nota:"Senior, Super Senior y Diamante: LIBRE (descansan) esta fecha.", dias:[
         { dia:"Sábado 16/05", p:[
-          { h:"9:30", c:"Cancha 3", vs:"Jaguares", home:true },
-          { h:"16:50", c:"Cancha 3", vs:"Climazul", home:false },
+          { h:"9:30",  c:"Cancha 3", vs:"Jaguares", home:true, s:"junior" },
+          { h:"16:50", c:"Cancha 3", vs:"Climazul", home:false, s:"dorada" },
         ]},
       ]},
       { n:6, fecha:"30 y 31 de Mayo", nota:"Fecha de clásicos: Atlético Marista vs Unión Marista en todas las series.", dias:[
         { dia:"Sábado 30/05", p:[
-          { h:"11:10", c:"Cancha 2", vs:"Unión Marista", home:false },
+          { h:"11:10", c:"Cancha 2", vs:"Unión Marista", home:false, s:"senior" },
         ]},
         { dia:"Domingo 31/05", p:[
-          { h:"9:40", c:"Cancha 2", vs:"Unión Marista", home:true },
-          { h:"11:00", c:"Cancha 3", vs:"Unión Marista", home:true },
-          { h:"12:20", c:"Cancha 2", vs:"Unión Marista", home:false },
-          { h:"12:20", c:"Cancha 3", vs:"Unión Marista", home:true },
+          { h:"9:40",  c:"Cancha 2", vs:"Unión Marista", home:true, s:"dorada" },
+          { h:"11:00", c:"Cancha 3", vs:"Unión Marista", home:true, s:"diamante" },
+          { h:"12:20", c:"Cancha 2", vs:"Unión Marista", home:false, s:"junior" },
+          { h:"12:20", c:"Cancha 3", vs:"Unión Marista", home:true, s:"supersenior" },
         ]},
       ]},
       { n:7, fecha:"6 y 7 de Junio", dias:[
         { dia:"Sábado 06/06", p:[
-          { h:"9:30", c:"Cancha 3", vs:"AC Lo Campino", home:false },
-          { h:"11:10", c:"Cancha 3", vs:"AC Lo Campino", home:false },
+          { h:"9:30",  c:"Cancha 3", vs:"AC Lo Campino", home:false, s:"junior" },
+          { h:"11:10", c:"Cancha 3", vs:"AC Lo Campino", home:false, s:"senior" },
         ]},
         { dia:"Domingo 07/06", p:[
-          { h:"9:40", c:"Cancha 3", vs:"Mapuches", home:true },
-          { h:"11:00", c:"Cancha 3", vs:"Stadio Italiano", home:true },
-          { h:"12:20", c:"Cancha 3", vs:"Mapuches", home:true },
+          { h:"9:40",  c:"Cancha 3", vs:"Mapuches", home:true, s:"dorada" },
+          { h:"11:00", c:"Cancha 3", vs:"Stadio Italiano", home:true, s:"diamante" },
+          { h:"12:20", c:"Cancha 3", vs:"Mapuches", home:true, s:"supersenior" },
         ]},
       ]},
       { n:8, fecha:"13 de Junio", dias:[
         { dia:"Sábado 13/06", p:[
-          { h:"12:50", c:"Cancha 1", vs:"Manchester", home:false },
-          { h:"15:30", c:"Cancha 2", vs:"Doveramigos", home:false },
-          { h:"16:50", c:"Cancha 2", vs:"Doveramigos", home:false },
-          { h:"18:20", c:"Cancha 2", vs:"Doveramigos", home:false },
-          { h:"19:50", c:"Cancha 1", vs:"Manchester", home:false },
+          { h:"12:50", c:"Cancha 1", vs:"Manchester", home:false, s:"junior" },
+          { h:"15:30", c:"Cancha 2", vs:"Doveramigos", home:false, s:"diamante" },
+          { h:"16:50", c:"Cancha 2", vs:"Doveramigos", home:false, s:"dorada" },
+          { h:"18:20", c:"Cancha 2", vs:"Doveramigos", home:false, s:"supersenior" },
+          { h:"19:50", c:"Cancha 1", vs:"Manchester", home:false, s:"senior" },
         ]},
       ]},
       { n:9, fecha:"20 y 21 de Junio", dias:[
         { dia:"Sábado 20/06", p:[
-          { h:"11:10", c:"Cancha 1", vs:"Improvisados", home:true },
-          { h:"12:50", c:"Cancha 1", vs:"América", home:true },
+          { h:"11:10", c:"Cancha 1", vs:"Improvisados", home:true, s:"senior" },
+          { h:"12:50", c:"Cancha 1", vs:"América", home:true, s:"junior" },
         ]},
         { dia:"Domingo 21/06", p:[
-          { h:"9:40", c:"Cancha 1", vs:"Alianza", home:true },
-          { h:"11:00", c:"Cancha 1", vs:"Alianza", home:true },
-          { h:"12:20", c:"Cancha 1", vs:"Defensor", home:true },
+          { h:"9:40",  c:"Cancha 1", vs:"Alianza", home:true, s:"dorada" },
+          { h:"11:00", c:"Cancha 1", vs:"Alianza", home:true, s:"diamante" },
+          { h:"12:20", c:"Cancha 1", vs:"Defensor", home:true, s:"supersenior" },
         ]},
       ]},
       { n:10, fecha:"4 y 5 de Julio", dias:[
         { dia:"Sábado 04/07", p:[
-          { h:"12:50", c:"Cancha 3", vs:"América", home:true },
-          { h:"19:50", c:"Cancha 3", vs:"Alianza", home:false },
+          { h:"12:50", c:"Cancha 3", vs:"América", home:true, s:"junior" },
+          { h:"19:50", c:"Cancha 3", vs:"Alianza", home:false, s:"senior" },
         ]},
         { dia:"Domingo 05/07", p:[
-          { h:"9:40", c:"Cancha 1", vs:"América", home:true },
-          { h:"11:00", c:"Cancha 2", vs:"Universitario", home:true },
-          { h:"12:20", c:"Cancha 2", vs:"Leyenda 216", home:true },
+          { h:"9:40",  c:"Cancha 1", vs:"América", home:true, s:"dorada" },
+          { h:"11:00", c:"Cancha 2", vs:"Universitario", home:true, s:"diamante" },
+          { h:"12:20", c:"Cancha 2", vs:"Leyenda 216", home:true, s:"supersenior" },
         ]},
       ]},
       { n:11, fecha:"11 y 12 de Julio", dias:[
         { dia:"Sábado 11/07", p:[
-          { h:"9:30", c:"Cancha 2", vs:"Ciclón", home:true },
-          { h:"19:50", c:"Cancha 1", vs:"Ciclón", home:true },
+          { h:"9:30",  c:"Cancha 2", vs:"Ciclón", home:true, s:"junior" },
+          { h:"19:50", c:"Cancha 1", vs:"Ciclón", home:true, s:"senior" },
         ]},
         { dia:"Domingo 12/07", p:[
-          { h:"9:40", c:"Cancha 1", vs:"Juventus", home:true },
-          { h:"11:00", c:"Cancha 1", vs:"Juventus", home:true },
-          { h:"12:20", c:"Cancha 2", vs:"Charkaplax", home:true },
+          { h:"9:40",  c:"Cancha 1", vs:"Juventus", home:true, s:"dorada" },
+          { h:"11:00", c:"Cancha 1", vs:"Juventus", home:true, s:"diamante" },
+          { h:"12:20", c:"Cancha 2", vs:"Charkaplax", home:true, s:"supersenior" },
         ]},
       ]},
       { n:12, fecha:"25 de Julio", nota:"En esta fecha juegan Senior y Junior (las otras series inician su Clausura).", dias:[
         { dia:"Sábado 25/07", p:[
-          { h:"9:30", c:"Cancha 2", vs:"Juventus", home:true },
-          { h:"11:10", c:"Cancha 2", vs:"Charkaplax", home:true },
+          { h:"9:30",  c:"Cancha 2", vs:"Juventus", home:true, s:"junior" },
+          { h:"11:10", c:"Cancha 2", vs:"Charkaplax", home:true, s:"senior" },
         ]},
       ]},
       { n:13, fecha:"1 de Agosto", nota:"Juegan Senior y Junior.", dias:[
         { dia:"Sábado 01/08", p:[
-          { h:"9:30", c:"Cancha 1", vs:"Dinastía", home:true },
-          { h:"11:10", c:"Cancha 1", vs:"Dinastía", home:true },
+          { h:"9:30",  c:"Cancha 1", vs:"Dinastía", home:true, s:"junior" },
+          { h:"11:10", c:"Cancha 1", vs:"Dinastía", home:true, s:"senior" },
         ]},
       ]},
     ];
 
+    var filtro = 'all';
+
     function matchHTML(m) {
+      var serie = SERIES[m.s] || { label:'', };
       var teams = m.home
         ? '<strong>At. Marista</strong> vs ' + m.vs
         : m.vs + ' vs <strong>At. Marista</strong>';
-      var tag = m.home
-        ? '<span class="fx-tag local">Local</span>'
-        : '<span class="fx-tag visita">Visita</span>';
-      return '<div class="fx-match">' +
+      var venue = m.c + ' · ' + (m.home ? 'Local' : 'Visita');
+      return '<div class="fx-match s-' + m.s + '" data-s="' + m.s + '">' +
+        '<span class="fx-serie sb-' + m.s + '">' + serie.label + '</span>' +
         '<span class="fx-time">' + m.h + '</span>' +
-        '<span class="fx-teams">' + teams + tag + '</span>' +
-        '<span class="fx-meta">' + m.c + '</span>' +
+        '<span class="fx-teams">' + teams + '</span>' +
+        '<span class="fx-meta">' + venue + '</span>' +
       '</div>';
     }
 
@@ -316,7 +358,44 @@
       jump.innerHTML = jhtml;
       cont.innerHTML = chtml;
     }
+
+    function buildFilter() {
+      var bar = document.getElementById('fxFilter');
+      var html = '<span class="fx-filter-lbl">Serie:</span>';
+      html += '<button class="fx-fbtn active" data-f="all">Todas</button>';
+      Object.keys(SERIES).forEach(function (k) {
+        html += '<button class="fx-fbtn" data-f="' + k + '">' +
+          '<span class="dot" style="background:' + SERIES[k].color + '"></span>' + SERIES[k].label + '</button>';
+      });
+      bar.innerHTML = html;
+      bar.addEventListener('click', function (e) {
+        var b = e.target.closest('.fx-fbtn');
+        if (!b) return;
+        filtro = b.dataset.f;
+        bar.querySelectorAll('.fx-fbtn').forEach(function (x) { x.classList.toggle('active', x === b); });
+        applyFilter();
+      });
+    }
+
+    function applyFilter() {
+      document.querySelectorAll('.fx-card').forEach(function (card) {
+        var cardHas = false;
+        card.querySelectorAll('.fx-day').forEach(function (day) {
+          var dayHas = false;
+          day.querySelectorAll('.fx-match').forEach(function (m) {
+            var show = (filtro === 'all' || m.dataset.s === filtro);
+            m.classList.toggle('hidden', !show);
+            if (show) dayHas = true;
+          });
+          day.classList.toggle('hidden', !dayHas);
+          if (dayHas) cardHas = true;
+        });
+        card.classList.toggle('hidden', !cardHas);
+      });
+    }
+
     render();
+    buildFilter();
   </script>
 </body>
 </html>
