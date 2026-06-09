@@ -391,3 +391,27 @@ document.querySelectorAll('.news-big,.news-small,.result,.pcard,.gitem,.ig-post'
   document.addEventListener('DOMContentLoaded', go);
   window.addEventListener('load', go);
 })();
+
+// ---- CLIC EN ENLACES INTERNOS (#seccion) ----
+// El scroll suave nativo se pierde cuando las imagenes de arriba cargan y
+// empujan el contenido (el navegador aborta la animacion y te deja arriba).
+// Hacemos el scroll nosotros mismos y lo re-ajustamos un par de veces por si
+// el contenido se mueve. Cubre el menu de navegacion (escritorio y celular).
+document.addEventListener('click', function (e) {
+  var a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  var href = a.getAttribute('href');
+  if (!href || href === '#') return;            // ignora enlaces vacios (#)
+  var el = document.getElementById(decodeURIComponent(href.slice(1)));
+  if (!el) return;                              // ignora si no existe el destino
+
+  e.preventDefault();
+  if (history.pushState) history.pushState(null, '', href);
+  else location.hash = href;
+
+  var n = 0;
+  (function reposition() {
+    el.scrollIntoView({ block: 'start', behavior: 'auto' });
+    if (++n < 5) setTimeout(reposition, 130);   // re-ajusta ~650ms
+  })();
+});
