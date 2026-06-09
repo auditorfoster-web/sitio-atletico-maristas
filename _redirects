@@ -1,0 +1,6 @@
+# URLs cortas y a prueba de cache para compartir (ej. en Instagram).
+# Redirigen a la home con el parametro que hace bajar a la seccion.
+/tabla      /?ir=competencia      302
+/posiciones /?ir=competencia      302
+/proxima    /?ir=proxima-fecha    302
+/fecha      /?ir=proxima-fecha    302

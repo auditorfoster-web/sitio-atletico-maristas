@@ -400,6 +400,9 @@ document.querySelectorAll('.news-big,.news-small,.result,.pcard,.gitem,.ig-post'
 
   document.addEventListener('DOMContentLoaded', go);
   window.addEventListener('load', go);
+  // Safari/iPhone suele restaurar la pagina desde su cache (bfcache) sin
+  // disparar load; 'pageshow' si se dispara, asi re-aseguramos el scroll.
+  window.addEventListener('pageshow', function () { stop = false; go(); setTimeout(go, 300); });
 })();
 
 // ---- CLIC EN ENLACES INTERNOS (#seccion) ----
