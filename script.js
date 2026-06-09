@@ -355,3 +355,22 @@ document.querySelectorAll('.news-big,.news-small,.result,.pcard,.gitem,.ig-post'
   el.style.cssText += 'opacity:0;transform:translateY(18px);transition:opacity .4s ease,transform .4s ease';
   obs.observe(el);
 });
+
+// ---- HASH SCROLL FIX (celular / enlaces externos) ----
+// Las noticias y otras secciones se inyectan por JS y las imagenes cargan
+// despues, lo que desplaza la posicion del ancla al abrir un enlace #seccion
+// directamente (sobre todo en el navegador interno de Instagram).
+// Re-posicionamos al ancla una vez que la pagina termino de cargar.
+(function () {
+  function scrollToHash() {
+    if (!location.hash) return;
+    var el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (el) el.scrollIntoView({ block: 'start' });
+  }
+  if (location.hash) {
+    window.addEventListener('load', function () {
+      scrollToHash();              // tras cargar imagenes
+      setTimeout(scrollToHash, 350); // segundo intento por contenido tardio
+    });
+  }
+})();
