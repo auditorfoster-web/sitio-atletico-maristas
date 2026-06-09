@@ -364,10 +364,17 @@ document.querySelectorAll('.news-big,.news-small,.result,.pcard,.gitem,.ig-post'
 // evento 'load' puede tardar mucho o no llegar). Por eso reintentamos por
 // nuestra cuenta y desactivamos la restauracion de scroll del navegador.
 (function () {
-  if (!location.hash) return;
+  // Aceptamos el destino por #seccion o por ?ir=seccion / ?goto=seccion.
+  // El parametro de URL es mas robusto en el navegador interno de Instagram,
+  // que a veces cachea la pagina o le quita el # al enlace.
+  var params;
+  try { params = new URLSearchParams(location.search); } catch (e) { params = null; }
+  var raw = (location.hash && location.hash.slice(1)) ||
+            (params && (params.get('ir') || params.get('goto'))) || '';
+  if (!raw) return;
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-  var id = decodeURIComponent(location.hash.slice(1));
+  var id = decodeURIComponent(raw);
   var stop = false;
 
   // Si el usuario empieza a navegar, dejamos de forzar el scroll.
