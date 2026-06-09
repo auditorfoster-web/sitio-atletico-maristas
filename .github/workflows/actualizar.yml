@@ -2,8 +2,8 @@ name: Actualizar Standings y Fixtures
 
 on:
   schedule:
-    # 13:00 UTC = 09:00 CLT (UTC-4, invierno Chile)
-    - cron: '0 13 * * *'
+    # cada 2 horas UTC (equivale a cada 2 horas CLT UTC-4)
+    - cron: '0 */2 * * *'
   # Permite ejecutar manualmente desde la UI de GitHub
   workflow_dispatch:
 
