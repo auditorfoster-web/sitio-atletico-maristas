@@ -428,3 +428,104 @@ document.addEventListener('click', function (e) {
     if (++n < 5) setTimeout(reposition, 130);   // re-ajusta ~650ms
   })();
 });
+
+// ---- PROXIMO PARTIDO (card + cuenta regresiva) ----
+// Lee la tabla "Proxima Fecha" (#proxima-tbody, que mantiene actualizar.js),
+// arma el card con TODAS las categorias y corre el contador hasta el primer
+// partido. Si no hay datos validos, el card queda oculto y no se rompe nada.
+(function () {
+  var card = document.getElementById('next-match');
+  var tbody = document.getElementById('proxima-tbody');
+  if (!card || !tbody) return;
+
+  var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio',
+               'agosto','septiembre','octubre','noviembre','diciembre'];
+  var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+
+  // "DD/MM/YYYY HH:MM" -> Date (hora local). Devuelve null si no parsea.
+  function parseFecha(txt) {
+    var m = (txt || '').trim().match(/(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})/);
+    if (!m) return null;
+    return new Date(+m[3], +m[2] - 1, +m[1], +m[4], +m[5]);
+  }
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  // Recolecta los partidos de la tabla.
+  var partidos = [];
+  Array.prototype.forEach.call(tbody.querySelectorAll('tr'), function (tr) {
+    var c = tr.querySelectorAll('td');
+    if (c.length < 6) return;
+    var when = parseFecha(c[2].textContent);
+    if (!when) return;
+    var local = c[3].textContent.trim();
+    var visita = c[4].textContent.trim();
+    var esAM = /atl[eé]tico\s+marista/i;
+    partidos.push({
+      serie: c[0].textContent.trim(),
+      when: when,
+      local: local, visita: visita,
+      localAM: esAM.test(local), visitaAM: esAM.test(visita),
+      cancha: c[5].textContent.trim()
+    });
+  });
+  if (!partidos.length) return;
+
+  partidos.sort(function (a, b) { return a.when - b.when; });
+
+  // El "proximo partido" es el dia del primer encuentro que aun no termino.
+  // Tomamos el primero a futuro; si todos ya pasaron, usamos el ultimo dia.
+  var ahora = new Date();
+  var ref = partidos.filter(function (p) { return p.when.getTime() + 2 * 3600e3 > ahora; })[0]
+            || partidos[partidos.length - 1];
+  var refDia = ref.when.toDateString();
+  var delDia = partidos.filter(function (p) { return p.when.toDateString() === refDia; });
+  var primero = delDia[0].when;   // kickoff mas temprano de la jornada
+
+  // Encabezado: "sábado 13 de junio"
+  var d = primero;
+  document.getElementById('nm-date').textContent =
+    DIAS[d.getDay()] + ' ' + d.getDate() + ' de ' + MESES[d.getMonth()];
+
+  // Lista de categorias.
+  var cont = document.getElementById('nm-cats');
+  cont.innerHTML = '';
+  delDia.forEach(function (p) {
+    var local = p.localAM ? '<span class="nm-am">' + p.local + '</span>' : p.local;
+    var visita = p.visitaAM ? '<span class="nm-am">' + p.visita + '</span>' : p.visita;
+    var hora = pad(p.when.getHours()) + ':' + pad(p.when.getMinutes());
+    var row = document.createElement('div');
+    row.className = 'nm-cat';
+    row.innerHTML =
+      '<span class="nm-cat-serie">' + p.serie + '</span>' +
+      '<span class="nm-cat-vs">' + local + '<span class="x">VS</span>' + visita + '</span>' +
+      '<span class="nm-cat-when">' + hora + ' hrs<small>' + p.cancha + '</small></span>';
+    cont.appendChild(row);
+  });
+
+  card.hidden = false;
+
+  // Cuenta regresiva al primer partido de la jornada.
+  var elD = document.getElementById('nm-d'), elH = document.getElementById('nm-h'),
+      elM = document.getElementById('nm-m'), elS = document.getElementById('nm-s');
+  var target = primero.getTime();
+  var ultimoFin = delDia[delDia.length - 1].when.getTime() + 2 * 3600e3;
+
+  function tick() {
+    var diff = target - Date.now();
+    if (diff <= 0) {
+      // Ya empezo: marcamos "en juego" mientras dure la jornada, luego 00.
+      card.classList.add('is-live');
+      var lbl = card.querySelector('.nm-count-label');
+      if (lbl) lbl.textContent = Date.now() < ultimoFin ? '¡En juego!' : 'Jornada finalizada';
+      elD.textContent = elH.textContent = elM.textContent = elS.textContent = '00';
+      return;
+    }
+    var s = Math.floor(diff / 1000);
+    elD.textContent = pad(Math.floor(s / 86400));
+    elH.textContent = pad(Math.floor(s / 3600) % 24);
+    elM.textContent = pad(Math.floor(s / 60) % 60);
+    elS.textContent = pad(s % 60);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
