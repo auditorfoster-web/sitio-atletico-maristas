@@ -627,11 +627,12 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
   display:block; font-size:12px; font-weight:600; color:var(--muted);
   text-transform:capitalize; margin-top:2px;
 }
-/* Tarjeta por serie, cada una con su contador */
+/* Tarjeta por serie, apiladas en vertical al lado izquierdo */
 .nm-cats {
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+  display:flex;
+  flex-direction:column;
   gap:14px;
+  max-width:480px;
 }
 .nm-cat {
   display:flex; flex-direction:column;
@@ -678,7 +679,7 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
 .nm-cat.is-done .nm-cat-count { background:#555; }
 @media(max-width:560px) {
   .nm-title { font-size:21px; }
-  .nm-cats { grid-template-columns:1fr; }
+  .nm-cats { max-width:100%; }
   .nm-clock .u { min-width:38px; }
   .nm-clock .u b { font-size:24px; }
   .nm-sep { font-size:20px; }
