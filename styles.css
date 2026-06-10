@@ -600,87 +600,19 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
   .ig-post-img { image-rendering:crisp-edges; }
 }
 
-/* ===== PRÓXIMO PARTIDO ===== */
-.next-match {
-  border:1px solid var(--border);
-  border-radius:10px;
-  overflow:hidden;
-  margin-bottom:28px;
-  background:var(--white);
-  box-shadow:0 6px 22px rgba(0,0,0,.07);
+/* ===== CONTADOR POR FILA (PRÓXIMA FECHA) ===== */
+.proxima-tabla th.pf-cd-h { text-align:center; white-space:nowrap; }
+.proxima-tabla td.pf-cd { text-align:center; white-space:nowrap; }
+.pf-cd .cd {
+  display:inline-flex; align-items:baseline; gap:2px;
+  font-variant-numeric:tabular-nums; line-height:1;
 }
-.nm-top { padding:22px 24px 8px; }
-.nm-head {
-  display:flex; align-items:center; justify-content:space-between;
-  gap:18px; flex-wrap:wrap;
-  border-bottom:1px solid var(--border);
-  padding-bottom:16px; margin-bottom:18px;
+.pf-cd .cd b { font-size:16px; font-weight:800; color:var(--red); }
+.pf-cd .cd small { font-size:10px; font-weight:600; color:var(--muted); margin-right:5px; }
+.pf-cd .cd small:last-child { margin-right:0; }
+.pf-badge {
+  display:inline-block; font-size:11px; font-weight:800; letter-spacing:.5px;
+  text-transform:uppercase; padding:3px 10px; border-radius:20px;
 }
-.nm-title {
-  font-size:26px; font-weight:800; line-height:1; letter-spacing:1px;
-  color:var(--red); text-transform:uppercase;
-}
-.nm-club { display:flex; align-items:center; gap:12px; }
-.nm-shield { height:54px; width:auto; object-fit:contain; flex-shrink:0; }
-.nm-club strong { display:block; font-size:16px; font-weight:800; color:var(--text); }
-.nm-club .nm-date {
-  display:block; font-size:12px; font-weight:600; color:var(--muted);
-  text-transform:capitalize; margin-top:2px;
-}
-/* Tarjeta por serie, apiladas en vertical al lado izquierdo */
-.nm-cats {
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  max-width:480px;
-}
-.nm-cat {
-  display:flex; flex-direction:column;
-  border:1px solid var(--border);
-  border-top:4px solid var(--red);
-  border-radius:var(--r);
-  background:var(--white);
-  overflow:hidden;
-}
-.nm-cat-top {
-  display:flex; align-items:center; justify-content:space-between; gap:10px;
-  padding:12px 14px 0;
-}
-.nm-cat-serie {
-  font-size:11px; font-weight:800; letter-spacing:.5px; text-transform:uppercase;
-  color:var(--white); background:var(--red);
-  padding:4px 9px; border-radius:4px;
-}
-.nm-cat-when { font-size:12px; font-weight:700; color:var(--muted); white-space:nowrap; }
-.nm-cat-vs {
-  font-size:14px; font-weight:600; color:var(--text); line-height:1.35;
-  padding:10px 14px 12px;
-}
-.nm-cat-vs .nm-am { color:var(--red); font-weight:800; }
-.nm-cat-vs .x { color:var(--muted); font-weight:800; margin:0 7px; font-size:12px; }
-.nm-cat-count {
-  margin-top:auto;
-  background:var(--dark); color:var(--white);
-  padding:10px 14px 12px; text-align:center;
-}
-.nm-cat-label {
-  display:block; font-size:11px; font-weight:700; letter-spacing:1px;
-  text-transform:uppercase; color:#cfcfcf; margin-bottom:7px;
-}
-.nm-clock { display:flex; align-items:flex-start; justify-content:center; gap:5px; }
-.nm-clock .u { display:flex; flex-direction:column; align-items:center; min-width:42px; }
-.nm-clock .u b { font-size:28px; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
-.nm-clock .u small { font-size:9px; font-weight:700; letter-spacing:1px; color:#b9b9b9; margin-top:5px; }
-.nm-sep { font-size:24px; font-weight:300; line-height:1; color:#6a6a6a; padding-top:1px; }
-.nm-cat.is-live { border-top-color:#16a34a; }
-.nm-cat.is-live .nm-cat-count { background:#15803d; }
-.nm-cat.is-live .nm-cat-label { color:#dcfce7; }
-.nm-cat.is-done { opacity:.65; }
-.nm-cat.is-done .nm-cat-count { background:#555; }
-@media(max-width:560px) {
-  .nm-title { font-size:21px; }
-  .nm-cats { max-width:100%; }
-  .nm-clock .u { min-width:38px; }
-  .nm-clock .u b { font-size:24px; }
-  .nm-sep { font-size:20px; }
-}
+.pf-badge.live { background:#16a34a; color:#fff; }
+.pf-badge.done { background:#e6e6e6; color:#888; }

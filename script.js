@@ -429,18 +429,15 @@ document.addEventListener('click', function (e) {
   })();
 });
 
-// ---- PROXIMO PARTIDO (card + cuenta regresiva) ----
-// Lee la tabla "Proxima Fecha" (#proxima-tbody, que mantiene actualizar.js),
-// arma el card con TODAS las categorias y corre el contador hasta el primer
-// partido. Si no hay datos validos, el card queda oculto y no se rompe nada.
+// ---- CONTADOR POR FILA EN PROXIMA FECHA ----
+// Lee la tabla "Proxima Fecha" (#proxima-tbody, que mantiene actualizar.js) y
+// agrega a cada fila una columna "Comienza en" con su propia cuenta regresiva
+// (D/H/M/S) hasta el partido de esa serie. Si JS no corre, la tabla queda igual.
 (function () {
-  var card = document.getElementById('next-match');
   var tbody = document.getElementById('proxima-tbody');
-  if (!card || !tbody) return;
-
-  var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio',
-               'agosto','septiembre','octubre','noviembre','diciembre'];
-  var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  if (!tbody) return;
+  var tabla = tbody.closest('table');
+  if (!tabla) return;
 
   // "DD/MM/YYYY HH:MM" -> Date (hora local). Devuelve null si no parsea.
   function parseFecha(txt) {
@@ -450,97 +447,47 @@ document.addEventListener('click', function (e) {
   }
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
 
-  // Recolecta los partidos de la tabla.
-  var partidos = [];
-  Array.prototype.forEach.call(tbody.querySelectorAll('tr'), function (tr) {
-    var c = tr.querySelectorAll('td');
-    if (c.length < 6) return;
-    var when = parseFecha(c[2].textContent);
-    if (!when) return;
-    var local = c[3].textContent.trim();
-    var visita = c[4].textContent.trim();
-    var esAM = /atl[eé]tico\s+marista/i;
-    partidos.push({
-      serie: c[0].textContent.trim(),
-      when: when,
-      local: local, visita: visita,
-      localAM: esAM.test(local), visitaAM: esAM.test(visita),
-      cancha: c[5].textContent.trim()
-    });
-  });
-  if (!partidos.length) return;
-
-  partidos.sort(function (a, b) { return a.when - b.when; });
-
-  // El "proximo partido" es el dia del primer encuentro que aun no termino.
-  // Tomamos el primero a futuro; si todos ya pasaron, usamos el ultimo dia.
-  var ahora = new Date();
-  var ref = partidos.filter(function (p) { return p.when.getTime() + 2 * 3600e3 > ahora; })[0]
-            || partidos[partidos.length - 1];
-  var refDia = ref.when.toDateString();
-  var delDia = partidos.filter(function (p) { return p.when.toDateString() === refDia; });
-  var primero = delDia[0].when;   // kickoff mas temprano de la jornada
-
-  // Encabezado: "sábado 13 de junio"
-  var d = primero;
-  document.getElementById('nm-date').textContent =
-    DIAS[d.getDay()] + ' ' + d.getDate() + ' de ' + MESES[d.getMonth()];
-
-  // Una tarjeta por serie, cada una con su PROPIA cuenta regresiva.
-  var cont = document.getElementById('nm-cats');
-  cont.innerHTML = '';
-  var relojes = [];   // { target, fin, el:{d,h,m,s}, label, row }
-
-  function unidad(val, txt) {
-    return '<div class="u"><b>' + val + '</b><small>' + txt + '</small></div>';
+  // Encabezado de la columna nueva (una sola vez).
+  var headRow = tabla.tHead && tabla.tHead.rows[0];
+  if (headRow && !headRow.querySelector('.pf-cd-h')) {
+    var th = document.createElement('th');
+    th.className = 'pf-cd-h';
+    th.textContent = 'Comienza en';
+    headRow.appendChild(th);
   }
 
-  delDia.forEach(function (p) {
-    var local = p.localAM ? '<span class="nm-am">' + p.local + '</span>' : p.local;
-    var visita = p.visitaAM ? '<span class="nm-am">' + p.visita + '</span>' : p.visita;
-    var hora = pad(p.when.getHours()) + ':' + pad(p.when.getMinutes());
-
-    var row = document.createElement('div');
-    row.className = 'nm-cat';
-    row.innerHTML =
-      '<div class="nm-cat-top">' +
-        '<span class="nm-cat-serie">' + p.serie + '</span>' +
-        '<span class="nm-cat-when">' + hora + ' hrs · ' + p.cancha + '</span>' +
-      '</div>' +
-      '<div class="nm-cat-vs">' + local + '<span class="x">VS</span>' + visita + '</div>' +
-      '<div class="nm-cat-count">' +
-        '<span class="nm-cat-label">Comienza en</span>' +
-        '<div class="nm-clock">' +
-          unidad('00', 'D') + '<span class="nm-sep">:</span>' +
-          unidad('00', 'H') + '<span class="nm-sep">:</span>' +
-          unidad('00', 'M') + '<span class="nm-sep">:</span>' +
-          unidad('00', 'S') +
-        '</div>' +
-      '</div>';
-    cont.appendChild(row);
-
-    var nums = row.querySelectorAll('.nm-clock .u b');
+  // Una celda-contador por fila. La columna "Programación" es la 3a (índice 2).
+  var relojes = [];
+  Array.prototype.forEach.call(tbody.rows, function (tr) {
+    if (tr.cells.length < 3) return;
+    var when = parseFecha(tr.cells[2].textContent);
+    var td = document.createElement('td');
+    td.className = 'pf-cd';
+    tr.appendChild(td);
+    if (!when) { td.innerHTML = '<span class="pf-badge done">—</span>'; return; }
+    td.innerHTML = '<span class="cd">' +
+      '<b>00</b><small>d</small><b>00</b><small>h</small>' +
+      '<b>00</b><small>m</small><b>00</b><small>s</small></span>';
+    var b = td.querySelectorAll('.cd b');
     relojes.push({
-      target: p.when.getTime(),
-      fin: p.when.getTime() + 2 * 3600e3,
-      d: nums[0], h: nums[1], m: nums[2], s: nums[3],
-      label: row.querySelector('.nm-cat-label'),
-      row: row
+      target: when.getTime(), fin: when.getTime() + 2 * 3600e3, td: td,
+      d: b[0], h: b[1], m: b[2], s: b[3], state: ''
     });
   });
-
-  card.hidden = false;
+  if (!relojes.length) return;
 
   function tick() {
     var now = Date.now();
     relojes.forEach(function (r) {
       var diff = r.target - now;
       if (diff <= 0) {
-        var enJuego = now < r.fin;
-        r.row.classList.toggle('is-live', enJuego);
-        r.row.classList.toggle('is-done', !enJuego);
-        r.label.textContent = enJuego ? '¡En juego!' : 'Finalizado';
-        r.d.textContent = r.h.textContent = r.m.textContent = r.s.textContent = '00';
+        // Ya empezó: badge "En juego" mientras dura (~2h), luego "Finalizado".
+        var want = now < r.fin ? 'live' : 'done';
+        if (r.state !== want) {
+          r.td.innerHTML = '<span class="pf-badge ' + want + '">' +
+            (want === 'live' ? 'En juego' : 'Finalizado') + '</span>';
+          r.state = want;
+        }
         return;
       }
       var sec = Math.floor(diff / 1000);
