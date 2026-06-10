@@ -486,45 +486,69 @@ document.addEventListener('click', function (e) {
   document.getElementById('nm-date').textContent =
     DIAS[d.getDay()] + ' ' + d.getDate() + ' de ' + MESES[d.getMonth()];
 
-  // Lista de categorias.
+  // Una tarjeta por serie, cada una con su PROPIA cuenta regresiva.
   var cont = document.getElementById('nm-cats');
   cont.innerHTML = '';
+  var relojes = [];   // { target, fin, el:{d,h,m,s}, label, row }
+
+  function unidad(val, txt) {
+    return '<div class="u"><b>' + val + '</b><small>' + txt + '</small></div>';
+  }
+
   delDia.forEach(function (p) {
     var local = p.localAM ? '<span class="nm-am">' + p.local + '</span>' : p.local;
     var visita = p.visitaAM ? '<span class="nm-am">' + p.visita + '</span>' : p.visita;
     var hora = pad(p.when.getHours()) + ':' + pad(p.when.getMinutes());
+
     var row = document.createElement('div');
     row.className = 'nm-cat';
     row.innerHTML =
-      '<span class="nm-cat-serie">' + p.serie + '</span>' +
-      '<span class="nm-cat-vs">' + local + '<span class="x">VS</span>' + visita + '</span>' +
-      '<span class="nm-cat-when">' + hora + ' hrs<small>' + p.cancha + '</small></span>';
+      '<div class="nm-cat-top">' +
+        '<span class="nm-cat-serie">' + p.serie + '</span>' +
+        '<span class="nm-cat-when">' + hora + ' hrs · ' + p.cancha + '</span>' +
+      '</div>' +
+      '<div class="nm-cat-vs">' + local + '<span class="x">VS</span>' + visita + '</div>' +
+      '<div class="nm-cat-count">' +
+        '<span class="nm-cat-label">Comienza en</span>' +
+        '<div class="nm-clock">' +
+          unidad('00', 'D') + '<span class="nm-sep">:</span>' +
+          unidad('00', 'H') + '<span class="nm-sep">:</span>' +
+          unidad('00', 'M') + '<span class="nm-sep">:</span>' +
+          unidad('00', 'S') +
+        '</div>' +
+      '</div>';
     cont.appendChild(row);
+
+    var nums = row.querySelectorAll('.nm-clock .u b');
+    relojes.push({
+      target: p.when.getTime(),
+      fin: p.when.getTime() + 2 * 3600e3,
+      d: nums[0], h: nums[1], m: nums[2], s: nums[3],
+      label: row.querySelector('.nm-cat-label'),
+      row: row
+    });
   });
 
   card.hidden = false;
 
-  // Cuenta regresiva al primer partido de la jornada.
-  var elD = document.getElementById('nm-d'), elH = document.getElementById('nm-h'),
-      elM = document.getElementById('nm-m'), elS = document.getElementById('nm-s');
-  var target = primero.getTime();
-  var ultimoFin = delDia[delDia.length - 1].when.getTime() + 2 * 3600e3;
-
   function tick() {
-    var diff = target - Date.now();
-    if (diff <= 0) {
-      // Ya empezo: marcamos "en juego" mientras dure la jornada, luego 00.
-      card.classList.add('is-live');
-      var lbl = card.querySelector('.nm-count-label');
-      if (lbl) lbl.textContent = Date.now() < ultimoFin ? '¡En juego!' : 'Jornada finalizada';
-      elD.textContent = elH.textContent = elM.textContent = elS.textContent = '00';
-      return;
-    }
-    var s = Math.floor(diff / 1000);
-    elD.textContent = pad(Math.floor(s / 86400));
-    elH.textContent = pad(Math.floor(s / 3600) % 24);
-    elM.textContent = pad(Math.floor(s / 60) % 60);
-    elS.textContent = pad(s % 60);
+    var now = Date.now();
+    relojes.forEach(function (r) {
+      var diff = r.target - now;
+      if (diff <= 0) {
+        var enJuego = now < r.fin;
+        r.row.classList.toggle('is-live', enJuego);
+        r.row.classList.toggle('is-done', !enJuego);
+        r.label.textContent = enJuego ? '¡En juego!' : 'Finalizado';
+        r.d.textContent = r.h.textContent = r.m.textContent = r.s.textContent = '00';
+        return;
+      }
+      var sec = Math.floor(diff / 1000);
+      r.d.textContent = pad(Math.floor(sec / 86400));
+      r.h.textContent = pad(Math.floor(sec / 3600) % 24);
+      r.m.textContent = pad(Math.floor(sec / 60) % 60);
+      r.s.textContent = pad(sec % 60);
+    });
   }
   tick();
   setInterval(tick, 1000);
