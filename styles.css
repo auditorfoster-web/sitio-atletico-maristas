@@ -615,22 +615,45 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
   background:var(--white);
   box-shadow:0 2px 10px rgba(0,0,0,.05);
 }
+.fx-card:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(0,0,0,.12); }
 .fx-top {
   display:flex; align-items:center; justify-content:space-between; gap:8px;
-  padding:12px 14px 0;
+  padding:13px 15px 0;
 }
 .fx-serie {
-  font-size:11px; font-weight:800; letter-spacing:.5px; text-transform:uppercase;
+  font-size:12px; font-weight:800; letter-spacing:.5px; text-transform:uppercase;
   color:var(--white); background:var(--red);
-  padding:4px 9px; border-radius:4px; white-space:nowrap;
+  padding:5px 11px; border-radius:5px; white-space:nowrap;
 }
-.fx-when { font-size:11px; font-weight:700; color:var(--muted); text-align:right; }
-.fx-vs {
-  font-size:13.5px; font-weight:600; color:var(--text); line-height:1.35;
-  padding:10px 14px 12px;
+.fx-when {
+  font-size:14px; font-weight:800; color:var(--text);
+  display:inline-flex; align-items:center; gap:5px; white-space:nowrap;
 }
-.fx-vs .am { color:var(--red); font-weight:800; }
-.fx-vs .x { color:var(--muted); font-weight:800; margin:0 7px; font-size:11px; }
+.fx-when i { color:var(--red); font-size:13px; }
+.fx-match {
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:start; gap:6px;
+  padding:18px 12px 16px;
+}
+.fx-team { display:flex; flex-direction:column; align-items:center; gap:9px; text-align:center; }
+.fx-crest {
+  width:58px; height:58px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
+  background:var(--white); border:1px solid var(--border);
+  box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+.fx-crest img { width:100%; height:100%; object-fit:contain; padding:5px; }
+.fx-crest.initials {
+  background:linear-gradient(135deg, #3a3a3a, #181818);
+  color:#fff; font-weight:800; font-size:19px; letter-spacing:.5px; border:none;
+}
+.fx-name { font-size:13px; font-weight:700; color:var(--text); line-height:1.2; max-width:12ch; }
+.fx-name.am { color:var(--red); font-weight:800; }
+.fx-vsbox { display:flex; flex-direction:column; align-items:center; gap:6px; padding-top:14px; }
+.fx-vs { font-family:'Bebas Neue', cursive; font-size:26px; line-height:1; color:var(--muted); }
+.fx-datetime {
+  font-size:15px; font-weight:800; color:var(--text);
+  white-space:nowrap; letter-spacing:.3px;
+}
 .fx-count {
   margin-top:auto;
   background:var(--gray); border-top:1px solid var(--border);

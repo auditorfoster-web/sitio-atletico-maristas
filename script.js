@@ -448,7 +448,29 @@ document.addEventListener('click', function (e) {
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
   function box(lbl) { return '<span class="fx-u"><b>00</b><small>' + lbl + '</small></span>'; }
 
+  // Sufijos de serie: se quitan del nombre del equipo (ya van en el badge).
+  var SERIE_TOKENS = ['junior','senior','super','dorada','dorado','dorados',
+                      'diamante','diamantes','platino','platinos'];
+  function nombreCorto(name) {
+    var w = name.trim().split(/\s+/);
+    while (w.length > 1 && SERIE_TOKENS.indexOf(w[w.length - 1].toLowerCase()) >= 0) w.pop();
+    return w.join(' ');
+  }
+  function iniciales(name) {
+    return nombreCorto(name).split(/\s+/).slice(0, 2)
+      .map(function (x) { return x.charAt(0); }).join('').toUpperCase();
+  }
   var esAM = /atl[eé]tico\s+marista/i;
+  function crest(name) {
+    return esAM.test(name)
+      ? '<span class="fx-crest"><img src="escudo.png" alt="Club Atlético Marista" /></span>'
+      : '<span class="fx-crest initials">' + iniciales(name) + '</span>';
+  }
+  function team(name) {
+    return '<div class="fx-team">' + crest(name) +
+      '<span class="fx-name' + (esAM.test(name) ? ' am' : '') + '">' + nombreCorto(name) + '</span></div>';
+  }
+
   var relojes = [];
   grid.innerHTML = '';
 
@@ -458,11 +480,7 @@ document.addEventListener('click', function (e) {
     var when = parseFecha(c[2].textContent);
     if (!when) return;
     var serie = c[0].textContent.trim();
-    var local = c[3].textContent.trim();
-    var visita = c[4].textContent.trim();
     var cancha = c[5].textContent.trim();
-    var localH = esAM.test(local) ? '<span class="am">' + local + '</span>' : local;
-    var visitaH = esAM.test(visita) ? '<span class="am">' + visita + '</span>' : visita;
     var fecha = pad(when.getDate()) + '/' + pad(when.getMonth() + 1);
     var hora = pad(when.getHours()) + ':' + pad(when.getMinutes());
 
@@ -471,9 +489,16 @@ document.addEventListener('click', function (e) {
     card.innerHTML =
       '<div class="fx-top">' +
         '<span class="fx-serie">' + serie + '</span>' +
-        '<span class="fx-when">' + fecha + ' · ' + hora + ' · ' + cancha + '</span>' +
+        '<span class="fx-when"><i class="fas fa-location-dot"></i> ' + cancha + '</span>' +
       '</div>' +
-      '<div class="fx-vs">' + localH + '<span class="x">VS</span>' + visitaH + '</div>' +
+      '<div class="fx-match">' +
+        team(c[3].textContent.trim()) +
+        '<div class="fx-vsbox">' +
+          '<span class="fx-vs">VS</span>' +
+          '<span class="fx-datetime">' + fecha + ' · ' + hora + '</span>' +
+        '</div>' +
+        team(c[4].textContent.trim()) +
+      '</div>' +
       '<div class="fx-count">' +
         '<span class="fx-count-label">Comienza en</span>' +
         '<div class="fx-clock">' +
