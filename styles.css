@@ -616,3 +616,83 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
 }
 .pf-badge.live { background:#16a34a; color:#fff; }
 .pf-badge.done { background:#e6e6e6; color:#888; }
+
+/* ===== INDUMENTARIA OFICIAL (BTX) ===== */
+.indumentaria-banner {
+  display:flex; flex-direction:column; align-items:center; gap:18px;
+  text-align:center;
+}
+.ind-logo {
+  width:100%; max-width:340px; height:auto;
+  border-radius:14px;
+  box-shadow:0 12px 32px rgba(0,0,0,.22);
+  transition:transform var(--t), box-shadow var(--t);
+}
+.indumentaria-banner:hover .ind-logo {
+  transform:translateY(-3px); box-shadow:0 18px 44px rgba(0,0,0,.3);
+}
+.ind-cta {
+  display:inline-flex; align-items:center; gap:7px;
+  font-size:13px; font-weight:700; letter-spacing:.5px; text-transform:uppercase;
+  color:var(--red); transition:gap var(--t);
+}
+.indumentaria-banner:hover .ind-cta { gap:12px; }
+@media(max-width:560px) {
+  .ind-logo { max-width:280px; }
+}
+
+/* ===== NUEVA PIEL ===== */
+.piel-showcase {
+  display:grid;
+  grid-template-columns:minmax(0, 420px) 1fr;
+  gap:40px; align-items:center;
+}
+.piel-img-wrap {
+  position:relative;
+  border-radius:14px; overflow:hidden;
+  background:#efefef;
+  box-shadow:0 14px 38px rgba(0,0,0,.18);
+  min-height:280px;
+  display:flex; align-items:center; justify-content:center;
+}
+.piel-img { width:100%; height:auto; max-height:560px; object-fit:contain; display:block; }
+.piel-img-wrap.no-img {
+  background:linear-gradient(135deg, var(--red) 0%, var(--red-d) 100%);
+}
+.piel-img-wrap.no-img::after {
+  content:"\f553";   /* fa-shirt */
+  font-family:"Font Awesome 6 Free"; font-weight:900;
+  font-size:120px; color:rgba(255,255,255,.55);
+}
+.piel-badge {
+  position:absolute; top:14px; left:14px; z-index:2;
+  background:var(--white); color:var(--red);
+  font-size:14px; font-weight:800; letter-spacing:1px;
+  padding:5px 12px; border-radius:6px;
+  box-shadow:0 3px 10px rgba(0,0,0,.18);
+}
+.piel-kicker {
+  display:inline-flex; align-items:center; gap:7px;
+  font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+  color:var(--red); margin-bottom:10px;
+}
+.piel-info h3 { font-size:30px; font-weight:800; line-height:1.1; margin-bottom:14px; color:var(--text); }
+.piel-info > p { font-size:15px; color:var(--muted); line-height:1.6; margin-bottom:20px; max-width:54ch; }
+.piel-feats { list-style:none; display:grid; gap:11px; margin:0 0 24px; padding:0; }
+.piel-feats li {
+  display:flex; align-items:center; gap:12px;
+  font-size:14px; font-weight:600; color:var(--text);
+}
+.piel-feats i {
+  color:var(--red); width:30px; height:30px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(200,16,46,.08); border-radius:50%;
+}
+.piel-info .btn-red { display:inline-flex; align-items:center; gap:8px; }
+@media(max-width:760px) {
+  .piel-showcase { grid-template-columns:1fr; gap:26px; }
+  .piel-img-wrap { max-width:360px; margin:0 auto; min-height:260px; }
+  .piel-info { text-align:center; }
+  .piel-info > p { margin-left:auto; margin-right:auto; }
+  .piel-feats li { justify-content:center; }
+}
