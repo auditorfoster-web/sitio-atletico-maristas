@@ -6,7 +6,7 @@
   <title>Club Atletico Maristas — Liga La Reina</title>
   <link rel="icon" type="image/png" href="escudo.png" />
   <link rel="apple-touch-icon" href="escudo.png" />
-  <link rel="stylesheet" href="styles.css?v=20260611e" />
+  <link rel="stylesheet" href="styles.css?v=20260611f" />
   <!-- Preconnect para reducir latencia de fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -63,7 +63,18 @@
   <!-- HERO -->
   <section class="hero" id="inicio">
     <div class="hero-slider" id="heroSlider">
-      <div class="hs-slide active" style="background-image:url('fotos/dorada/DSC_1090.jpg')"></div>
+      <div class="hs-slide hs-vid active">
+        <video muted loop playsinline preload="auto" poster="videos/dron1-poster.jpg">
+          <source src="videos/dron1.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="hs-slide hs-vid">
+        <video muted loop playsinline preload="none"><source src="videos/dron2.mp4" type="video/mp4" /></video>
+      </div>
+      <div class="hs-slide hs-vid">
+        <video muted loop playsinline preload="none"><source src="videos/dron3.mp4" type="video/mp4" /></video>
+      </div>
+      <div class="hs-slide" data-bg="fotos/dorada/DSC_1090.jpg"></div>
       <div class="hs-slide" data-bg="fotos/junior/DSC_9721.jpg"></div>
       <div class="hs-slide" data-bg="fotos/super senior/DSC_1381.jpg"></div>
       <div class="hs-slide" data-bg="fotos/dorada/DSC_0499.jpg"></div>
@@ -630,7 +641,7 @@
         </div>
         <div class="piel-info">
           <span class="piel-kicker"><i class="fas fa-shirt"></i> Camiseta Oficial</span>
-          <h3>El nuevo manto rojo</h3>
+          <h3>La nueva armadura roja</h3>
           <p>Presentamos la camiseta 2026 del Club Atlético Marista, diseñada por nuestra
              marca de indumentaria oficial <strong>BTX</strong>: rojo encendido, detalles en
              dorado sobre los hombros y mangas, y nuestro escudo en el pecho. La piel con la
@@ -867,7 +878,7 @@
   <script src="equipo-semana.js"></script>
   <script src="noticias.js"></script>
   <script src="instagram-posts.js"></script>
-  <script src="script.js?v=20260611d" defer></script>
+  <script src="script.js?v=20260611e" defer></script>
 
   <script>
     (function() {

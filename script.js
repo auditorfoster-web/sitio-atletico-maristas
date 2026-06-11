@@ -226,6 +226,19 @@ document.getElementById('contactForm')?.addEventListener('submit', async e => {
       slide.style.backgroundImage = "url('" + slide.dataset.bg + "')";
   }
 
+  // Reproduce el video de la slide activa y pausa el resto (slides de drone).
+  function playActive() {
+    slides.forEach((s) => {
+      const v = s.querySelector('video');
+      if (!v) return;
+      if (s.classList.contains('active')) {
+        try { v.currentTime = 0; const p = v.play(); if (p) p.catch(() => {}); } catch (e) {}
+      } else {
+        v.pause();
+      }
+    });
+  }
+
   function goTo(n) {
     slides[current].classList.remove('active');
     dotsWrap.children[current].classList.remove('active');
@@ -234,12 +247,14 @@ document.getElementById('contactForm')?.addEventListener('submit', async e => {
     loadSlide(slides[(current + 1) % slides.length]); // pre-carga siguiente
     slides[current].classList.add('active');
     dotsWrap.children[current].classList.add('active');
+    playActive();
     clearInterval(timer);
     timer = setInterval(() => goTo(current + 1), 5000);
   }
 
-  // Pre-carga slide 1 antes de que aparezca
+  // Pre-carga slide 1 antes de que aparezca y reproduce el video inicial
   loadSlide(slides[1]);
+  playActive();
 
   document.querySelector('.hs-prev')?.addEventListener('click', () => goTo(current - 1));
   document.querySelector('.hs-next')?.addEventListener('click', () => goTo(current + 1));
