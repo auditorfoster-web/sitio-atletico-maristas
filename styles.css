@@ -287,24 +287,16 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
 .pcard { background:var(--white); border-radius:var(--r); overflow:hidden; box-shadow:0 1px 8px rgba(0,0,0,.08); transition:transform var(--t), box-shadow var(--t); }
 .pcard:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,0,0,.13); }
 .pcard.hidden { display:none; }
-.pcard-avatar { position:relative; padding:20px 0 16px; display:flex; align-items:center; justify-content:center; font-size:36px; }
-.pcard-avatar.portero        { background:rgba(255,215,0,.15); color:var(--yellow); }
-.pcard-avatar.defensa        { background:rgba(200,16,46,.1);  color:var(--red); }
-.pcard-avatar.medio          { background:rgba(34,197,94,.1);  color:#16a34a; }
-.pcard-avatar.delantero      { background:rgba(37,99,235,.1);  color:#2563eb; }
-.pnum { position:absolute; top:6px; right:10px; font-family:'Bebas Neue',cursive; font-size:26px; color:rgba(0,0,0,.1); line-height:1; }
+/* Avatar uniforme con los colores del escudo (rojo + dorado) para todos */
+.pcard-avatar {
+  position:relative; padding:20px 0 16px;
+  display:flex; align-items:center; justify-content:center; font-size:36px;
+  background:linear-gradient(135deg, rgba(200,16,46,.12), rgba(255,215,0,.16));
+  color:var(--red);
+}
+.pnum { position:absolute; top:6px; right:10px; font-family:'Bebas Neue',cursive; font-size:26px; color:rgba(200,16,46,.22); line-height:1; }
 .pcard-info { padding:10px 12px 14px; }
-.pbadge { font-size:9px; font-weight:800; letter-spacing:1.5px; padding:2px 7px; border-radius:3px; display:inline-block; margin-bottom:5px; }
-.pbadge.portero   { background:rgba(255,215,0,.2);  color:#9a7d00; }
-.pbadge.defensa   { background:rgba(200,16,46,.1);   color:var(--red); }
-.pbadge.medio     { background:rgba(34,197,94,.1);   color:#16a34a; }
-.pbadge.delantero { background:rgba(37,99,235,.1);   color:#2563eb; }
-.pcard-avatar.supersenior { background:rgba(124,58,237,.1); color:#7c3aed; }
-.pbadge.supersenior { background:rgba(124,58,237,.15); color:#7c3aed; }
-.pcard-avatar.dorada { background:rgba(217,119,6,.12); color:#b45309; }
-.pbadge.dorada { background:rgba(217,119,6,.18); color:#92400e; }
-.pcard-avatar.diamante { background:rgba(14,165,233,.12); color:#0284c7; }
-.pbadge.diamante { background:rgba(14,165,233,.18); color:#0369a1; }
+.pbadge { font-size:9px; font-weight:800; letter-spacing:1.5px; padding:2px 7px; border-radius:3px; display:inline-block; margin-bottom:5px; background:rgba(200,16,46,.1); color:var(--red); }
 .pcard-info h3 { font-size:14px; font-weight:700; color:var(--text); margin-bottom:2px; }
 .pcard-info span { font-size:11px; color:var(--muted); }
 
@@ -651,8 +643,12 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
 }
 .fx-name { font-size:13px; font-weight:700; color:var(--text); line-height:1.2; max-width:12ch; }
 .fx-name.am { color:var(--red); font-weight:800; }
-.fx-vsbox { display:flex; flex-direction:column; align-items:center; gap:6px; padding-top:14px; }
-.fx-vs { font-family:'Bebas Neue', cursive; font-size:26px; line-height:1; color:var(--muted); }
+.fx-vsbox { display:flex; flex-direction:column; align-items:center; gap:4px; padding-top:14px; }
+.fx-vs { font-family:'Bebas Neue', cursive; font-size:26px; line-height:1; color:var(--muted); margin-bottom:2px; }
+.fx-day {
+  font-size:12px; font-weight:800; color:var(--red);
+  text-transform:uppercase; letter-spacing:.5px;
+}
 .fx-datetime {
   font-size:15px; font-weight:800; color:var(--text);
   white-space:nowrap; letter-spacing:.3px;

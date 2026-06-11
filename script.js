@@ -462,6 +462,7 @@ document.addEventListener('click', function (e) {
   }
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
   function box(lbl) { return '<span class="fx-u"><b>00</b><small>' + lbl + '</small></span>'; }
+  var DIAS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
   // Sufijos de serie: se quitan del nombre del equipo (ya van en el badge).
   var SERIE_TOKENS = ['junior','senior','super','dorada','dorado','dorados',
@@ -552,6 +553,7 @@ document.addEventListener('click', function (e) {
         team(c[3].textContent.trim()) +
         '<div class="fx-vsbox">' +
           '<span class="fx-vs">VS</span>' +
+          '<span class="fx-day">' + DIAS[when.getDay()] + '</span>' +
           '<span class="fx-datetime">' + fecha + ' · ' + hora + '</span>' +
         '</div>' +
         team(c[4].textContent.trim()) +
