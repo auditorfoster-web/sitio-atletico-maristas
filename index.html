@@ -6,7 +6,7 @@
   <title>Club Atletico Maristas — Liga La Reina</title>
   <link rel="icon" type="image/png" href="escudo.png" />
   <link rel="apple-touch-icon" href="escudo.png" />
-  <link rel="stylesheet" href="styles.css?v=20260611d" />
+  <link rel="stylesheet" href="styles.css?v=20260611e" />
   <!-- Preconnect para reducir latencia de fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -123,16 +123,19 @@
         <a href="#" class="ver-mas">Ver todas <i class="fas fa-arrow-right"></i></a>
       </div>
 
-      <!-- TARJETAS PROXIMO PARTIDO POR SERIE (las arma script.js desde la tabla) -->
-      <div class="fx-grid" id="fx-grid" hidden></div>
-
       <!-- PROXIMA-FECHA -->
       <div class="proxima-block" id="proxima-fecha">
         <div class="proxima-head">
           <span><i class="fas fa-calendar-alt"></i> Próxima Fecha — Atletico Maristas</span>
           <span class="proxima-updated">Actualizado: 11-06-2026</span>
         </div>
-        <div class="proxima-table-wrap">
+
+        <!-- TARJETAS POR SERIE (las arma script.js desde la tabla oculta de abajo) -->
+        <div class="fx-grid" id="fx-grid" hidden></div>
+
+        <!-- Tabla original: fuente de datos que actualiza actualizar.js.
+             Oculta porque las tarjetas de arriba ya muestran toda la info. -->
+        <div class="proxima-table-wrap" hidden>
           <table class="tabla proxima-tabla">
             <thead>
               <tr><th>Serie</th><th>Fecha</th><th>Programación</th><th>Local</th><th>Visita</th><th>Cancha</th></tr>

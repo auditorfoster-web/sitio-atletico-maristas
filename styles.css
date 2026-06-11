@@ -108,6 +108,7 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
 
 /* ---- PROXIMA FECHA ---- */
 .proxima-block { margin-bottom:28px; border-radius:var(--r); overflow:hidden; box-shadow:0 1px 8px rgba(0,0,0,.08); }
+.proxima-block .fx-grid { padding:18px; margin-bottom:0; }
 .proxima-head { background:var(--red); color:var(--white); padding:10px 16px; font-size:13px; font-weight:700; letter-spacing:.5px; display:flex; justify-content:space-between; align-items:center; }
 .proxima-head i { margin-right:6px; }
 .proxima-updated { font-size:11px; font-weight:400; opacity:.75; }
