@@ -600,22 +600,73 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
   .ig-post-img { image-rendering:crisp-edges; }
 }
 
-/* ===== CONTADOR POR FILA (PRÓXIMA FECHA) ===== */
-.proxima-tabla th.pf-cd-h { text-align:center; white-space:nowrap; }
-.proxima-tabla td.pf-cd { text-align:center; white-space:nowrap; }
-.pf-cd .cd {
-  display:inline-flex; align-items:baseline; gap:2px;
-  font-variant-numeric:tabular-nums; line-height:1;
+/* ===== TARJETAS PROXIMO PARTIDO POR SERIE ===== */
+.fx-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:16px;
+  margin-bottom:26px;
 }
-.pf-cd .cd b { font-size:16px; font-weight:800; color:var(--red); }
-.pf-cd .cd small { font-size:10px; font-weight:600; color:var(--muted); margin-right:5px; }
-.pf-cd .cd small:last-child { margin-right:0; }
-.pf-badge {
-  display:inline-block; font-size:11px; font-weight:800; letter-spacing:.5px;
-  text-transform:uppercase; padding:3px 10px; border-radius:20px;
+.fx-card {
+  display:flex; flex-direction:column;
+  border:1px solid var(--border);
+  border-top:4px solid var(--red);
+  border-radius:10px; overflow:hidden;
+  background:var(--white);
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
 }
-.pf-badge.live { background:#16a34a; color:#fff; }
-.pf-badge.done { background:#e6e6e6; color:#888; }
+.fx-top {
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding:12px 14px 0;
+}
+.fx-serie {
+  font-size:11px; font-weight:800; letter-spacing:.5px; text-transform:uppercase;
+  color:var(--white); background:var(--red);
+  padding:4px 9px; border-radius:4px; white-space:nowrap;
+}
+.fx-when { font-size:11px; font-weight:700; color:var(--muted); text-align:right; }
+.fx-vs {
+  font-size:13.5px; font-weight:600; color:var(--text); line-height:1.35;
+  padding:10px 14px 12px;
+}
+.fx-vs .am { color:var(--red); font-weight:800; }
+.fx-vs .x { color:var(--muted); font-weight:800; margin:0 7px; font-size:11px; }
+.fx-count {
+  margin-top:auto;
+  background:var(--gray); border-top:1px solid var(--border);
+  padding:11px 12px 13px; text-align:center;
+}
+.fx-count-label {
+  display:block; font-size:10px; font-weight:700; letter-spacing:1px;
+  text-transform:uppercase; color:var(--muted); margin-bottom:8px;
+}
+.fx-clock { display:flex; align-items:center; justify-content:center; gap:6px; }
+.fx-u {
+  display:flex; flex-direction:column; align-items:center;
+  min-width:48px; padding:7px 4px;
+  background:var(--white); border:1px solid var(--border); border-radius:8px;
+}
+.fx-u b {
+  font-size:22px; font-weight:800; color:var(--red); line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.fx-u small { font-size:8px; font-weight:700; letter-spacing:.5px; color:var(--muted); margin-top:5px; }
+.fx-sep { font-size:18px; font-weight:700; color:#cfcfcf; }
+.fx-card.is-live { border-top-color:#16a34a; }
+.fx-card.is-live .fx-count { background:#ecfdf3; }
+.fx-card.is-done { opacity:.7; }
+.fx-badge {
+  display:inline-block; font-size:13px; font-weight:800; letter-spacing:.5px;
+  text-transform:uppercase; padding:6px 16px; border-radius:20px;
+}
+.fx-badge.live { background:#16a34a; color:#fff; }
+.fx-badge.done { background:#e6e6e6; color:#888; }
+@media(max-width:860px) { .fx-grid { grid-template-columns:repeat(2, 1fr); } }
+@media(max-width:520px) {
+  .fx-grid { grid-template-columns:1fr; }
+  .fx-u { min-width:44px; }
+  .fx-u b { font-size:20px; }
+}
 
 /* ===== NUEVA PIEL (incluye marca BTX) ===== */
 .piel-brand {

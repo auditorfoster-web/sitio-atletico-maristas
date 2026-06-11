@@ -429,15 +429,15 @@ document.addEventListener('click', function (e) {
   })();
 });
 
-// ---- CONTADOR POR FILA EN PROXIMA FECHA ----
+// ---- TARJETAS "PROXIMO PARTIDO" POR SERIE ----
 // Lee la tabla "Proxima Fecha" (#proxima-tbody, que mantiene actualizar.js) y
-// agrega a cada fila una columna "Comienza en" con su propia cuenta regresiva
-// (D/H/M/S) hasta el partido de esa serie. Si JS no corre, la tabla queda igual.
+// arma una tarjeta por serie dentro de #fx-grid (3 por fila), con el cruce y una
+// cuenta regresiva con cada unidad en su propio cuadrito (DÍAS/HRS/MIN/SEG).
+// Si JS no corre, la tabla de abajo sigue mostrando todos los datos.
 (function () {
   var tbody = document.getElementById('proxima-tbody');
-  if (!tbody) return;
-  var tabla = tbody.closest('table');
-  if (!tabla) return;
+  var grid = document.getElementById('fx-grid');
+  if (!tbody || !grid) return;
 
   // "DD/MM/YYYY HH:MM" -> Date (hora local). Devuelve null si no parsea.
   function parseFecha(txt) {
@@ -446,45 +446,66 @@ document.addEventListener('click', function (e) {
     return new Date(+m[3], +m[2] - 1, +m[1], +m[4], +m[5]);
   }
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function box(lbl) { return '<span class="fx-u"><b>00</b><small>' + lbl + '</small></span>'; }
 
-  // Encabezado de la columna nueva (una sola vez).
-  var headRow = tabla.tHead && tabla.tHead.rows[0];
-  if (headRow && !headRow.querySelector('.pf-cd-h')) {
-    var th = document.createElement('th');
-    th.className = 'pf-cd-h';
-    th.textContent = 'Comienza en';
-    headRow.appendChild(th);
-  }
-
-  // Una celda-contador por fila. La columna "Programación" es la 3a (índice 2).
+  var esAM = /atl[eé]tico\s+marista/i;
   var relojes = [];
+  grid.innerHTML = '';
+
   Array.prototype.forEach.call(tbody.rows, function (tr) {
-    if (tr.cells.length < 3) return;
-    var when = parseFecha(tr.cells[2].textContent);
-    var td = document.createElement('td');
-    td.className = 'pf-cd';
-    tr.appendChild(td);
-    if (!when) { td.innerHTML = '<span class="pf-badge done">—</span>'; return; }
-    td.innerHTML = '<span class="cd">' +
-      '<b>00</b><small>d</small><b>00</b><small>h</small>' +
-      '<b>00</b><small>m</small><b>00</b><small>s</small></span>';
-    var b = td.querySelectorAll('.cd b');
+    var c = tr.cells;
+    if (c.length < 6) return;
+    var when = parseFecha(c[2].textContent);
+    if (!when) return;
+    var serie = c[0].textContent.trim();
+    var local = c[3].textContent.trim();
+    var visita = c[4].textContent.trim();
+    var cancha = c[5].textContent.trim();
+    var localH = esAM.test(local) ? '<span class="am">' + local + '</span>' : local;
+    var visitaH = esAM.test(visita) ? '<span class="am">' + visita + '</span>' : visita;
+    var fecha = pad(when.getDate()) + '/' + pad(when.getMonth() + 1);
+    var hora = pad(when.getHours()) + ':' + pad(when.getMinutes());
+
+    var card = document.createElement('div');
+    card.className = 'fx-card';
+    card.innerHTML =
+      '<div class="fx-top">' +
+        '<span class="fx-serie">' + serie + '</span>' +
+        '<span class="fx-when">' + fecha + ' · ' + hora + ' · ' + cancha + '</span>' +
+      '</div>' +
+      '<div class="fx-vs">' + localH + '<span class="x">VS</span>' + visitaH + '</div>' +
+      '<div class="fx-count">' +
+        '<span class="fx-count-label">Comienza en</span>' +
+        '<div class="fx-clock">' +
+          box('DÍAS') + '<span class="fx-sep">:</span>' +
+          box('HRS') + '<span class="fx-sep">:</span>' +
+          box('MIN') + '<span class="fx-sep">:</span>' +
+          box('SEG') +
+        '</div>' +
+      '</div>';
+    grid.appendChild(card);
+
+    var b = card.querySelectorAll('.fx-u b');
     relojes.push({
-      target: when.getTime(), fin: when.getTime() + 2 * 3600e3, td: td,
+      target: when.getTime(), fin: when.getTime() + 2 * 3600e3,
+      card: card, count: card.querySelector('.fx-count'),
       d: b[0], h: b[1], m: b[2], s: b[3], state: ''
     });
   });
   if (!relojes.length) return;
+  grid.hidden = false;
 
   function tick() {
     var now = Date.now();
     relojes.forEach(function (r) {
       var diff = r.target - now;
       if (diff <= 0) {
-        // Ya empezó: badge "En juego" mientras dura (~2h), luego "Finalizado".
+        // Ya empezó: "En juego" mientras dura (~2h), luego "Finalizado".
         var want = now < r.fin ? 'live' : 'done';
         if (r.state !== want) {
-          r.td.innerHTML = '<span class="pf-badge ' + want + '">' +
+          r.card.classList.toggle('is-live', want === 'live');
+          r.card.classList.toggle('is-done', want === 'done');
+          r.count.innerHTML = '<span class="fx-badge ' + want + '">' +
             (want === 'live' ? 'En juego' : 'Finalizado') + '</span>';
           r.state = want;
         }
