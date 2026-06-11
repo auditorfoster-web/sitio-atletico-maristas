@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fixture Atlético Marista — Apertura 2026</title>
+  <title>Fixture Atlético Maristas — Apertura 2026</title>
   <link rel="icon" type="image/png" href="escudo.png" />
   <link rel="apple-touch-icon" href="escudo.png" />
   <link rel="stylesheet" href="styles.css" />
@@ -132,8 +132,8 @@
   <!-- HERO -->
   <section class="fx-hero">
     <div class="wrap">
-      <h1>Fixture Atlético Marista</h1>
-      <p>Todos los partidos de las 5 series de Atlético Marista en el Torneo Apertura 2026 — Liga La Reina. Cada partido está marcado con el color de su serie.</p>
+      <h1>Fixture Atlético Maristas</h1>
+      <p>Todos los partidos de las 5 series de Atlético Maristas en el Torneo Apertura 2026 — Liga La Reina. Cada partido está marcado con el color de su serie.</p>
       <p class="fx-disclaimer"><i class="fas fa-circle-info"></i> La planificación está sujeta a modificaciones por motivos de fuerza mayor o solicitudes de clubes aprobadas por el Directorio.</p>
       <div class="fx-hero-actions">
         <a href="documentos/fixture-apertura-2026.pdf" target="_blank" rel="noopener" class="fx-btn fx-btn-pdf" download><i class="fas fa-file-pdf"></i> Descargar fixture completo (PDF)</a>
@@ -197,7 +197,7 @@
       diamante:    { label:'Diamante',     color:'#91cf50' },
     };
 
-    // Partidos de Atlético Marista por fecha. La serie (s) se extrajo del color
+    // Partidos de Atlético Maristas por fecha. La serie (s) se extrajo del color
     // del fixture PDF oficial y se validó contra los datos de AIRA.
     var FIXTURE = [
       { n:1, fecha:"11 y 12 de Abril", dias:[
@@ -252,7 +252,7 @@
           { h:"16:50", c:"Cancha 3", vs:"Climazul", home:false, s:"dorada" },
         ]},
       ]},
-      { n:6, fecha:"30 y 31 de Mayo", nota:"Fecha de clásicos: Atlético Marista vs Unión Marista en todas las series.", dias:[
+      { n:6, fecha:"30 y 31 de Mayo", nota:"Fecha de clásicos: Atlético Maristas vs Unión Marista en todas las series.", dias:[
         { dia:"Sábado 30/05", p:[
           { h:"11:10", c:"Cancha 2", vs:"Unión Marista", home:false, s:"senior" },
         ]},
@@ -350,8 +350,8 @@
     function matchHTML(m) {
       var serie = SERIES[m.s] || { label:'', };
       var teams = m.home
-        ? '<strong>At. Marista</strong> vs ' + m.vs
-        : m.vs + ' vs <strong>At. Marista</strong>';
+        ? '<strong>At. Maristas</strong> vs ' + m.vs
+        : m.vs + ' vs <strong>At. Maristas</strong>';
       var venue = m.c + ' · ' + (m.home ? 'Local' : 'Visita');
       return '<div class="fx-match s-' + m.s + '" data-s="' + m.s + '">' +
         '<span class="fx-serie sb-' + m.s + '">' + serie.label + '</span>' +
