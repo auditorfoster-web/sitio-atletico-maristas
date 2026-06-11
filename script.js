@@ -461,10 +461,35 @@ document.addEventListener('click', function (e) {
       .map(function (x) { return x.charAt(0); }).join('').toUpperCase();
   }
   var esAM = /atl[eé]tico\s+marista/i;
+  // Escudos de rivales (carpeta escudos/). Se busca la 1a palabra clave que
+  // aparezca en el nombre del equipo; si no hay, se usa el monograma.
+  var ESCUDOS = [
+    ['manchester', 'manchester.png'],
+    ['doveramigos', 'doveramigos.png'],
+    ['ciclon', 'ciclon.png'],
+    ['charkaplax', 'CHARKAPLAX.png'],
+    ['bice', 'bice.png'],
+    ['defensor', 'defensor.png'],
+    ['mapuche', 'mapuches.png'],
+    ['union marista', 'union marista.png'],
+    ['leyenda', 'leyenda.png']
+  ];
+  function escudoDe(name) {
+    var n = name.toLowerCase();
+    for (var i = 0; i < ESCUDOS.length; i++) {
+      if (n.indexOf(ESCUDOS[i][0]) >= 0) return 'escudos/' + encodeURIComponent(ESCUDOS[i][1]);
+    }
+    return null;
+  }
   function crest(name) {
-    return esAM.test(name)
-      ? '<span class="fx-crest"><img src="escudo.png" alt="Club Atlético Marista" /></span>'
-      : '<span class="fx-crest initials">' + iniciales(name) + '</span>';
+    if (esAM.test(name)) {
+      return '<span class="fx-crest"><img src="escudo.png" alt="Club Atlético Marista" /></span>';
+    }
+    var e = escudoDe(name);
+    if (e) {
+      return '<span class="fx-crest"><img src="' + e + '" alt="' + nombreCorto(name) + '" /></span>';
+    }
+    return '<span class="fx-crest initials">' + iniciales(name) + '</span>';
   }
   function team(name) {
     return '<div class="fx-team">' + crest(name) +
