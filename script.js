@@ -496,6 +496,23 @@ document.addEventListener('click', function (e) {
       '<span class="fx-name' + (esAM.test(name) ? ' am' : '') + '">' + nombreCorto(name) + '</span></div>';
   }
 
+  // Escudo chico para la tabla "Proxima Fecha" (columnas Local y Visita).
+  function miniCrest(name) {
+    var src = esAM.test(name) ? 'escudo.png' : escudoDe(name);
+    if (src) return '<img class="pf-logo" src="' + src + '" alt="" />';
+    return '<span class="pf-logo pf-logo-mono">' + iniciales(name) + '</span>';
+  }
+  Array.prototype.forEach.call(tbody.rows, function (tr) {
+    [3, 4].forEach(function (idx) {
+      var cell = tr.cells[idx];
+      if (!cell || cell.querySelector('.pf-logo')) return;
+      var name = cell.textContent.trim();
+      if (!name) return;
+      cell.insertAdjacentHTML('afterbegin', miniCrest(name));
+      cell.classList.add('pf-team-cell');
+    });
+  });
+
   var relojes = [];
   grid.innerHTML = '';
 

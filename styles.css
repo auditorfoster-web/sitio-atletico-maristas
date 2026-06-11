@@ -690,6 +690,17 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
   .fx-u { min-width:44px; }
   .fx-u b { font-size:20px; }
 }
+/* Escudos chicos en la tabla "Próxima Fecha" */
+.proxima-tabla td.pf-team-cell { white-space:nowrap; }
+.pf-logo {
+  width:22px; height:22px; object-fit:contain;
+  vertical-align:middle; margin-right:7px; flex-shrink:0;
+}
+.pf-logo-mono {
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:50%; background:linear-gradient(135deg, #3a3a3a, #181818);
+  color:#fff; font-size:9px; font-weight:800; letter-spacing:.3px;
+}
 
 /* ===== NUEVA PIEL (incluye marca BTX) ===== */
 .piel-brand {
