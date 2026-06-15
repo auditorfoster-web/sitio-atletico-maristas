@@ -499,7 +499,10 @@ window.ESCUDOS_RIVAL = [
   ['estudiantes', 'ESTUDIANTES.png'],
   ['jaguares', 'JAGUARES.png'],
   ['juventus', 'JUVENTUS.png'],
-  ['nicolas', 'SAN NICOLAS.png']
+  ['nicolas', 'SAN NICOLAS.png'],
+  ['stadio', 'STADIO ITALIAN.png'],
+  ['italiano', 'STADIO ITALIAN.png'],
+  ['universitario', 'UNIVERSITARIO DIAMANTES.png']
 ];
 window.ES_AM_RE = /atl[eé]tico\s+marista/i;
 window.SERIE_TOKENS_RIVAL = ['junior','senior','super','dorada','dorado','dorados',
