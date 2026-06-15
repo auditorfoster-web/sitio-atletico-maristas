@@ -1,0 +1,8 @@
+# El sitio es estático y se publica desde la raíz del repo.
+# Las funciones (contador de visitas) viven en netlify/functions.
+[build]
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

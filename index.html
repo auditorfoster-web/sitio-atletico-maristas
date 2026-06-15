@@ -6,7 +6,7 @@
   <title>Club Atletico Maristas — Liga La Reina</title>
   <link rel="icon" type="image/png" href="escudo.png" />
   <link rel="apple-touch-icon" href="escudo.png" />
-  <link rel="stylesheet" href="styles.css?v=20260614c" />
+  <link rel="stylesheet" href="styles.css?v=20260614d" />
   <!-- Preconnect para reducir latencia de fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -126,6 +126,7 @@
         <h2>Fechas</h2>
         <a href="#" class="ver-mas">Ver todas <i class="fas fa-arrow-right"></i></a>
       </div>
+      <div class="share-row" data-target="proxima-fecha" data-title="Próxima Fecha"></div>
 
       <!-- PROXIMA-FECHA -->
       <div class="proxima-block" id="proxima-fecha">
@@ -213,6 +214,7 @@
       <div class="sec-head">
         <h2>Últimos Resultados</h2>
       </div>
+      <div class="share-row" data-target="resultados" data-title="Últimos Resultados"></div>
       <!-- Lo llena script.js desde resultados.js -->
       <div id="res-grid" class="res-grid"></div>
     </div>
@@ -225,6 +227,7 @@
         <h2>Tabla de Posiciones Apertura 2026</h2>
         <a href="https://futbol.aira.cl/lig/defaultTorneo.aspx" target="_blank" rel="noopener" class="ver-mas">Ver en AIRA <i class="fas fa-external-link-alt"></i></a>
       </div>
+      <div class="share-row" data-target="competencia" data-title="Tabla de Posiciones"></div>
 
       <div class="comp-tabs">
         <button class="ctab active" data-tab="junior">Junior</button>
@@ -885,6 +888,7 @@
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 Club Atletico Maristas · Liga La Reina · Todos los derechos reservados.</p>
+      <span class="visitas" id="visitas" hidden><i class="far fa-eye"></i> <b id="visitas-num">—</b> visitas</span>
     </div>
   </footer>
 
@@ -905,7 +909,7 @@
   <script src="instagram-posts.js"></script>
   <script src="resultados.js?v=20260614"></script>
   <script src="hero-fotos.js?v=20260614"></script>
-  <script src="script.js?v=20260614d" defer></script>
+  <script src="script.js?v=20260614e" defer></script>
 
   <script>
     (function() {

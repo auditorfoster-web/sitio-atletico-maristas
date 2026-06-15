@@ -4,6 +4,7 @@
     "actualizar": "node actualizar.js"
   },
   "dependencies": {
+    "@netlify/blobs": "^8.1.0",
     "sharp": "^0.34.5"
   }
 }

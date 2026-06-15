@@ -744,3 +744,79 @@ window.escudoRivalSrc = function (name) {
     try { localStorage.setItem(KEY, '1'); } catch (e) {}
   });
 })();
+
+// ---- COMPARTIR SECCIONES (WhatsApp / Instagram) ----
+// Cada .share-row[data-target][data-title] genera botones para que quien visita
+// el sitio comparta esa seccion. WhatsApp usa wa.me; Instagram no permite
+// publicar por URL, asi que usa el menu nativo (navigator.share) y, si no
+// existe, copia el enlace para pegarlo en una historia.
+(function () {
+  var rows = document.querySelectorAll('.share-row');
+  if (!rows.length) return;
+
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    if (!t) { t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._tmr);
+    t._tmr = setTimeout(function () { t.classList.remove('show'); }, 2800);
+  }
+
+  Array.prototype.forEach.call(rows, function (row) {
+    var target = row.getAttribute('data-target');
+    var title = row.getAttribute('data-title') || 'Club Atlético Maristas';
+    var url = location.origin + location.pathname + '#' + target;
+    var texto = '⚽ ' + title + ' — Club Atlético Maristas\n' + url;
+
+    var label = document.createElement('span');
+    label.className = 'share-label';
+    label.innerHTML = '<i class="fas fa-share-alt"></i> Compartir';
+
+    var wa = document.createElement('a');
+    wa.className = 'share-btn wa';
+    wa.href = 'https://wa.me/?text=' + encodeURIComponent(texto);
+    wa.target = '_blank'; wa.rel = 'noopener';
+    wa.setAttribute('aria-label', 'Compartir por WhatsApp');
+    wa.innerHTML = '<i class="fab fa-whatsapp"></i>';
+
+    var ig = document.createElement('button');
+    ig.type = 'button';
+    ig.className = 'share-btn ig';
+    ig.setAttribute('aria-label', 'Compartir por Instagram');
+    ig.innerHTML = '<i class="fab fa-instagram"></i>';
+    ig.addEventListener('click', function () {
+      if (navigator.share) {
+        navigator.share({ title: title + ' — Club Atlético Maristas', text: texto, url: url }).catch(function () {});
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () {
+          toast('Enlace copiado — pégalo en tu historia de Instagram');
+          window.open('https://www.instagram.com/clubatleticomaristas/', '_blank', 'noopener');
+        }).catch(function () { toast('Copia el enlace: ' + url); });
+      } else {
+        toast('Copia el enlace: ' + url);
+      }
+    });
+
+    row.appendChild(label);
+    row.appendChild(wa);
+    row.appendChild(ig);
+  });
+})();
+
+// ---- CONTADOR DE VISITAS (Netlify Function + Blobs) ----
+// Pide el total una vez por carga. Si la funcion no esta disponible, el
+// contador queda oculto (no muestra nada roto).
+(function () {
+  var box = document.getElementById('visitas');
+  var num = document.getElementById('visitas-num');
+  if (!box || !num) return;
+  fetch('/.netlify/functions/visitas')
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r); })
+    .then(function (d) {
+      if (typeof d.visitas !== 'number') return Promise.reject(d);
+      num.textContent = d.visitas.toLocaleString('es-CL');
+      box.hidden = false;
+    })
+    .catch(function () { /* silencioso */ });
+})();
