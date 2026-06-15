@@ -913,8 +913,9 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
 
 /* ===== COMPARTIR SECCIONES ===== */
 .share-row {
-  display:flex; align-items:center; gap:8px; margin:-8px 0 18px;
+  display:flex; align-items:center; justify-content:flex-end; gap:8px; margin:16px 0 4px;
 }
+.share-row.share-end { padding-top:14px; border-top:1px solid var(--border); }
 .share-label {
   font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase;
   color:var(--muted); margin-right:2px;
