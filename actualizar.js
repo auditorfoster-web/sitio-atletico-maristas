@@ -255,17 +255,30 @@ function hrefResultadoMaristas(posHtml) {
 
 // Parsea la grilla de resultados de un equipo.
 // Columnas: id | jornada | fecha+hora | Local | Visita | L/V/E | "gl-gv" | ptos
+// Cada celda Local/Visita enlaza a la planilla del partido (verPlanillaPublico);
+// guardamos el link de la celda de Maristas para luego sacar los goleadores.
 function parseResultadosEquipo(html) {
   const out = [];
   const trs = html.match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi) || [];
   for (const tr of trs) {
-    const tds = [...tr.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(m => stripTags(m[1]));
+    const celdasRaw = [...tr.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(m => m[1]);
+    const tds = celdasRaw.map(stripTags);
     if (tds.length < 7) continue;
     const fm = (tds[2] || '').match(/(\d{2})\/(\d{2})\/(\d{4})/);
     if (!fm) continue; // salta el encabezado u otras filas
     const gm = (tds[6] || '').match(/(\d+)\s*-\s*(\d+)/);
     if (!gm) continue; // sin marcador = no jugado
     const [, dd, mm, yyyy] = fm;
+
+    // Cual celda (3=local, 4=visita) es Maristas, y su link de planilla
+    const amIdx = normalizar(tds[3]).includes(NUESTRO_EQUIPO) ? 3
+                : normalizar(tds[4]).includes(NUESTRO_EQUIPO) ? 4 : -1;
+    let planillaAM = null;
+    if (amIdx >= 0) {
+      const lm = (celdasRaw[amIdx] || '').match(/href='([^']*verPlanilla[^']*)'/i);
+      if (lm) planillaAM = lm[1];
+    }
+
     out.push({
       jornada: parseInt(tds[1], 10) || 0,
       fecha: `${dd}/${mm}/${yyyy}`,
@@ -273,8 +286,35 @@ function parseResultadosEquipo(html) {
       local: tds[3],
       visita: tds[4],
       gl: parseInt(gm[1], 10),
-      gv: parseInt(gm[2], 10)
+      gv: parseInt(gm[2], 10),
+      planillaAM
     });
+  }
+  return out;
+}
+
+// Nombre de goleador legible: quita "(NUEVO)", Title Case, 2 primeros tokens.
+// "AROCA SOTO MARTIN ALEXIS" -> "Aroca Soto"
+function nombreGoleador(raw) {
+  const limpio = raw.replace(/\(NUEVO\)/ig, '').replace(/\s+/g, ' ').trim();
+  return toTitleCase(limpio).split(' ').slice(0, 2).join(' ');
+}
+
+// En la planilla del partido, la columna "Goles" muestra una imagen gol.gif por
+// cada gol del jugador. Devuelve [{ nombre, goles }] de los que anotaron.
+function parseGoleadoresPlanilla(html) {
+  const tabs = html.match(/<table[^>]*>[\s\S]*?<\/table>/gi) || [];
+  const jt = tabs.find(t => /Jugador/i.test(t) && /Goles/i.test(t));
+  if (!jt) return [];
+  const rows = [...jt.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)];
+  const out = [];
+  for (const r of rows) {
+    const cells = [...r[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(c => c[1]);
+    if (cells.length < 4) continue;
+    const jugador = stripTags(cells[1]);
+    if (!jugador || /Jugador/i.test(jugador)) continue;
+    const nGoles = ((cells[3] || '').match(/gol\.gif/gi) || []).length;
+    if (nGoles > 0) out.push({ nombre: nombreGoleador(jugador), goles: nGoles });
   }
   return out;
 }
@@ -283,9 +323,13 @@ function parseResultadosEquipo(html) {
 // jugado de cada serie, del mas reciente al mas antiguo.
 function escribirResultados(resultados) {
   const ordenados = resultados.slice().sort((a, b) => b.fechaDate - a.fechaDate);
-  const items = ordenados.map(r =>
-    `  { serie:'${r.serie}', fecha:'${r.fecha}', local:'${toTitleCase(r.local)}', gl:${r.gl}, visita:'${toTitleCase(r.visita)}', gv:${r.gv} }`
-  ).join(',\n');
+  const esc = s => String(s).replace(/'/g, "\\'");
+  const items = ordenados.map(r => {
+    const gol = (r.goleadores && r.goleadores.length)
+      ? `, golesAM:[${r.goleadores.map(g => `{n:'${esc(g.nombre)}',g:${g.goles}}`).join(',')}]`
+      : '';
+    return `  { serie:'${r.serie}', fecha:'${r.fecha}', local:'${esc(toTitleCase(r.local))}', gl:${r.gl}, visita:'${esc(toTitleCase(r.visita))}', gv:${r.gv}${gol} }`;
+  }).join(',\n');
   const out =
     '// Generado por actualizar.js — NO editar a mano.\n' +
     '// Ultimo resultado jugado de cada serie (Atletico Maristas).\n' +
@@ -401,8 +445,17 @@ async function main() {
           if (jugados.length) {
             const ult = jugados[0];
             ult.serie = serie.label;
+            // Goleadores de Maristas en ese partido (planilla del partido)
+            if (ult.planillaAM) {
+              try {
+                const planUrl = BASE_AIRA + '/ini/' + ult.planillaAM.replace(/^\.?\/?/, '');
+                const planHtml = await fetchPage(planUrl, { referer: resUrl });
+                ult.goleadores = parseGoleadoresPlanilla(planHtml);
+              } catch { ult.goleadores = []; }
+            }
             resultadosMaristas.push(ult);
-            console.log(`OK (${ult.local} ${ult.gl}-${ult.gv} ${ult.visita})`);
+            const gAM = (ult.goleadores || []).map(g => `${g.nombre} x${g.goles}`).join(', ');
+            console.log(`OK (${ult.local} ${ult.gl}-${ult.gv} ${ult.visita})${gAM ? ' — ' + gAM : ''}`);
           } else { console.log('sin jugados'); }
         } catch (err) { console.log(`Error: ${err.message}`); }
       }

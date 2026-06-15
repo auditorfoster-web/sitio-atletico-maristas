@@ -701,6 +701,15 @@ window.escudoRivalSrc = function (name) {
       else if (golesAM < golesRiv) { chip = 'Derrota'; cls = 'loss'; }
       else { chip = 'Empate'; cls = 'draw'; }
     }
+    // Goleadores de Maristas en el partido (cada uno con su cantidad).
+    var goleadores = '';
+    if (Array.isArray(r.golesAM) && r.golesAM.length) {
+      var lista = r.golesAM.map(function (g) {
+        return g.n + (g.g > 1 ? ' (' + g.g + ')' : '');
+      }).join(', ');
+      goleadores = '<div class="res-gol"><i class="fas fa-futbol"></i> ' + lista + '</div>';
+    }
+
     return '<article class="res-card ' + cls + '">' +
       '<div class="res-top">' +
         '<span class="res-serie">' + (r.serie || '') + '</span>' +
@@ -714,6 +723,7 @@ window.escudoRivalSrc = function (name) {
         '<div class="res-team' + (amVisita ? ' am' : '') + '">' + crest(r.visita) +
           '<span class="res-name">' + corto(r.visita) + '</span></div>' +
       '</div>' +
+      goleadores +
       (chip ? '<div class="res-chip ' + cls + '">' + chip + '</div>' : '') +
     '</article>';
   }).join('');

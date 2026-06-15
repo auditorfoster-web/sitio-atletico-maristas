@@ -903,3 +903,10 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
 /* En pantallas medianas, achicar; en móvil, ocultar para no tapar contenido */
 @media(max-width:1100px) { .mundial-banner { width:172px; right:10px; padding:14px 12px 12px; } }
 @media(max-width:820px)  { .mundial-banner { display:none; } }
+
+/* Goleadores de Maristas en la tarjeta de resultado */
+.res-gol {
+  margin:0 14px 12px; padding-top:11px; border-top:1px dashed var(--border);
+  font-size:12px; font-weight:600; color:var(--text); line-height:1.5; text-align:center;
+}
+.res-gol i { color:var(--red); margin-right:5px; }
