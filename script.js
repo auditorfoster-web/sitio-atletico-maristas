@@ -206,6 +206,39 @@ document.getElementById('contactForm')?.addEventListener('submit', async e => {
 
 // ---- HERO SLIDER ----
 (function () {
+  // Inyecta las fotos del hero desde hero-fotos.js. Los 3 videos del drone ya
+  // estan en el HTML y van siempre primero; aca elegimos un set de fotos que
+  // ROTA SOLO cada 2 semanas (mismo set durante 14 dias, distinto al siguiente
+  // bloque). Determinista: depende solo de la fecha, no del azar de cada carga.
+  (function inyectarFotos() {
+    const cont = document.getElementById('heroSlider');
+    const fotos = window.HERO_FOTOS;
+    if (!cont || !Array.isArray(fotos) || !fotos.length) return;
+
+    const CUANTAS = 10; // cuantas fotos mostrar por bloque de 2 semanas
+
+    // Bloque quincenal: nº de semanas desde epoch dividido en 2.
+    const semanas = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000));
+    let seed = (Math.floor(semanas / 2) + 1) >>> 0;
+
+    // PRNG determinista (LCG) sembrado con el bloque quincenal.
+    function rnd() { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }
+
+    // Barajado Fisher-Yates sobre una copia, con el RNG sembrado.
+    const pool = fotos.slice();
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(rnd() * (i + 1));
+      const t = pool[i]; pool[i] = pool[j]; pool[j] = t;
+    }
+
+    pool.slice(0, CUANTAS).forEach((src) => {
+      const d = document.createElement('div');
+      d.className = 'hs-slide';
+      d.setAttribute('data-bg', src);
+      cont.appendChild(d);
+    });
+  })();
+
   const slides = Array.from(document.querySelectorAll('.hs-slide'));
   const dotsWrap = document.getElementById('hsDots');
   if (!slides.length || !dotsWrap) return;
@@ -488,7 +521,16 @@ document.addEventListener('click', function (e) {
     ['defensor', 'defensor.png'],
     ['mapuche', 'mapuches.png'],
     ['union marista', 'union marista.png'],
-    ['leyenda', 'leyenda.png']
+    ['leyenda', 'leyenda.png'],
+    ['campino', 'AC LO CAMPINO.png'],
+    ['alianza', 'ALIANZA.png'],
+    ['america', 'AMERICA.png'],
+    ['improvisados', 'CD IMPROVISADOS.png'],
+    ['clima', 'CLIMAAZUL.png'],
+    ['estudiantes', 'ESTUDIANTES.png'],
+    ['jaguares', 'JAGUARES.png'],
+    ['juventus', 'JUVENTUS.png'],
+    ['nicolas', 'SAN NICOLAS.png']
   ];
   function escudoDe(name) {
     var n = name.toLowerCase();
