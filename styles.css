@@ -802,3 +802,104 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
   .piel-info > p { margin-left:auto; margin-right:auto; }
   .piel-feats li { justify-content:center; }
 }
+
+/* ===== ULTIMOS RESULTADOS ===== */
+.res-grid {
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-bottom:26px;
+}
+.res-empty { color:var(--muted); font-size:14px; padding:18px 4px; }
+.res-card {
+  border:1px solid var(--border); border-top:4px solid #888;
+  border-radius:10px; background:var(--white);
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
+  display:flex; flex-direction:column; transition:transform var(--t), box-shadow var(--t);
+}
+.res-card:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(0,0,0,.12); }
+.res-card.win  { border-top-color:#16a34a; }
+.res-card.loss { border-top-color:#c8102e; }
+.res-card.draw { border-top-color:#d4a017; }
+.res-top {
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding:13px 15px 0;
+}
+.res-serie {
+  font-size:12px; font-weight:800; letter-spacing:.5px; text-transform:uppercase;
+  color:var(--white); background:var(--red); padding:5px 11px; border-radius:5px; white-space:nowrap;
+}
+.res-fecha { font-size:13px; font-weight:700; color:var(--muted); white-space:nowrap; }
+.res-cruce {
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:start; gap:6px;
+  padding:18px 12px 14px;
+}
+.res-team { display:flex; flex-direction:column; align-items:center; gap:9px; text-align:center; }
+.res-logo {
+  width:54px; height:54px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
+  background:var(--white); border:1px solid var(--border); box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+.res-logo[src], img.res-logo { object-fit:contain; padding:4px; }
+.res-logo-mono {
+  background:linear-gradient(135deg, #3a3a3a, #181818);
+  color:#fff; font-weight:800; font-size:18px; border:none;
+}
+.res-name { font-size:13px; font-weight:700; line-height:1.2; }
+.res-team.am .res-name { color:var(--red); }
+.res-score {
+  display:flex; align-items:center; gap:7px; padding-top:12px;
+  font-family:'Bebas Neue',cursive;
+}
+.res-score b { font-size:34px; line-height:1; color:var(--text); }
+.res-score span { font-size:20px; color:var(--muted); }
+.res-chip {
+  margin:0 15px 14px; text-align:center; font-size:12px; font-weight:800;
+  letter-spacing:.5px; text-transform:uppercase; padding:6px; border-radius:5px;
+}
+.res-chip.win  { background:#ecfdf3; color:#16a34a; }
+.res-chip.loss { background:#fdecec; color:#c8102e; }
+.res-chip.draw { background:#fdf6e3; color:#b8860b; }
+@media(max-width:860px) { .res-grid { grid-template-columns:repeat(2, 1fr); } }
+@media(max-width:560px) { .res-grid { grid-template-columns:1fr; } }
+
+/* ===== BANNER MUNDIAL 2026 (lateral derecho, solo texto) ===== */
+.mundial-banner {
+  position:fixed; right:18px; top:50%; transform:translateY(-50%);
+  z-index:900; width:210px; padding:18px 16px 14px;
+  background:linear-gradient(160deg, #0a1a3f 0%, #122a63 55%, #0a1a3f 100%);
+  color:#fff; border-radius:14px; border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 14px 40px rgba(0,0,0,.35); text-align:center;
+}
+.mundial-banner .mb-close {
+  position:absolute; top:6px; right:9px; background:transparent; border:none;
+  color:rgba(255,255,255,.6); font-size:20px; line-height:1; cursor:pointer; padding:2px;
+}
+.mundial-banner .mb-close:hover { color:#fff; }
+.mb-tag {
+  display:inline-block; font-size:11px; font-weight:800; letter-spacing:1.5px;
+  text-transform:uppercase; background:rgba(255,255,255,.14);
+  padding:4px 11px; border-radius:20px; margin-bottom:10px;
+}
+.mb-tag i { margin-right:4px; }
+.mb-title {
+  font-family:'Bebas Neue',cursive; font-size:26px; line-height:.95;
+  letter-spacing:1px; margin-bottom:10px;
+}
+.mb-host { font-size:13px; font-weight:600; line-height:1.5; margin-bottom:6px; }
+.mb-dates {
+  font-size:12px; font-weight:700; color:#ffd34d; letter-spacing:.3px; margin-bottom:10px;
+}
+.mb-dates i { margin-right:4px; }
+.mb-txt { font-size:12px; color:rgba(255,255,255,.82); line-height:1.5; margin-bottom:13px; }
+.mb-btn {
+  display:inline-flex; align-items:center; gap:7px; justify-content:center;
+  width:100%; background:#fff; color:#0a1a3f; font-weight:800; font-size:13px;
+  padding:9px 12px; border-radius:8px; transition:transform var(--t), box-shadow var(--t);
+}
+.mb-btn:hover { transform:translateY(-1px); box-shadow:0 6px 16px rgba(0,0,0,.3); }
+.mb-disc {
+  display:block; margin-top:9px; font-size:9px; line-height:1.4;
+  color:rgba(255,255,255,.5); letter-spacing:.2px;
+}
+.mundial-banner.is-hidden { display:none; }
+/* En pantallas medianas, achicar; en móvil, ocultar para no tapar contenido */
+@media(max-width:1100px) { .mundial-banner { width:172px; right:10px; padding:14px 12px 12px; } }
+@media(max-width:820px)  { .mundial-banner { display:none; } }

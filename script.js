@@ -477,6 +477,47 @@ document.addEventListener('click', function (e) {
   })();
 });
 
+// ---- ESCUDOS DE RIVALES (fuente unica, compartida) ----
+// Se busca la 1a palabra clave que aparezca en el nombre del equipo; si no hay
+// coincidencia se usa el monograma. Lo usan la Proxima Fecha y Ultimos Resultados.
+// Para sumar un escudo nuevo: deja el PNG en escudos/ y agrega su clave aqui.
+window.ESCUDOS_RIVAL = [
+  ['manchester', 'manchester.png'],
+  ['doveramigos', 'doveramigos.png'],
+  ['ciclon', 'ciclon.png'],
+  ['charkaplax', 'CHARKAPLAX.png'],
+  ['bice', 'bice.png'],
+  ['defensor', 'defensor.png'],
+  ['mapuche', 'mapuches.png'],
+  ['union marista', 'union marista.png'],
+  ['leyenda', 'leyenda.png'],
+  ['campino', 'AC LO CAMPINO.png'],
+  ['alianza', 'ALIANZA.png'],
+  ['america', 'AMERICA.png'],
+  ['improvisados', 'CD IMPROVISADOS.png'],
+  ['clima', 'CLIMAAZUL.png'],
+  ['estudiantes', 'ESTUDIANTES.png'],
+  ['jaguares', 'JAGUARES.png'],
+  ['juventus', 'JUVENTUS.png'],
+  ['nicolas', 'SAN NICOLAS.png']
+];
+window.ES_AM_RE = /atl[eé]tico\s+marista/i;
+window.SERIE_TOKENS_RIVAL = ['junior','senior','super','dorada','dorado','dorados',
+  'diamante','diamantes','platino','platinos'];
+window.nombreCortoRival = function (name) {
+  var w = String(name).trim().split(/\s+/);
+  while (w.length > 1 && window.SERIE_TOKENS_RIVAL.indexOf(w[w.length - 1].toLowerCase()) >= 0) w.pop();
+  return w.join(' ');
+};
+window.escudoRivalSrc = function (name) {
+  var n = String(name).toLowerCase();
+  for (var i = 0; i < window.ESCUDOS_RIVAL.length; i++) {
+    if (n.indexOf(window.ESCUDOS_RIVAL[i][0]) >= 0)
+      return 'escudos/' + encodeURIComponent(window.ESCUDOS_RIVAL[i][1]);
+  }
+  return null;
+};
+
 // ---- TARJETAS "PROXIMO PARTIDO" POR SERIE ----
 // Lee la tabla "Proxima Fecha" (#proxima-tbody, que mantiene actualizar.js) y
 // arma una tarjeta por serie dentro de #fx-grid (3 por fila), con el cruce y una
@@ -509,36 +550,9 @@ document.addEventListener('click', function (e) {
     return nombreCorto(name).split(/\s+/).slice(0, 2)
       .map(function (x) { return x.charAt(0); }).join('').toUpperCase();
   }
-  var esAM = /atl[eé]tico\s+marista/i;
-  // Escudos de rivales (carpeta escudos/). Se busca la 1a palabra clave que
-  // aparezca en el nombre del equipo; si no hay, se usa el monograma.
-  var ESCUDOS = [
-    ['manchester', 'manchester.png'],
-    ['doveramigos', 'doveramigos.png'],
-    ['ciclon', 'ciclon.png'],
-    ['charkaplax', 'CHARKAPLAX.png'],
-    ['bice', 'bice.png'],
-    ['defensor', 'defensor.png'],
-    ['mapuche', 'mapuches.png'],
-    ['union marista', 'union marista.png'],
-    ['leyenda', 'leyenda.png'],
-    ['campino', 'AC LO CAMPINO.png'],
-    ['alianza', 'ALIANZA.png'],
-    ['america', 'AMERICA.png'],
-    ['improvisados', 'CD IMPROVISADOS.png'],
-    ['clima', 'CLIMAAZUL.png'],
-    ['estudiantes', 'ESTUDIANTES.png'],
-    ['jaguares', 'JAGUARES.png'],
-    ['juventus', 'JUVENTUS.png'],
-    ['nicolas', 'SAN NICOLAS.png']
-  ];
-  function escudoDe(name) {
-    var n = name.toLowerCase();
-    for (var i = 0; i < ESCUDOS.length; i++) {
-      if (n.indexOf(ESCUDOS[i][0]) >= 0) return 'escudos/' + encodeURIComponent(ESCUDOS[i][1]);
-    }
-    return null;
-  }
+  var esAM = window.ES_AM_RE;
+  // Escudos de rivales: se usa la fuente unica compartida (window.escudoRivalSrc).
+  var escudoDe = window.escudoRivalSrc;
   function crest(name) {
     if (esAM.test(name)) {
       return '<span class="fx-crest"><img src="escudo.png" alt="Club Atlético Marista" /></span>';
@@ -646,4 +660,74 @@ document.addEventListener('click', function (e) {
   }
   tick();
   setInterval(tick, 1000);
+})();
+
+// ---- ULTIMOS RESULTADOS ----
+// Renderiza window.RESULTADOS (resultados.js) en #res-grid: una tarjeta por
+// partido con escudo del local y la visita, el marcador y un chip W/E/D segun
+// le fue a Atletico Maristas. Si no hay datos, muestra un aviso amable.
+(function () {
+  var grid = document.getElementById('res-grid');
+  if (!grid) return;
+  var lista = Array.isArray(window.RESULTADOS) ? window.RESULTADOS : [];
+
+  if (!lista.length) {
+    grid.innerHTML = '<p class="res-empty">Aún no hay resultados cargados.</p>';
+    return;
+  }
+
+  var esAM = window.ES_AM_RE;
+  var corto = window.nombreCortoRival;
+  var escudoSrc = window.escudoRivalSrc;
+
+  function iniciales(name) {
+    return corto(name).split(/\s+/).slice(0, 2)
+      .map(function (x) { return x.charAt(0); }).join('').toUpperCase();
+  }
+  function crest(name) {
+    var src = esAM.test(name) ? 'escudo.png' : escudoSrc(name);
+    if (src) return '<img class="res-logo" src="' + src + '" alt="" />';
+    return '<span class="res-logo res-logo-mono">' + iniciales(name) + '</span>';
+  }
+
+  grid.innerHTML = lista.map(function (r) {
+    var gl = parseInt(r.gl, 10), gv = parseInt(r.gv, 10);
+    var amLocal = esAM.test(r.local), amVisita = esAM.test(r.visita);
+    // Resultado desde la optica de Maristas (si juega).
+    var chip = '', cls = '';
+    if (amLocal || amVisita) {
+      var golesAM = amLocal ? gl : gv, golesRiv = amLocal ? gv : gl;
+      if (golesAM > golesRiv) { chip = 'Victoria'; cls = 'win'; }
+      else if (golesAM < golesRiv) { chip = 'Derrota'; cls = 'loss'; }
+      else { chip = 'Empate'; cls = 'draw'; }
+    }
+    return '<article class="res-card ' + cls + '">' +
+      '<div class="res-top">' +
+        '<span class="res-serie">' + (r.serie || '') + '</span>' +
+        (r.fecha ? '<span class="res-fecha">' + r.fecha + '</span>' : '') +
+      '</div>' +
+      '<div class="res-cruce">' +
+        '<div class="res-team' + (amLocal ? ' am' : '') + '">' + crest(r.local) +
+          '<span class="res-name">' + corto(r.local) + '</span></div>' +
+        '<div class="res-score"><b>' + (isNaN(gl) ? '-' : gl) + '</b>' +
+          '<span>-</span><b>' + (isNaN(gv) ? '-' : gv) + '</b></div>' +
+        '<div class="res-team' + (amVisita ? ' am' : '') + '">' + crest(r.visita) +
+          '<span class="res-name">' + corto(r.visita) + '</span></div>' +
+      '</div>' +
+      (chip ? '<div class="res-chip ' + cls + '">' + chip + '</div>' : '') +
+    '</article>';
+  }).join('');
+})();
+
+// ---- BANNER MUNDIAL 2026 (cerrar + recordar) ----
+(function () {
+  var banner = document.getElementById('mundial-banner');
+  if (!banner) return;
+  var KEY = 'mundialBannerCerrado';
+  try { if (localStorage.getItem(KEY) === '1') banner.classList.add('is-hidden'); } catch (e) {}
+  var btn = banner.querySelector('.mb-close');
+  if (btn) btn.addEventListener('click', function () {
+    banner.classList.add('is-hidden');
+    try { localStorage.setItem(KEY, '1'); } catch (e) {}
+  });
 })();

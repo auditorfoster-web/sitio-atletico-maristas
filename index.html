@@ -6,7 +6,7 @@
   <title>Club Atletico Maristas — Liga La Reina</title>
   <link rel="icon" type="image/png" href="escudo.png" />
   <link rel="apple-touch-icon" href="escudo.png" />
-  <link rel="stylesheet" href="styles.css?v=20260611j" />
+  <link rel="stylesheet" href="styles.css?v=20260614a" />
   <!-- Preconnect para reducir latencia de fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -206,6 +206,17 @@
     </div>
   </section>
 
+
+  <!-- ULTIMOS RESULTADOS -->
+  <section class="section" id="resultados">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Últimos Resultados</h2>
+      </div>
+      <!-- Lo llena script.js desde resultados.js -->
+      <div id="res-grid" class="res-grid"></div>
+    </div>
+  </section>
 
   <!-- COMPETENCIA -->
   <section class="section" id="competencia">
@@ -877,11 +888,24 @@
     </div>
   </footer>
 
+  <!-- BANNER MUNDIAL FIFA 2026 (lateral derecho) -->
+  <aside id="mundial-banner" class="mundial-banner" aria-label="Mundial FIFA 2026">
+    <button class="mb-close" aria-label="Cerrar banner">&times;</button>
+    <span class="mb-tag"><i class="fas fa-futbol"></i> Mundial</span>
+    <h4 class="mb-title">Copa del Mundo<br />2026</h4>
+    <p class="mb-host">🇨🇦 Canadá · 🇲🇽 México · 🇺🇸 EE.UU.</p>
+    <p class="mb-dates"><i class="fas fa-calendar-day"></i> 11 jun – 19 jul</p>
+    <p class="mb-txt">Sigue las posiciones, fechas y resultados del torneo.</p>
+    <a href="https://www.fifa.com/es/tournaments/mens/worldcup/canadamexicousa2026" target="_blank" rel="noopener" class="mb-btn">Ver en FIFA.com <i class="fas fa-arrow-right"></i></a>
+    <span class="mb-disc">Enlace externo · sitio no oficial ni afiliado a la FIFA</span>
+  </aside>
+
   <script src="equipo-semana.js"></script>
   <script src="noticias.js"></script>
   <script src="instagram-posts.js"></script>
+  <script src="resultados.js?v=20260614"></script>
   <script src="hero-fotos.js?v=20260614"></script>
-  <script src="script.js?v=20260614a" defer></script>
+  <script src="script.js?v=20260614b" defer></script>
 
   <script>
     (function() {
