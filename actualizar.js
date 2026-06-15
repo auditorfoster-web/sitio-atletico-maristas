@@ -293,11 +293,18 @@ function parseResultadosEquipo(html) {
   return out;
 }
 
-// Nombre de goleador legible: quita "(NUEVO)", Title Case, 2 primeros tokens.
-// "AROCA SOTO MARTIN ALEXIS" -> "Aroca Soto"
+// Nombre de goleador como "Nombre + primer apellido".
+// AIRA guarda "APELLIDO1 APELLIDO2 NOMBRE1 NOMBRE2"; los jugadores nuevos van
+// como "APELLIDO (NUEVO) NOMBRE".
+//   "AROCA SOTO MARTIN ALEXIS"  -> "Martin Aroca"
+//   "URTASUN BASTIDAS XAVIER"   -> "Xavier Urtasun"
+//   "PEREZ (NUEVO) MARCO"       -> "Marco Perez"
 function nombreGoleador(raw) {
-  const limpio = raw.replace(/\(NUEVO\)/ig, '').replace(/\s+/g, ' ').trim();
-  return toTitleCase(limpio).split(' ').slice(0, 2).join(' ');
+  const esNuevo = /\(NUEVO\)/i.test(raw);
+  const t = raw.replace(/\(NUEVO\)/ig, '').replace(/\s+/g, ' ').trim().split(' ');
+  const apellido = t[0] || '';
+  const nombre = esNuevo ? (t[1] || '') : (t.length >= 3 ? t[2] : (t[1] || ''));
+  return toTitleCase(`${nombre} ${apellido}`.trim());
 }
 
 // En la planilla del partido, la columna "Goles" muestra una imagen gol.gif por
