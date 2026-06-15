@@ -32,20 +32,33 @@ function normalizar(str) {
 
 // ---- HTTP helper ----
 
-function fetchPage(url) {
+// Cookie jar de sesion: AIRA exige la cookie ASP.NET_SessionId (creada en la
+// primera peticion) para servir la pagina de resultados por equipo con datos.
+const COOKIES = {};
+function cookieHeader() {
+  return Object.entries(COOKIES).map(([k, v]) => `${k}=${v}`).join('; ');
+}
+
+function fetchPage(url, opts = {}) {
   return new Promise((resolve, reject) => {
-    const req = https.get(url, {
-      headers: {
-        'User-Agent':      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120',
-        'Accept':          'text/html,application/xhtml+xml',
-        'Accept-Language': 'es-CL,es;q=0.9'
-      }
-    }, res => {
+    const headers = {
+      'User-Agent':      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120',
+      'Accept':          'text/html,application/xhtml+xml',
+      'Accept-Language': 'es-CL,es;q=0.9'
+    };
+    if (Object.keys(COOKIES).length) headers['Cookie'] = cookieHeader();
+    if (opts.referer) headers['Referer'] = opts.referer;
+
+    const req = https.get(url, { headers }, res => {
+      (res.headers['set-cookie'] || []).forEach(c => {
+        const m = c.match(/^([^=]+)=([^;]*)/);
+        if (m) COOKIES[m[1]] = m[2];
+      });
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         const next = res.headers.location.startsWith('http')
           ? res.headers.location
           : BASE_AIRA + res.headers.location;
-        return fetchPage(next).then(resolve).catch(reject);
+        return fetchPage(next, opts).then(resolve).catch(reject);
       }
       const chunks = [];
       res.on('data', c => chunks.push(c));
@@ -227,6 +240,59 @@ function parseProgramacion(html) {
   return partidos;
 }
 
+// En la pagina de posiciones, cada equipo enlaza a su pagina de resultados
+// (lstResultadoEquipoPublico.aspx). Devuelve el href de la fila de Maristas.
+function hrefResultadoMaristas(posHtml) {
+  const segs = posHtml.split(/<tr class="itemGrilla/i);
+  for (let i = 1; i < segs.length; i++) {
+    if (normalizar(segs[i]).includes(NUESTRO_EQUIPO)) {
+      const m = segs[i].match(/href\s*=\s*['"]([^'"]*Resultado[^'"]*)['"]/i);
+      if (m) return m[1];
+    }
+  }
+  return null;
+}
+
+// Parsea la grilla de resultados de un equipo.
+// Columnas: id | jornada | fecha+hora | Local | Visita | L/V/E | "gl-gv" | ptos
+function parseResultadosEquipo(html) {
+  const out = [];
+  const trs = html.match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi) || [];
+  for (const tr of trs) {
+    const tds = [...tr.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(m => stripTags(m[1]));
+    if (tds.length < 7) continue;
+    const fm = (tds[2] || '').match(/(\d{2})\/(\d{2})\/(\d{4})/);
+    if (!fm) continue; // salta el encabezado u otras filas
+    const gm = (tds[6] || '').match(/(\d+)\s*-\s*(\d+)/);
+    if (!gm) continue; // sin marcador = no jugado
+    const [, dd, mm, yyyy] = fm;
+    out.push({
+      jornada: parseInt(tds[1], 10) || 0,
+      fecha: `${dd}/${mm}/${yyyy}`,
+      fechaDate: new Date(`${yyyy}-${mm}-${dd}`),
+      local: tds[3],
+      visita: tds[4],
+      gl: parseInt(gm[1], 10),
+      gv: parseInt(gm[2], 10)
+    });
+  }
+  return out;
+}
+
+// Escribe resultados.js (consumido por script.js) con el ultimo resultado
+// jugado de cada serie, del mas reciente al mas antiguo.
+function escribirResultados(resultados) {
+  const ordenados = resultados.slice().sort((a, b) => b.fechaDate - a.fechaDate);
+  const items = ordenados.map(r =>
+    `  { serie:'${r.serie}', fecha:'${r.fecha}', local:'${toTitleCase(r.local)}', gl:${r.gl}, visita:'${toTitleCase(r.visita)}', gv:${r.gv} }`
+  ).join(',\n');
+  const out =
+    '// Generado por actualizar.js — NO editar a mano.\n' +
+    '// Ultimo resultado jugado de cada serie (Atletico Maristas).\n' +
+    'window.RESULTADOS = [\n' + items + (items ? '\n' : '') + '];\n';
+  fs.writeFileSync(path.join(__dirname, 'resultados.js'), out, 'utf8');
+}
+
 // ---- Generadores de HTML ----
 
 function generarTbody(filas) {
@@ -304,14 +370,16 @@ async function main() {
   let actualizadas  = 0;
   const todosPartidos = [];
   const goleadoresMaristas = [];
+  const resultadosMaristas = [];
 
   // 2. Por cada serie: posiciones + programacion
   for (const serie of series) {
     // Posiciones
     process.stdout.write(`  Posiciones ${serie.id.padEnd(13)}... `);
+    let posHtml = null;
     try {
-      const pageHtml = await fetchPage(serie.url);
-      const filas    = parsePosiciones(pageHtml);
+      posHtml = await fetchPage(serie.url);
+      const filas = parsePosiciones(posHtml);
       if (!filas.length) { console.log('sin datos'); }
       else {
         html = actualizarHTML(html, serie.id, generarTbody(filas));
@@ -319,6 +387,26 @@ async function main() {
         console.log(`OK (${filas.length} equipos)`);
       }
     } catch (err) { console.log(`Error: ${err.message}`); }
+
+    // Ultimo resultado jugado de Maristas en esta serie
+    if (posHtml) {
+      const href = hrefResultadoMaristas(posHtml);
+      if (href) {
+        process.stdout.write(`  Resultados   ${serie.id.padEnd(10)}... `);
+        try {
+          const resUrl = BASE_AIRA + '/ini/' + href.replace(/^\.?\/?/, '');
+          const resHtml = await fetchPage(resUrl, { referer: serie.url });
+          const jugados = parseResultadosEquipo(resHtml)
+            .sort((a, b) => b.fechaDate - a.fechaDate);
+          if (jugados.length) {
+            const ult = jugados[0];
+            ult.serie = serie.label;
+            resultadosMaristas.push(ult);
+            console.log(`OK (${ult.local} ${ult.gl}-${ult.gv} ${ult.visita})`);
+          } else { console.log('sin jugados'); }
+        } catch (err) { console.log(`Error: ${err.message}`); }
+      }
+    }
 
     // Programacion (si tiene URL)
     if (serie.progUrl) {
@@ -349,6 +437,10 @@ async function main() {
   // 3. Ranking goleadores Maristas
   html = actualizarGoles(html, generarRankingMaristas(goleadoresMaristas));
   console.log(`\n  Goleadores Maristas: ${goleadoresMaristas.length} jugador(es) en el ranking`);
+
+  // 4. Ultimos resultados (resultados.js)
+  escribirResultados(resultadosMaristas);
+  console.log(`  Ultimos resultados: ${resultadosMaristas.length} serie(s)`);
 
   // 5. Proxima fecha
   const hoy = new Date();

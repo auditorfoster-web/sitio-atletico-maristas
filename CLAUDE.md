@@ -38,13 +38,17 @@ The site is a **single-page static website** (`index.html` + `styles.css` + `scr
 ### Data flow
 
 ```
-futbol.aira.cl  ──►  actualizar.js  ──►  index.html  (standings/fixtures injected inline)
-admin panel UI  ──►  admin-server.js ──►  noticias.js (news array rewritten as JS source)
+futbol.aira.cl  ──►  actualizar.js  ──►  index.html    (standings/fixtures injected inline)
+futbol.aira.cl  ──►  actualizar.js  ──►  resultados.js  (last result per serie, JS source)
+admin panel UI  ──►  admin-server.js ──►  noticias.js   (news array rewritten as JS source)
 noticias.js     ──►  index.html      (loaded via <script> tag, read at runtime by script.js)
+resultados.js   ──►  index.html      (loaded via <script>; rendered into #res-grid)
 ```
 
 ### `actualizar.js`
 Scrapes `futbol.aira.cl/lig/side.aspx`, discovers the 5 series URLs (Junior, Senior, Super Senior, Dorada, Diamante), fetches standings and fixtures for each, then surgically rewrites `index.html` in-place using HTML marker comments:
+
+It also fetches **past results** per serie. AIRA's results page (`lstResultadoEquipoPublico.aspx`, linked from each team in the standings) only returns data when the request carries the `ASP.NET_SessionId` cookie set on the first request — so `fetchPage` maintains a cookie jar. The most recent played match of each serie is written to **`resultados.js`** (`window.RESULTADOS`), which `script.js` renders into the "Últimos Resultados" section (`#res-grid`).
 
 ```html
 <!-- TBODY:junior --> ... <!-- /TBODY:junior -->
