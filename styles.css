@@ -1019,6 +1019,7 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
   border-radius:999px; padding:7px 16px; font-size:14px;
 }
 .pb-cruce { font-weight:600; }
+.pb-flag { height:14px; width:auto; vertical-align:-2px; margin:0 5px; border-radius:2px; box-shadow:0 0 0 1px rgba(255,255,255,.25); }
 .pb-vs { color:rgba(255,255,255,.5); font-size:12px; margin:0 4px; }
 .pb-score {
   background:var(--yellow); color:#1e1e1e; font-weight:800; font-size:13px;

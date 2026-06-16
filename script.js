@@ -867,6 +867,26 @@ window.escudoRivalSrc = function (name) {
   };
   function nombre(n) { return ES[n] || n; }
 
+  // Código ISO 3166-1 por selección (flagcdn). England/Scotland usan subdivisión.
+  var COD = {
+    'Algeria':'dz','Argentina':'ar','Australia':'au','Austria':'at','Belgium':'be',
+    'Bosnia and Herzegovina':'ba','Brazil':'br','Cabo Verde':'cv','Canada':'ca',
+    'Colombia':'co','Congo DR':'cd','Croatia':'hr','Curaçao':'cw','Czechia':'cz',
+    "Côte d'Ivoire":'ci','Ecuador':'ec','Egypt':'eg','England':'gb-eng','France':'fr',
+    'Germany':'de','Ghana':'gh','Haiti':'ht','Iran':'ir','Iraq':'iq','Japan':'jp',
+    'Jordan':'jo','Korea Republic':'kr','Mexico':'mx','Morocco':'ma','Netherlands':'nl',
+    'New Zealand':'nz','Norway':'no','Panama':'pa','Paraguay':'py','Portugal':'pt',
+    'Qatar':'qa','Saudi Arabia':'sa','Scotland':'gb-sct','Senegal':'sn','South Africa':'za',
+    'Spain':'es','Sweden':'se','Switzerland':'ch','Tunisia':'tn','Türkiye':'tr',
+    'USA':'us','Uruguay':'uy','Uzbekistan':'uz'
+  };
+  function bandera(n) {
+    var c = COD[n];
+    if (!c) return '';
+    return '<img class="pb-flag" src="https://flagcdn.com/h20/' + c + '.png" ' +
+      'alt="" loading="lazy" width="27" height="20">';
+  }
+
   function fechaCL(ts) {
     return new Date(ts).toLocaleDateString('es-CL', { timeZone: TZ });
   }
@@ -888,7 +908,7 @@ window.escudoRivalSrc = function (name) {
     if (!jugado) meta.push('<i class="fas fa-clock"></i> ' + horaCL(p.ts));
     if (p.g) meta.push(p.g.replace(/^Group/i, 'Grupo'));
     return '<div class="pb-item">' +
-      '<span class="pb-cruce">' + nombre(p.h) + ' ' + marcador + ' ' + nombre(p.a) + '</span>' +
+      '<span class="pb-cruce">' + bandera(p.h) + nombre(p.h) + ' ' + marcador + ' ' + nombre(p.a) + bandera(p.a) + '</span>' +
       (meta.length ? '<span class="pb-meta">' + meta.join(' · ') + '</span>' : '') +
       '</div>';
   }).join('');
