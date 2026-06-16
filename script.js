@@ -908,7 +908,11 @@ window.escudoRivalSrc = function (name) {
     if (!jugado) meta.push('<i class="fas fa-clock"></i> ' + horaCL(p.ts));
     if (p.g) meta.push(p.g.replace(/^Group/i, 'Grupo'));
     return '<div class="pb-item">' +
-      '<span class="pb-cruce">' + bandera(p.h) + nombre(p.h) + ' ' + marcador + ' ' + nombre(p.a) + bandera(p.a) + '</span>' +
+      '<span class="pb-cruce">' +
+        '<span class="pb-team">' + bandera(p.h) + '<span class="pb-name">' + nombre(p.h) + '</span></span>' +
+        marcador +
+        '<span class="pb-team">' + bandera(p.a) + '<span class="pb-name">' + nombre(p.a) + '</span></span>' +
+      '</span>' +
       (meta.length ? '<span class="pb-meta">' + meta.join(' · ') + '</span>' : '') +
       '</div>';
   }).join('');
