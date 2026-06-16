@@ -6,7 +6,7 @@
   <title>Club Atletico Maristas — Liga La Reina</title>
   <link rel="icon" type="image/png" href="escudo.png" />
   <link rel="apple-touch-icon" href="escudo.png" />
-  <link rel="stylesheet" href="styles.css?v=20260614e" />
+  <link rel="stylesheet" href="styles.css?v=20260616c" />
   <!-- Preconnect para reducir latencia de fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -43,6 +43,7 @@
       </a>
       <nav id="nav">
         <a href="#inicio">Inicio</a>
+        <a href="#origenes">Orígenes</a>
         <a href="#noticias">Noticias</a>
         <a href="#competencia">Tabla de Posiciones</a>
         <a href="fixture.html">Fixture</a>
@@ -116,6 +117,18 @@
         <span class="band-label">Estadísticas en vivo</span>
         <a href="https://futbol.aira.cl/lig/defaultTorneo.aspx" target="_blank" rel="noopener" class="band-link">Ver en AIRA <i class="fas fa-external-link-alt"></i></a>
       </div>
+    </div>
+  </div>
+
+  <!-- SALUDO DE CUMPLEAÑOS (lo muestra script.js solo si hay cumpleañeros hoy) -->
+  <div class="cumple-banner" id="cumpleBanner" hidden>
+    <div class="wrap cumple-wrap">
+      <div class="cumple-ico">🎂</div>
+      <div class="cumple-texto">
+        <span class="cumple-titulo">¡Feliz cumpleaños!</span>
+        <span class="cumple-lista" id="cumpleLista"></span>
+      </div>
+      <div class="cumple-ico cumple-ico-r">🎉</div>
     </div>
   </div>
 
@@ -391,6 +404,21 @@
         <h2>Plantel 2026</h2>
         <span class="sec-sub">D.T. Gabriel Pacheco</span>
       </div>
+
+      <!-- TARJETA DE CUMPLEAÑOS (script.js la muestra solo si hay cumpleañeros hoy) -->
+      <div class="cc-wrap" id="cumpleCardWrap" hidden>
+        <article class="cc-card" id="cumpleCard">
+          <div class="cc-confetti" aria-hidden="true">🎈🎂🎉</div>
+          <img class="cc-escudo" src="escudo.png" alt="Club Atlético Maristas" />
+          <span class="cc-kicker">El Club Atlético Maristas saluda a</span>
+          <div class="cc-nombres" id="ccNombres"></div>
+          <p class="cc-msg">¡Feliz cumpleaños! 🎂 Que pases un gran día. 🎉</p>
+          <button class="cc-share" id="ccShare" type="button">
+            <i class="fab fa-whatsapp"></i> Compartir saludo
+          </button>
+        </article>
+      </div>
+
       <div class="dt-card">
         <div class="dt-photo">
           <img src="fotos/dt-gabriel.jpg" alt="Gabriel Pacheco - Director Técnico" loading="lazy" />
@@ -722,6 +750,41 @@
     </div>
   </section>
 
+  <!-- ORÍGENES / RESEÑA HISTÓRICA -->
+  <section class="section" id="origenes">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Orígenes</h2>
+        <span class="sec-sub">Reseña Histórica</span>
+      </div>
+      <div class="origenes-grid">
+        <figure class="origenes-foto">
+          <img src="fotos/origenes.jpg" alt="Plantel fundacional Súper Senior - Club Atlético Maristas"
+               loading="lazy" onerror="this.closest('.origenes-foto').style.display='none'" />
+          <figcaption>Plantel fundacional · División Súper Senior</figcaption>
+        </figure>
+        <div class="origenes-texto">
+          <p>Los orígenes de la institución se remontan al año <strong>2022</strong>, fundándose a
+             partir de la iniciativa de un grupo de apoderados del Colegio Marista de Santiago,
+             integrado por los señores <strong>Luis Ayala</strong>, <strong>Carlos Madrid</strong>,
+             <strong>Víctor García</strong>, <strong>Alex Tobar</strong> y
+             <strong>Alfredo Quezada</strong>.</p>
+          <p>En este marco fundacional, el <strong>9 de marzo de 2022</strong>, el club alcanzó su
+             primer hito institucional al ser admitido oficialmente en la <strong>Liga La Reina</strong>.
+             Esto consolidó la formación de la primera categoría de la institución, la división
+             <strong>Súper Senior</strong>, la cual inició formalmente sus actividades competitivas
+             disputando su encuentro inaugural frente al representativo de Alianza, sellando un reñido
+             <strong>empate 1-1</strong> que marcó el inicio de la trayectoria deportiva del club.</p>
+          <div class="origenes-hitos">
+            <div class="oh-item"><strong>2022</strong><span>Año de fundación</span></div>
+            <div class="oh-item"><strong>9 mar 2022</strong><span>Ingreso a Liga La Reina</span></div>
+            <div class="oh-item"><strong>1-1</strong><span>Debut vs. Alianza</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- COPAS GANADAS -->
   <section class="section bg-gray" id="copas">
     <div class="wrap">
@@ -815,9 +878,21 @@
   <section class="section sponsors-section" id="auspiciadores">
     <div class="wrap">
       <div class="sec-head">
-        <h2>Nuestros Auspiciadores</h2>
+        <h2>Auspiciadores Oficiales</h2>
         <span class="sec-sub">Gracias a quienes hacen posible el sueño</span>
       </div>
+
+      <!-- Auspiciador principal (destacado) -->
+      <a href="http://www.marisquerialouta.cl/" target="_blank" rel="noopener" class="sponsor-principal">
+        <span class="sp-badge"><i class="fas fa-star"></i> Auspiciador Principal</span>
+        <div class="sp-logo">
+          <img src="http://www.marisquerialouta.cl/favicon.ico" alt="Marisquería Louta" onerror="this.style.display='none'" />
+          <span class="sp-name">Marisquería Louta</span>
+        </div>
+        <span class="sp-url">marisquerialouta.cl</span>
+      </a>
+
+      <!-- Resto de auspiciadores -->
       <div class="sponsors-grid">
         <a href="https://agromarketing.cl/" target="_blank" rel="noopener" class="sponsor-card">
           <div class="sponsor-logo-wrap">
@@ -847,13 +922,6 @@
           </div>
           <span class="sponsor-url">toshiba.com</span>
         </a>
-        <a href="http://www.marisquerialouta.cl/" target="_blank" rel="noopener" class="sponsor-card">
-          <div class="sponsor-logo-wrap">
-            <img src="http://www.marisquerialouta.cl/favicon.ico" alt="Marisqueria Louta" class="sponsor-favicon" onerror="this.style.display='none'" />
-            <span class="sponsor-name">Marisqueria Louta</span>
-          </div>
-          <span class="sponsor-url">marisquerialouta.cl</span>
-        </a>
       </div>
     </div>
   </section>
@@ -870,6 +938,7 @@
       </div>
       <div class="footer-links">
         <a href="#inicio">Inicio</a>
+        <a href="#origenes">Orígenes</a>
         <a href="#noticias">Noticias</a>
         <a href="#series">Series</a>
         <a href="#competencia">Tabla de Posiciones</a>
@@ -894,7 +963,6 @@
 
   <!-- BANNER MUNDIAL FIFA 2026 (lateral derecho) -->
   <aside id="mundial-banner" class="mundial-banner" aria-label="Mundial FIFA 2026">
-    <button class="mb-close" aria-label="Cerrar banner">&times;</button>
     <span class="mb-tag"><i class="fas fa-futbol"></i> Mundial</span>
     <h4 class="mb-title">Copa del Mundo<br />2026</h4>
     <p class="mb-host">🇨🇦 Canadá · 🇲🇽 México · 🇺🇸 EE.UU.</p>
@@ -908,8 +976,9 @@
   <script src="noticias.js"></script>
   <script src="instagram-posts.js"></script>
   <script src="resultados.js?v=20260614"></script>
+  <script src="cumpleanos.js?v=20260616"></script>
   <script src="hero-fotos.js?v=20260614"></script>
-  <script src="script.js?v=20260614e" defer></script>
+  <script src="script.js?v=20260616c" defer></script>
 
   <script>
     (function() {

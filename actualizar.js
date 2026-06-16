@@ -344,6 +344,63 @@ function escribirResultados(resultados) {
   fs.writeFileSync(path.join(__dirname, 'resultados.js'), out, 'utf8');
 }
 
+// Parsea la pagina "Equipo" (verEquipoPublico.aspx) — tabla [30] Jugadores.
+// Columnas: Serie | Jugador | F.Nacimiento (DD/MM/YYYY) | Edad | Bloq | FS | FC | FP
+// Devuelve [{ serieJug, raw, fnac }] de las filas con fecha valida.
+function parseRosterEquipo(html) {
+  const tablas = html.match(/<table[\s\S]*?<\/table>/gi) || [];
+  const jt = tablas.find(t => /Nacimiento/i.test(t));
+  if (!jt) return [];
+  const out = [];
+  const filas = [...jt.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)];
+  for (const r of filas) {
+    const tds = [...r[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(c => stripTags(c[1]));
+    if (tds.length < 4) continue;
+    const fm = (tds[2] || '').match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (!fm) continue; // encabezado u otras filas
+    out.push({ serieJug: tds[0], raw: tds[1], fnac: tds[2] });
+  }
+  return out;
+}
+
+// Escribe cumpleanos.js (consumido por script.js) con los jugadores del club
+// y su fecha de nacimiento. script.js muestra los cumpleaneros del dia.
+// Dedup por nombre+fecha; descarta inscripciones placeholder (edad < 5).
+function escribirCumpleanos(jugadores) {
+  const anioActual = new Date().getFullYear();
+  const vistos = new Set();
+  const lista = [];
+  for (const j of jugadores) {
+    const fm = j.fnac.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (!fm) continue;
+    const [, dd, mm, yyyy] = fm;
+    const y = parseInt(yyyy, 10);
+    if (anioActual - y < 5) continue;            // placeholders INFANTIL (NUEVO)
+    const clave = normalizar(j.raw) + '|' + j.fnac;
+    if (vistos.has(clave)) continue;
+    vistos.add(clave);
+    lista.push({
+      n: nombreGoleador(j.raw),
+      s: toTitleCase(j.serieJug),
+      d: parseInt(dd, 10),
+      m: parseInt(mm, 10),
+      y
+    });
+  }
+  lista.sort((a, b) => (a.m - b.m) || (a.d - b.d));
+  const esc = s => String(s).replace(/'/g, "\\'");
+  const items = lista.map(p =>
+    `  { n:'${esc(p.n)}', s:'${esc(p.s)}', d:${p.d}, m:${p.m}, y:${p.y} }`
+  ).join(',\n');
+  const out =
+    '// Generado por actualizar.js — NO editar a mano.\n' +
+    '// Jugadores del club con fecha de nacimiento (todas las series).\n' +
+    '// script.js muestra el saludo a los cumpleaneros del dia.\n' +
+    'window.CUMPLEANOS = [\n' + items + (items ? '\n' : '') + '];\n';
+  fs.writeFileSync(path.join(__dirname, 'cumpleanos.js'), out, 'utf8');
+  return lista.length;
+}
+
 // ---- Generadores de HTML ----
 
 function generarTbody(filas) {
@@ -422,6 +479,7 @@ async function main() {
   const todosPartidos = [];
   const goleadoresMaristas = [];
   const resultadosMaristas = [];
+  const rosterMaristas = [];
 
   // 2. Por cada serie: posiciones + programacion
   for (const serie of series) {
@@ -442,6 +500,22 @@ async function main() {
     // Ultimo resultado jugado de Maristas en esta serie
     if (posHtml) {
       const href = hrefResultadoMaristas(posHtml);
+
+      // Roster del equipo (pagina "Equipo" = verEquipoPublico) para cumpleaños.
+      // El mismo token 'data=' del link de resultados sirve para el roster.
+      if (href) {
+        process.stdout.write(`  Roster       ${serie.id.padEnd(10)}... `);
+        try {
+          const eqUrl = BASE_AIRA + '/ini/' + href
+            .replace('lstResultadoEquipoPublico', 'verEquipoPublico')
+            .replace(/^\.?\/?/, '');
+          const eqHtml = await fetchPage(eqUrl, { referer: serie.url });
+          const roster = parseRosterEquipo(eqHtml);
+          rosterMaristas.push(...roster);
+          console.log(`OK (${roster.length} jugadores)`);
+        } catch (err) { console.log(`Error: ${err.message}`); }
+      }
+
       if (href) {
         process.stdout.write(`  Resultados   ${serie.id.padEnd(10)}... `);
         try {
@@ -501,6 +575,10 @@ async function main() {
   // 4. Ultimos resultados (resultados.js)
   escribirResultados(resultadosMaristas);
   console.log(`  Ultimos resultados: ${resultadosMaristas.length} serie(s)`);
+
+  // 4b. Cumpleaños (cumpleanos.js)
+  const nCumples = escribirCumpleanos(rosterMaristas);
+  console.log(`  Cumpleaños: ${nCumples} jugador(es) con fecha de nacimiento`);
 
   // 5. Proxima fecha
   const hoy = new Date();

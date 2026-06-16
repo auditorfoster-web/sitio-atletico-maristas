@@ -732,18 +732,120 @@ window.escudoRivalSrc = function (name) {
   }).join('');
 })();
 
-// ---- BANNER MUNDIAL 2026 (cerrar + recordar) ----
+// ---- SALUDO DE CUMPLEAÑOS ----
+// Lee window.CUMPLEANOS (cumpleanos.js) y muestra el banner solo si algun
+// jugador del club cumple años HOY. Une los nombres ("A, B y C") y, si la
+// fecha de nacimiento lo permite, agrega la edad que cumple.
 (function () {
-  var banner = document.getElementById('mundial-banner');
-  if (!banner) return;
-  var KEY = 'mundialBannerCerrado';
-  try { if (localStorage.getItem(KEY) === '1') banner.classList.add('is-hidden'); } catch (e) {}
-  var btn = banner.querySelector('.mb-close');
-  if (btn) btn.addEventListener('click', function () {
-    banner.classList.add('is-hidden');
-    try { localStorage.setItem(KEY, '1'); } catch (e) {}
+  var banner = document.getElementById('cumpleBanner');
+  var cont   = document.getElementById('cumpleLista');
+  if (!banner || !cont) return;
+  var lista = Array.isArray(window.CUMPLEANOS) ? window.CUMPLEANOS : [];
+  if (!lista.length) return;
+
+  var hoy = new Date();
+  var d = hoy.getDate(), m = hoy.getMonth() + 1, anio = hoy.getFullYear();
+  var hoyCumplen = lista.filter(function (p) { return p.d === d && p.m === m; });
+  if (!hoyCumplen.length) return;
+
+  var nombres = hoyCumplen.map(function (p) {
+    var edad = p.y ? (anio - p.y) : null;
+    var serie = p.s ? ' · ' + p.s : '';
+    return '<strong>' + p.n + '</strong>' +
+      (edad ? ' <span class="cumple-edad">(' + edad + ')</span>' : '') +
+      '<span class="cumple-serie">' + serie + '</span>';
   });
+
+  var texto;
+  if (nombres.length === 1) texto = nombres[0];
+  else texto = nombres.slice(0, -1).join(', ') + ' y ' + nombres[nombres.length - 1];
+
+  cont.innerHTML = texto;
+  banner.hidden = false;
+
+  // --- Tarjeta de saludo en la seccion Plantel (con compartir por WhatsApp) ---
+  var card = document.getElementById('cumpleCardWrap');
+  var ccNom = document.getElementById('ccNombres');
+  var ccShare = document.getElementById('ccShare');
+  if (card && ccNom) {
+    ccNom.innerHTML = hoyCumplen.map(function (p) {
+      var edad = p.y ? (anio - p.y) : null;
+      return '<span class="cc-jug"><span class="cc-jug-nombre">' + p.n + '</span>' +
+        (edad ? '<span class="cc-jug-edad">' + edad + ' años</span>' : '') +
+        (p.s ? '<span class="cc-jug-serie">' + p.s + '</span>' : '') + '</span>';
+    }).join('');
+    card.hidden = false;
+
+    // Texto plano para WhatsApp (y como respaldo si no se puede compartir imagen).
+    var nombresTxt = hoyCumplen.map(function (p) {
+      return p.n + (p.y ? ' (' + (anio - p.y) + ')' : '');
+    });
+    var listaTxt = nombresTxt.length === 1 ? nombresTxt[0]
+      : nombresTxt.slice(0, -1).join(', ') + ' y ' + nombresTxt[nombresTxt.length - 1];
+    var sitio = location.origin + location.pathname;
+    var msgWA = '🎂 ¡Feliz cumpleaños ' + listaTxt + '! 🎉\n' +
+      'Toda la familia del Club Atlético Maristas te desea un gran día.\n' + sitio;
+
+    // Dibuja una tarjeta 1080x1080 en canvas para compartir como imagen.
+    function dibujarTarjeta(cb) {
+      var W = 1080, cv = document.createElement('canvas');
+      cv.width = W; cv.height = W;
+      var ctx = cv.getContext('2d');
+      var g = ctx.createLinearGradient(0, 0, W, W);
+      g.addColorStop(0, '#c8102e'); g.addColorStop(1, '#7a0a1c');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, W);
+      ctx.strokeStyle = '#FFD700'; ctx.lineWidth = 16;
+      ctx.strokeRect(34, 34, W - 68, W - 68);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#FFD700'; ctx.font = '900 62px Arial';
+      ctx.fillText('¡FELIZ CUMPLEAÑOS!', W / 2, 430);
+      ctx.font = '40px Arial'; ctx.fillText('🎂  🎉  🎈', W / 2, 510);
+      // Nombres + edad, centrados verticalmente bajo el titulo.
+      var startY = 620, n = hoyCumplen.length;
+      var nameSize = n > 3 ? 46 : n > 1 ? 58 : 70;
+      var step = nameSize + 30;
+      hoyCumplen.forEach(function (p, i) {
+        var edad = p.y ? (anio - p.y) : null;
+        ctx.fillStyle = '#fff'; ctx.font = '700 ' + nameSize + 'px Arial';
+        ctx.fillText(p.n + (edad ? '  (' + edad + ')' : ''), W / 2, startY + i * step);
+      });
+      // Pie
+      ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.font = '700 34px Arial';
+      ctx.fillText('CLUB ATLÉTICO MARISTAS', W / 2, W - 90);
+      // Escudo arriba (puede fallar la carga: igual resolvemos)
+      var img = new Image(); var done = false;
+      function finish() { if (done) return; done = true; cv.toBlob(function (b) { cb(b); }, 'image/png'); }
+      img.onload = function () { ctx.drawImage(img, W / 2 - 90, 110, 180, 180); finish(); };
+      img.onerror = finish;
+      img.src = 'escudo.png';
+      setTimeout(finish, 1500); // respaldo por si la imagen no dispara eventos
+    }
+
+    if (ccShare) ccShare.addEventListener('click', function () {
+      ccShare.disabled = true;
+      dibujarTarjeta(function (blob) {
+        ccShare.disabled = false;
+        var file = blob && window.File
+          ? new File([blob], 'cumpleanos-maristas.png', { type: 'image/png' }) : null;
+        if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({ files: [file], text: msgWA, title: 'Feliz cumpleaños — Maristas' })
+            .catch(function () {});
+        } else {
+          // Sin compartir de imagen: descarga la tarjeta y abre WhatsApp con el texto.
+          if (blob) {
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'cumpleanos-maristas.png';
+            document.body.appendChild(a); a.click(); a.remove();
+          }
+          window.open('https://wa.me/?text=' + encodeURIComponent(msgWA), '_blank', 'noopener');
+        }
+      });
+    });
+  }
 })();
+
+// El banner del Mundial es permanente (sin botón de cerrar): no requiere JS.
 
 // ---- COMPARTIR SECCIONES (WhatsApp / Instagram) ----
 // Cada .share-row[data-target][data-title] genera botones para que quien visita
