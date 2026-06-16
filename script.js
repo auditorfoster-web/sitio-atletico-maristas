@@ -899,24 +899,83 @@ window.escudoRivalSrc = function (name) {
                      .sort(function (a, b) { return new Date(a.ts) - new Date(b.ts); });
   if (!hoyJuega.length) return;
 
-  cont.innerHTML = hoyJuega.map(function (p) {
-    var jugado = p.hs != null && p.as != null;
-    var marcador = jugado
-      ? '<span class="pb-score">' + p.hs + ' - ' + p.as + '</span>'
-      : '<span class="pb-vs">vs</span>';
-    var meta = [];
-    if (!jugado) meta.push('<i class="fas fa-clock"></i> ' + horaCL(p.ts));
-    if (p.g) meta.push(p.g.replace(/^Group/i, 'Grupo'));
-    return '<div class="pb-item">' +
-      '<span class="pb-cruce">' +
-        '<span class="pb-team">' + bandera(p.h) + '<span class="pb-name">' + nombre(p.h) + '</span></span>' +
-        marcador +
-        '<span class="pb-team">' + bandera(p.a) + '<span class="pb-name">' + nombre(p.a) + '</span></span>' +
-      '</span>' +
-      (meta.length ? '<span class="pb-meta">' + meta.join(' · ') + '</span>' : '') +
-      '</div>';
-  }).join('');
-  banner.hidden = false;
+  // --- Casado de nombres con ESPN (fuente de marcadores en vivo) ---
+  // Normaliza a minúsculas sin acentos ni símbolos y colapsa variantes de nombre.
+  var ALIAS = {
+    capeverde:'caboverde', southkorea:'korearepublic', unitedstates:'usa',
+    ivorycoast:'cotedivoire', drcongo:'congodr', czechrepublic:'czechia',
+    turkey:'turkiye', bosniaherzegovina:'bosnia', bosniaandherzegovina:'bosnia',
+    turkiye:'turkiye'
+  };
+  function norm(s) {
+    s = (s || '').toLowerCase().normalize('NFD').replace(/[^a-z]/g, '');
+    return ALIAS[s] || s;
+  }
+
+  // Pinta el banner. `live` es un mapa nombreNormalizado -> {score, state} con
+  // los datos de ESPN (o null para pintar de inmediato desde mundial.js).
+  function render(live) {
+    cont.innerHTML = hoyJuega.map(function (p) {
+      var hs = p.hs, as = p.as, estado = '', enVivo = false, finalizado = false;
+      if (live) {
+        var lh = live[norm(p.h)], la = live[norm(p.a)];
+        if (lh && la && lh.ev === la.ev) {           // mismo partido en ESPN
+          if (lh.state !== 'pre') { hs = lh.score; as = la.score; }
+          enVivo = lh.state === 'in';
+          finalizado = lh.state === 'post';
+          estado = lh.detail;
+        }
+      }
+      var jugado = hs != null && as != null;
+      var marcador = jugado
+        ? '<span class="pb-score' + (enVivo ? ' pb-score-live' : '') + '">' + hs + ' - ' + as + '</span>'
+        : '<span class="pb-vs">vs</span>';
+      var meta = [];
+      if (enVivo) meta.push('<span class="pb-live"><i class="fas fa-circle"></i> EN VIVO' + (estado ? ' · ' + estado : '') + '</span>');
+      else if (finalizado) meta.push('Final');
+      else if (!jugado) meta.push('<i class="fas fa-clock"></i> ' + horaCL(p.ts));
+      if (p.g) meta.push(p.g.replace(/^Group/i, 'Grupo'));
+      return '<div class="pb-item">' +
+        '<span class="pb-cruce">' +
+          '<span class="pb-team">' + bandera(p.h) + '<span class="pb-name">' + nombre(p.h) + '</span></span>' +
+          marcador +
+          '<span class="pb-team">' + bandera(p.a) + '<span class="pb-name">' + nombre(p.a) + '</span></span>' +
+        '</span>' +
+        (meta.length ? '<span class="pb-meta">' + meta.join(' · ') + '</span>' : '') +
+        '</div>';
+    }).join('');
+    banner.hidden = false;
+  }
+
+  render(null);  // pintado inmediato con lo que trae mundial.js
+
+  // --- Marcadores EN VIVO desde la API pública de ESPN (gratis, sin API key) ---
+  // Se consulta un rango de 3 días porque ESPN archiva algunos partidos en otro
+  // día UTC. El marcador se refresca cada 60 s mientras haya partidos en curso.
+  function ymd(d) { return d.toLocaleDateString('en-CA', { timeZone: TZ }).replace(/-/g, ''); }
+  function fetchLive() {
+    var ahora = new Date();
+    var rango = ymd(new Date(ahora.getTime() - 864e5)) + '-' + ymd(new Date(ahora.getTime() + 864e5));
+    var url = 'https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=' + rango;
+    fetch(url).then(function (r) { return r.json(); }).then(function (d) {
+      var map = {}, hayVivo = false;
+      (d.events || []).forEach(function (e, i) {
+        var comp = e.competitions && e.competitions[0];
+        if (!comp) return;
+        var st = (e.status && e.status.type) || {};
+        comp.competitors.forEach(function (c) {
+          map[norm(c.team.displayName)] = {
+            ev: i, score: parseInt(c.score, 10), state: st.state,
+            detail: st.shortDetail || st.detail || ''
+          };
+        });
+        if (st.state === 'in') hayVivo = true;
+      });
+      render(map);
+      if (hayVivo) setTimeout(fetchLive, 60000);  // sigue refrescando mientras juegan
+    }).catch(function () { /* sin conexión: queda lo de mundial.js */ });
+  }
+  fetchLive();
 })();
 
 // El banner del Mundial es permanente (sin botón de cerrar): no requiere JS.

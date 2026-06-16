@@ -1029,6 +1029,10 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
 }
 .pb-meta { color:rgba(255,255,255,.72); font-size:12.5px; }
 .pb-meta i { margin-right:3px; opacity:.8; }
+.pb-live { color:#ff4d4d; font-weight:800; letter-spacing:.3px; }
+.pb-live i { font-size:8px; margin-right:4px; animation:pbBlink 1s steps(1) infinite; }
+.pb-score-live { box-shadow:0 0 0 2px rgba(255,77,77,.85); }
+@keyframes pbBlink { 50% { opacity:.25; } }
 @media (max-width:560px) {
   .pb-item { width:100%; flex-direction:column; gap:5px; }
 }
