@@ -54,9 +54,9 @@ nav a { font-size:14px; font-weight:600; padding:8px 12px; border-radius:var(--r
 nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
 
 /* ---- HERO ---- */
-.hero { position:relative; height:520px; display:flex; align-items:center; overflow:hidden; }
+.hero { position:relative; height:520px; display:flex; align-items:flex-end; padding-bottom:16px; overflow:hidden; }
 .hero-overlay { position:absolute; inset:0; background:linear-gradient(to right, rgba(0,0,0,.78) 0%, rgba(0,0,0,.35) 60%, rgba(0,0,0,.1) 100%); }
-.hero-body { position:relative; z-index:2; }
+.hero-body { position:relative; z-index:2; opacity:.65; }
 
 /* Hero slider */
 .hero-slider { position:absolute; inset:0; }
