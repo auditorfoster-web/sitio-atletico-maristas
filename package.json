@@ -1,7 +1,8 @@
 {
   "scripts": {
     "admin": "node admin-server.js",
-    "actualizar": "node actualizar.js"
+    "actualizar": "node actualizar.js",
+    "mundial": "node actualizar-mundial.js"
   },
   "dependencies": {
     "@netlify/blobs": "^8.1.0",

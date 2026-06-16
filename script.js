@@ -749,10 +749,8 @@ window.escudoRivalSrc = function (name) {
   if (!hoyCumplen.length) return;
 
   var nombres = hoyCumplen.map(function (p) {
-    var edad = p.y ? (anio - p.y) : null;
     var serie = p.s ? ' · ' + p.s : '';
     return '<strong>' + p.n + '</strong>' +
-      (edad ? ' <span class="cumple-edad">(' + edad + ')</span>' : '') +
       '<span class="cumple-serie">' + serie + '</span>';
   });
 
@@ -769,17 +767,13 @@ window.escudoRivalSrc = function (name) {
   var ccShare = document.getElementById('ccShare');
   if (card && ccNom) {
     ccNom.innerHTML = hoyCumplen.map(function (p) {
-      var edad = p.y ? (anio - p.y) : null;
       return '<span class="cc-jug"><span class="cc-jug-nombre">' + p.n + '</span>' +
-        (edad ? '<span class="cc-jug-edad">' + edad + ' años</span>' : '') +
         (p.s ? '<span class="cc-jug-serie">' + p.s + '</span>' : '') + '</span>';
     }).join('');
     card.hidden = false;
 
     // Texto plano para WhatsApp (y como respaldo si no se puede compartir imagen).
-    var nombresTxt = hoyCumplen.map(function (p) {
-      return p.n + (p.y ? ' (' + (anio - p.y) + ')' : '');
-    });
+    var nombresTxt = hoyCumplen.map(function (p) { return p.n; });
     var listaTxt = nombresTxt.length === 1 ? nombresTxt[0]
       : nombresTxt.slice(0, -1).join(', ') + ' y ' + nombresTxt[nombresTxt.length - 1];
     var sitio = location.origin + location.pathname;
@@ -800,14 +794,13 @@ window.escudoRivalSrc = function (name) {
       ctx.fillStyle = '#FFD700'; ctx.font = '900 62px Arial';
       ctx.fillText('¡FELIZ CUMPLEAÑOS!', W / 2, 430);
       ctx.font = '40px Arial'; ctx.fillText('🎂  🎉  🎈', W / 2, 510);
-      // Nombres + edad, centrados verticalmente bajo el titulo.
+      // Nombres centrados verticalmente bajo el titulo.
       var startY = 620, n = hoyCumplen.length;
       var nameSize = n > 3 ? 46 : n > 1 ? 58 : 70;
       var step = nameSize + 30;
       hoyCumplen.forEach(function (p, i) {
-        var edad = p.y ? (anio - p.y) : null;
         ctx.fillStyle = '#fff'; ctx.font = '700 ' + nameSize + 'px Arial';
-        ctx.fillText(p.n + (edad ? '  (' + edad + ')' : ''), W / 2, startY + i * step);
+        ctx.fillText(p.n, W / 2, startY + i * step);
       });
       // Pie
       ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.font = '700 34px Arial';
@@ -843,6 +836,63 @@ window.escudoRivalSrc = function (name) {
       });
     });
   }
+})();
+
+// ---- BANNER PARTIDOS DEL DÍA · MUNDIAL 2026 ----
+// Lee window.MUNDIAL (mundial.js) y muestra el banner solo si hay partidos del
+// Mundial HOY (en hora de Chile). Cada "ts" viene en UTC y se convierte a la
+// zona America/Santiago para decidir el dia y mostrar la hora local.
+(function () {
+  var banner = document.getElementById('partidosBanner');
+  var cont = document.getElementById('partidosList');
+  if (!banner || !cont) return;
+  var data = window.MUNDIAL && Array.isArray(window.MUNDIAL.partidos) ? window.MUNDIAL.partidos : [];
+  if (!data.length) return;
+
+  var TZ = 'America/Santiago';
+  // Nombres de selecciones en español (con respaldo al original).
+  var ES = {
+    'Algeria':'Argelia','Argentina':'Argentina','Australia':'Australia','Austria':'Austria',
+    'Belgium':'Bélgica','Bosnia and Herzegovina':'Bosnia y Herzegovina','Brazil':'Brasil',
+    'Cabo Verde':'Cabo Verde','Canada':'Canadá','Colombia':'Colombia','Congo DR':'RD Congo',
+    'Croatia':'Croacia','Curaçao':'Curazao','Czechia':'Chequia',"Côte d'Ivoire":'Costa de Marfil',
+    'Ecuador':'Ecuador','Egypt':'Egipto','England':'Inglaterra','France':'Francia','Germany':'Alemania',
+    'Ghana':'Ghana','Haiti':'Haití','Iran':'Irán','Iraq':'Irak','Japan':'Japón','Jordan':'Jordania',
+    'Korea Republic':'Corea del Sur','Mexico':'México','Morocco':'Marruecos','Netherlands':'Países Bajos',
+    'New Zealand':'Nueva Zelanda','Norway':'Noruega','Panama':'Panamá','Paraguay':'Paraguay',
+    'Portugal':'Portugal','Qatar':'Catar','Saudi Arabia':'Arabia Saudita','Scotland':'Escocia',
+    'Senegal':'Senegal','South Africa':'Sudáfrica','Spain':'España','Sweden':'Suecia',
+    'Switzerland':'Suiza','Tunisia':'Túnez','Türkiye':'Turquía','USA':'Estados Unidos',
+    'Uruguay':'Uruguay','Uzbekistan':'Uzbekistán','To be announced':'Por definir'
+  };
+  function nombre(n) { return ES[n] || n; }
+
+  function fechaCL(ts) {
+    return new Date(ts).toLocaleDateString('es-CL', { timeZone: TZ });
+  }
+  function horaCL(ts) {
+    return new Date(ts).toLocaleTimeString('es-CL', { timeZone: TZ, hour: '2-digit', minute: '2-digit', hour12: false }) + ' hrs';
+  }
+
+  var hoyCL = new Date().toLocaleDateString('es-CL', { timeZone: TZ });
+  var hoyJuega = data.filter(function (p) { return fechaCL(p.ts) === hoyCL; })
+                     .sort(function (a, b) { return new Date(a.ts) - new Date(b.ts); });
+  if (!hoyJuega.length) return;
+
+  cont.innerHTML = hoyJuega.map(function (p) {
+    var jugado = p.hs != null && p.as != null;
+    var marcador = jugado
+      ? '<span class="pb-score">' + p.hs + ' - ' + p.as + '</span>'
+      : '<span class="pb-vs">vs</span>';
+    var meta = [];
+    if (!jugado) meta.push('<i class="fas fa-clock"></i> ' + horaCL(p.ts));
+    if (p.g) meta.push(p.g.replace(/^Group/i, 'Grupo'));
+    return '<div class="pb-item">' +
+      '<span class="pb-cruce">' + nombre(p.h) + ' ' + marcador + ' ' + nombre(p.a) + '</span>' +
+      (meta.length ? '<span class="pb-meta">' + meta.join(' · ') + '</span>' : '') +
+      '</div>';
+  }).join('');
+  banner.hidden = false;
 })();
 
 // El banner del Mundial es permanente (sin botón de cerrar): no requiere JS.

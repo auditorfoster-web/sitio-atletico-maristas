@@ -1003,6 +1003,33 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
   .cumple-serie { display:block; }
 }
 
+/* ---- Banner partidos del día · Mundial 2026 ---- */
+.partidos-banner {
+  background:linear-gradient(90deg, #14213d 0%, #1e1e1e 100%);
+  color:#fff; border-top:3px solid var(--yellow); border-bottom:3px solid var(--yellow);
+}
+.partidos-banner[hidden] { display:none; }
+.partidos-wrap { padding:13px 20px; display:flex; flex-direction:column; align-items:center; gap:10px; }
+.pb-head { font-weight:800; text-transform:uppercase; letter-spacing:1px; font-size:14px; color:var(--yellow); }
+.pb-head i { margin-right:5px; }
+.pb-list { display:flex; flex-wrap:wrap; justify-content:center; gap:10px 14px; }
+.pb-item {
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14);
+  border-radius:999px; padding:7px 16px; font-size:14px;
+}
+.pb-cruce { font-weight:600; }
+.pb-vs { color:rgba(255,255,255,.5); font-size:12px; margin:0 4px; }
+.pb-score {
+  background:var(--yellow); color:#1e1e1e; font-weight:800; font-size:13px;
+  padding:2px 10px; border-radius:6px; margin:0 4px;
+}
+.pb-meta { color:rgba(255,255,255,.72); font-size:12.5px; }
+.pb-meta i { margin-right:3px; opacity:.8; }
+@media (max-width:560px) {
+  .pb-item { width:100%; flex-direction:column; gap:5px; }
+}
+
 /* ---- Tarjeta de cumpleaños (sección Plantel) ---- */
 .cc-wrap { margin:0 0 30px; display:flex; justify-content:center; }
 .cc-wrap[hidden] { display:none; }

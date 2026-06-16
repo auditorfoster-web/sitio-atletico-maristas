@@ -6,7 +6,7 @@
   <title>Club Atletico Maristas — Liga La Reina</title>
   <link rel="icon" type="image/png" href="escudo.png" />
   <link rel="apple-touch-icon" href="escudo.png" />
-  <link rel="stylesheet" href="styles.css?v=20260616c" />
+  <link rel="stylesheet" href="styles.css?v=20260616e" />
   <!-- Preconnect para reducir latencia de fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -129,6 +129,14 @@
         <span class="cumple-lista" id="cumpleLista"></span>
       </div>
       <div class="cumple-ico cumple-ico-r">🎉</div>
+    </div>
+  </div>
+
+  <!-- PARTIDOS DEL DÍA · MUNDIAL 2026 (lo muestra script.js solo si hay partidos hoy) -->
+  <div class="partidos-banner" id="partidosBanner" hidden>
+    <div class="wrap partidos-wrap">
+      <div class="pb-head"><i class="fas fa-futbol"></i> <span>Mundial 2026 · Partidos de hoy</span></div>
+      <div class="pb-list" id="partidosList"></div>
     </div>
   </div>
 
@@ -882,18 +890,14 @@
         <span class="sec-sub">Gracias a quienes hacen posible el sueño</span>
       </div>
 
-      <!-- Auspiciador principal (destacado) -->
-      <a href="http://www.marisquerialouta.cl/" target="_blank" rel="noopener" class="sponsor-principal">
-        <span class="sp-badge"><i class="fas fa-star"></i> Auspiciador Principal</span>
-        <div class="sp-logo">
-          <img src="http://www.marisquerialouta.cl/favicon.ico" alt="Marisquería Louta" onerror="this.style.display='none'" />
-          <span class="sp-name">Marisquería Louta</span>
-        </div>
-        <span class="sp-url">marisquerialouta.cl</span>
-      </a>
-
-      <!-- Resto de auspiciadores -->
       <div class="sponsors-grid">
+        <a href="http://www.marisquerialouta.cl/" target="_blank" rel="noopener" class="sponsor-card">
+          <div class="sponsor-logo-wrap">
+            <img src="http://www.marisquerialouta.cl/favicon.ico" alt="Marisquería Louta" class="sponsor-favicon" onerror="this.style.display='none'" />
+            <span class="sponsor-name">Marisquería Louta</span>
+          </div>
+          <span class="sponsor-url">marisquerialouta.cl</span>
+        </a>
         <a href="https://agromarketing.cl/" target="_blank" rel="noopener" class="sponsor-card">
           <div class="sponsor-logo-wrap">
             <img src="https://agromarketing.cl/favicon.ico" alt="Agromarketing" class="sponsor-favicon" onerror="this.style.display='none'" />
@@ -977,8 +981,9 @@
   <script src="instagram-posts.js"></script>
   <script src="resultados.js?v=20260614"></script>
   <script src="cumpleanos.js?v=20260616"></script>
+  <script src="mundial.js?v=20260616"></script>
   <script src="hero-fotos.js?v=20260614"></script>
-  <script src="script.js?v=20260616c" defer></script>
+  <script src="script.js?v=20260616e" defer></script>
 
   <script>
     (function() {
