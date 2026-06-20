@@ -2,7 +2,7 @@
 // Fixture y resultados del Mundial FIFA 2026 (fuente: fixturedownload.com).
 // "ts" esta en UTC; script.js lo convierte a hora de Chile.
 window.MUNDIAL = {
-  actualizado: '2026-06-20T07:51:24.263Z',
+  actualizado: '2026-06-20T10:33:09.675Z',
   partidos: [
   { n:1, ts:'2026-06-11T19:00:00Z', g:'Group A', loc:'Mexico City Stadium', h:'Mexico', a:'South Africa', hs:2, as:0 },
   { n:2, ts:'2026-06-12T02:00:00Z', g:'Group A', loc:'Guadalajara Stadium', h:'Korea Republic', a:'Czechia', hs:2, as:1 },
@@ -34,8 +34,8 @@ window.MUNDIAL = {
   { n:28, ts:'2026-06-19T01:00:00Z', g:'Group A', loc:'Guadalajara Stadium', h:'Mexico', a:'Korea Republic', hs:1, as:0 },
   { n:32, ts:'2026-06-19T19:00:00Z', g:'Group D', loc:'Seattle Stadium', h:'USA', a:'Australia', hs:2, as:0 },
   { n:30, ts:'2026-06-19T22:00:00Z', g:'Group C', loc:'Boston Stadium', h:'Scotland', a:'Morocco', hs:0, as:1 },
-  { n:29, ts:'2026-06-20T01:00:00Z', g:'Group C', loc:'Philadelphia Stadium', h:'Brazil', a:'Haiti', hs:3, as:0 },
-  { n:31, ts:'2026-06-20T04:00:00Z', g:'Group D', loc:'San Francisco Bay Area Stadium', h:'Türkiye', a:'Paraguay', hs:0, as:1 },
+  { n:29, ts:'2026-06-20T00:30:00Z', g:'Group C', loc:'Philadelphia Stadium', h:'Brazil', a:'Haiti', hs:3, as:0 },
+  { n:31, ts:'2026-06-20T03:00:00Z', g:'Group D', loc:'San Francisco Bay Area Stadium', h:'Türkiye', a:'Paraguay', hs:0, as:1 },
   { n:35, ts:'2026-06-20T17:00:00Z', g:'Group F', loc:'Houston Stadium', h:'Netherlands', a:'Sweden', hs:null, as:null },
   { n:33, ts:'2026-06-20T20:00:00Z', g:'Group E', loc:'Toronto Stadium', h:'Germany', a:'Côte d\'Ivoire', hs:null, as:null },
   { n:34, ts:'2026-06-21T00:00:00Z', g:'Group E', loc:'Kansas City Stadium', h:'Ecuador', a:'Curaçao', hs:null, as:null },
@@ -82,10 +82,10 @@ window.MUNDIAL = {
   { n:75, ts:'2026-06-30T01:00:00Z', g:'', loc:'Monterrey Stadium', h:'1F', a:'2C', hs:null, as:null },
   { n:78, ts:'2026-06-30T17:00:00Z', g:'', loc:'Dallas Stadium', h:'2E', a:'2I', hs:null, as:null },
   { n:77, ts:'2026-06-30T21:00:00Z', g:'', loc:'New York/New Jersey Stadium', h:'1I', a:'3CDFGH', hs:null, as:null },
-  { n:79, ts:'2026-07-01T01:00:00Z', g:'', loc:'Mexico City Stadium', h:'1A', a:'3CEFHI', hs:null, as:null },
+  { n:79, ts:'2026-07-01T01:00:00Z', g:'', loc:'Mexico City Stadium', h:'Mexico', a:'3CEFHI', hs:null, as:null },
   { n:80, ts:'2026-07-01T16:00:00Z', g:'', loc:'Atlanta Stadium', h:'1L', a:'3EHIJK', hs:null, as:null },
   { n:82, ts:'2026-07-01T20:00:00Z', g:'', loc:'Seattle Stadium', h:'1G', a:'3AEHIJ', hs:null, as:null },
-  { n:81, ts:'2026-07-02T00:00:00Z', g:'', loc:'San Francisco Bay Area Stadium', h:'1D', a:'3BEFIJ', hs:null, as:null },
+  { n:81, ts:'2026-07-02T00:00:00Z', g:'', loc:'San Francisco Bay Area Stadium', h:'USA', a:'3BEFIJ', hs:null, as:null },
   { n:84, ts:'2026-07-02T19:00:00Z', g:'', loc:'Los Angeles Stadium', h:'1H', a:'2J', hs:null, as:null },
   { n:83, ts:'2026-07-02T23:00:00Z', g:'', loc:'Toronto Stadium', h:'2K', a:'2L', hs:null, as:null },
   { n:85, ts:'2026-07-03T03:00:00Z', g:'', loc:'BC Place Vancouver', h:'1B', a:'3EFGIJ', hs:null, as:null },
