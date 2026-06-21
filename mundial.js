@@ -2,7 +2,7 @@
 // Fixture y resultados del Mundial FIFA 2026 (fuente: fixturedownload.com).
 // "ts" esta en UTC; script.js lo convierte a hora de Chile.
 window.MUNDIAL = {
-  actualizado: '2026-06-20T23:09:58.509Z',
+  actualizado: '2026-06-21T04:15:02.909Z',
   partidos: [
   { n:1, ts:'2026-06-11T19:00:00Z', g:'Group A', loc:'Mexico City Stadium', h:'Mexico', a:'South Africa', hs:2, as:0 },
   { n:2, ts:'2026-06-12T02:00:00Z', g:'Group A', loc:'Guadalajara Stadium', h:'Korea Republic', a:'Czechia', hs:2, as:1 },
@@ -38,7 +38,7 @@ window.MUNDIAL = {
   { n:31, ts:'2026-06-20T03:00:00Z', g:'Group D', loc:'San Francisco Bay Area Stadium', h:'Türkiye', a:'Paraguay', hs:0, as:1 },
   { n:35, ts:'2026-06-20T17:00:00Z', g:'Group F', loc:'Houston Stadium', h:'Netherlands', a:'Sweden', hs:5, as:1 },
   { n:33, ts:'2026-06-20T20:00:00Z', g:'Group E', loc:'Toronto Stadium', h:'Germany', a:'Côte d\'Ivoire', hs:2, as:1 },
-  { n:34, ts:'2026-06-21T00:00:00Z', g:'Group E', loc:'Kansas City Stadium', h:'Ecuador', a:'Curaçao', hs:null, as:null },
+  { n:34, ts:'2026-06-21T00:00:00Z', g:'Group E', loc:'Kansas City Stadium', h:'Ecuador', a:'Curaçao', hs:0, as:0 },
   { n:36, ts:'2026-06-21T04:00:00Z', g:'Group F', loc:'Monterrey Stadium', h:'Tunisia', a:'Japan', hs:null, as:null },
   { n:38, ts:'2026-06-21T16:00:00Z', g:'Group H', loc:'Atlanta Stadium', h:'Spain', a:'Saudi Arabia', hs:null, as:null },
   { n:39, ts:'2026-06-21T19:00:00Z', g:'Group G', loc:'Los Angeles Stadium', h:'Belgium', a:'Iran', hs:null, as:null },
@@ -62,7 +62,7 @@ window.MUNDIAL = {
   { n:56, ts:'2026-06-25T20:00:00Z', g:'Group E', loc:'New York/New Jersey Stadium', h:'Ecuador', a:'Germany', hs:null, as:null },
   { n:57, ts:'2026-06-25T23:00:00Z', g:'Group F', loc:'Dallas Stadium', h:'Japan', a:'Sweden', hs:null, as:null },
   { n:58, ts:'2026-06-25T23:00:00Z', g:'Group F', loc:'Kansas City Stadium', h:'Tunisia', a:'Netherlands', hs:null, as:null },
-  { n:59, ts:'2026-06-26T02:00:00Z', g:'Group D', loc:'Los Angeles Stadium', h:'Türkiye', a:'USA', hs:null, as:null },
+  { n:59, ts:'2026-06-26T02:00:00Z', g:'Group D', loc:'Los Angeles Stadium', h:'T��rkiye', a:'USA', hs:null, as:null },
   { n:60, ts:'2026-06-26T02:00:00Z', g:'Group D', loc:'San Francisco Bay Area Stadium', h:'Paraguay', a:'Australia', hs:null, as:null },
   { n:61, ts:'2026-06-26T19:00:00Z', g:'Group I', loc:'Boston Stadium', h:'Norway', a:'France', hs:null, as:null },
   { n:62, ts:'2026-06-26T19:00:00Z', g:'Group I', loc:'Toronto Stadium', h:'Senegal', a:'Iraq', hs:null, as:null },
