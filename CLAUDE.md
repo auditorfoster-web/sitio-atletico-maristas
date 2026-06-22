@@ -38,11 +38,12 @@ The site is a **single-page static website** (`index.html` + `styles.css` + `scr
 ### Data flow
 
 ```
-futbol.aira.cl  ──►  actualizar.js  ──►  index.html    (standings/fixtures injected inline)
+futbol.aira.cl  ──►  actualizar.js  ──►  index.html    (standings injected inline)
 futbol.aira.cl  ──►  actualizar.js  ──►  resultados.js  (last result per serie, JS source)
 admin panel UI  ──►  admin-server.js ──►  noticias.js   (news array rewritten as JS source)
 noticias.js     ──►  index.html      (loaded via <script> tag, read at runtime by script.js)
 resultados.js   ──►  index.html      (loaded via <script>; rendered into #res-grid)
+fixture-data.js ──►  index.html + fixture.html  (canonical fixture; "Próxima Fecha" computed client-side)
 ```
 
 ### `actualizar.js`
@@ -54,7 +55,9 @@ It also fetches **past results** per serie. AIRA's results page (`lstResultadoEq
 <!-- TBODY:junior --> ... <!-- /TBODY:junior -->
 ```
 
-The `<tbody id="proxima-tbody">` block and the `Actualizado: DD/MM/YYYY` text are also replaced by regex. **Adding a new serie requires adding it to `SERIE_MAP` and adding the corresponding markers in `index.html`.**
+**Adding a new serie requires adding it to `SERIE_MAP` and adding the corresponding markers in `index.html`.**
+
+The **"Próxima Fecha"** section is **no longer** scraped from AIRA (its schedule lagged and showed already-played rounds). It is now derived client-side from **`fixture-data.js`**, the canonical season calendar shared by `index.html` and `fixture.html`. An inline script in `index.html` picks the next round (the first whose last day hasn't passed, via `window.fixtureProxima()`), fills the hidden `#proxima-tbody`, and `script.js` builds the cards + countdown from it. To change the calendar, edit only `fixture-data.js`.
 
 ### `admin-server.js`
 Minimal HTTP server (no framework) at `localhost:3001` serving `admin.html`. REST-ish API:

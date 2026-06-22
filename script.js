@@ -513,7 +513,9 @@ window.nombreCortoRival = function (name) {
   return w.join(' ');
 };
 window.escudoRivalSrc = function (name) {
-  var n = String(name).toLowerCase();
+  // Se quitan los acentos para que nombres del fixture (América, Ciclón, Unión,
+  // San Nicolás...) calcen con las claves sin tilde de ESCUDOS_RIVAL.
+  var n = String(name).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
   for (var i = 0; i < window.ESCUDOS_RIVAL.length; i++) {
     if (n.indexOf(window.ESCUDOS_RIVAL[i][0]) >= 0)
       return 'escudos/' + encodeURIComponent(window.ESCUDOS_RIVAL[i][1]);

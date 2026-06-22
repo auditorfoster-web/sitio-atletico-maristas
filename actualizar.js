@@ -205,42 +205,6 @@ function parsePosiciones(html) {
   return rows;
 }
 
-function parseProgramacion(html) {
-  const partidos = [];
-  const segmentos = html.split(/<tr class="itemGrilla/i);
-
-  for (let i = 1; i < segmentos.length; i++) {
-    const seg = segmentos[i];
-    if (seg.includes('itemGrillaNula')) continue;
-
-    const celdas = [];
-    const tdRe = /<td[^>]*>([\s\S]*?)<\/td>/gi;
-    let m;
-    while ((m = tdRe.exec(seg)) !== null) celdas.push(stripTags(m[1]).trim());
-    if (celdas.length < 6) continue;
-
-    const programacion = celdas[0];
-    const cancha       = celdas[2] ? 'Cancha ' + celdas[2].trim() : '';
-    const local        = celdas[3];
-    const visita       = celdas[4];
-    const fecha        = celdas[5];
-
-    if (!local.toUpperCase().includes(NUESTRO_EQUIPO) &&
-        !visita.toUpperCase().includes(NUESTRO_EQUIPO)) continue;
-
-    let fechaDate = null;
-    const fm = programacion.match(/(\d{2})\/(\d{2})\/(\d{4})\s*(\d{2}):(\d{2})/);
-    if (fm) {
-      const [, dd, mm, yyyy, hh, min] = fm;
-      fechaDate = new Date(`${yyyy}-${mm}-${dd}T${hh}:${min}:00`);
-    }
-
-    partidos.push({ programacion, local, visita, fecha, fechaDate, cancha });
-  }
-
-  return partidos;
-}
-
 // En la pagina de posiciones, cada equipo enlaza a su pagina de resultados
 // (lstResultadoEquipoPublico.aspx). Devuelve el href de la fila de Maristas.
 function hrefResultadoMaristas(posHtml) {
@@ -418,29 +382,6 @@ function generarTbody(filas) {
   return '          <tbody>\n' + lineas.join('\n') + '\n          </tbody>';
 }
 
-function generarProximaFecha(todosPartidos) {
-  if (!todosPartidos.length) {
-    return '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:16px">Sin partidos programados próximamente.</td></tr>';
-  }
-  return todosPartidos.map(p => {
-    const esLocal   = p.local.toUpperCase().includes(NUESTRO_EQUIPO);
-    const localCell = esLocal
-      ? `<td><strong style="color:var(--red)">${toTitleCase(p.local)}</strong></td>`
-      : `<td>${toTitleCase(p.local)}</td>`;
-    const visitCell = !esLocal
-      ? `<td><strong style="color:var(--red)">${toTitleCase(p.visita)}</strong></td>`
-      : `<td>${toTitleCase(p.visita)}</td>`;
-    return `              <tr>
-                <td class="serie-badge">${p.serie}</td>
-                <td style="text-align:center;white-space:nowrap">${p.fecha}</td>
-                <td style="white-space:nowrap">${p.programacion}</td>
-                ${localCell}
-                ${visitCell}
-                <td style="white-space:nowrap">${p.cancha || '—'}</td>
-              </tr>`;
-  }).join('\n');
-}
-
 function actualizarHTML(html, serieId, tbodyNuevo) {
   const startMarker = `<!-- TBODY:${serieId} -->`;
   const endMarker   = `<!-- /TBODY:${serieId} -->`;
@@ -477,7 +418,6 @@ async function main() {
 
   let html = fs.readFileSync(HTML_FILE, 'utf8');
   let actualizadas  = 0;
-  const todosPartidos = [];
   const goleadoresMaristas = [];
   const resultadosMaristas = [];
   const rosterMaristas = [];
@@ -543,18 +483,6 @@ async function main() {
       }
     }
 
-    // Programacion (si tiene URL)
-    if (serie.progUrl) {
-      process.stdout.write(`  Programacion ${serie.id.padEnd(10)}... `);
-      try {
-        const progHtml = await fetchPage(serie.progUrl);
-        const partidos = parseProgramacion(progHtml);
-        partidos.forEach(p => { p.serie = serie.label; });
-        todosPartidos.push(...partidos);
-        console.log(`OK (${partidos.length} partidos de Maristas)`);
-      } catch (err) { console.log(`Error: ${err.message}`); }
-    }
-
     // Goleadores
     if (serie.golUrl) {
       process.stdout.write(`  Goleadores   ${serie.id.padEnd(10)}... `);
@@ -587,27 +515,9 @@ async function main() {
     console.log(`  Mundial 2026: ${n} partido(s) en el fixture`);
   } catch (err) { console.log(`  Mundial 2026: Error (${err.message})`); }
 
-  // 5. Proxima fecha
-  const hoy = new Date();
-  hoy.setHours(0, 0, 0, 0);
-
-  let proximos = todosPartidos
-    .filter(p => !p.fechaDate || p.fechaDate >= hoy)
-    .sort((a, b) => (a.fechaDate || 0) - (b.fechaDate || 0));
-
-  if (!proximos.length && todosPartidos.length) {
-    proximos = todosPartidos.sort((a, b) => (b.fechaDate || 0) - (a.fechaDate || 0)).slice(0, 5);
-  }
-
-  if (proximos.length) {
-    const hoyStr = new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'2-digit', year:'numeric' });
-    html = html.replace(
-      /<tbody id="proxima-tbody">[\s\S]*?<\/tbody>/,
-      `<tbody id="proxima-tbody">\n${generarProximaFecha(proximos)}\n            </tbody>`
-    );
-    html = html.replace(/Actualizado: [^<]*/, `Actualizado: ${hoyStr}`);
-    console.log(`\n  Proxima fecha: ${proximos.length} partido(s) listado(s)`);
-  }
+  // 5. Proxima fecha: YA NO se toma de AIRA. La maneja el fixture oficial en
+  //    fixture-data.js (lo renderiza index.html en el cliente). AIRA va atrasada
+  //    y mostraba fechas ya jugadas, por eso se migro al fixture.
 
   // 6. Guardar
   fs.writeFileSync(HTML_FILE, html, 'utf8');
