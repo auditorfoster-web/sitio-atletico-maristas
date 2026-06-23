@@ -2,7 +2,7 @@
 // Fixture y resultados del Mundial FIFA 2026 (fuente: fixturedownload.com).
 // "ts" esta en UTC; script.js lo convierte a hora de Chile.
 window.MUNDIAL = {
-  actualizado: '2026-06-23T17:56:19.696Z',
+  actualizado: '2026-06-23T20:08:31.892Z',
   partidos: [
   { n:1, ts:'2026-06-11T19:00:00Z', g:'Group A', loc:'Mexico City Stadium', h:'Mexico', a:'South Africa', hs:2, as:0 },
   { n:2, ts:'2026-06-12T02:00:00Z', g:'Group A', loc:'Guadalajara Stadium', h:'Korea Republic', a:'Czechia', hs:2, as:1 },
@@ -48,7 +48,7 @@ window.MUNDIAL = {
   { n:42, ts:'2026-06-22T21:00:00Z', g:'Group I', loc:'Philadelphia Stadium', h:'France', a:'Iraq', hs:3, as:0 },
   { n:41, ts:'2026-06-23T00:00:00Z', g:'Group I', loc:'New York/New Jersey Stadium', h:'Norway', a:'Senegal', hs:3, as:2 },
   { n:44, ts:'2026-06-23T03:00:00Z', g:'Group J', loc:'San Francisco Bay Area Stadium', h:'Jordan', a:'Algeria', hs:1, as:2 },
-  { n:47, ts:'2026-06-23T17:00:00Z', g:'Group K', loc:'Houston Stadium', h:'Portugal', a:'Uzbekistan', hs:null, as:null },
+  { n:47, ts:'2026-06-23T17:00:00Z', g:'Group K', loc:'Houston Stadium', h:'Portugal', a:'Uzbekistan', hs:5, as:0 },
   { n:45, ts:'2026-06-23T20:00:00Z', g:'Group L', loc:'Boston Stadium', h:'England', a:'Ghana', hs:null, as:null },
   { n:46, ts:'2026-06-23T23:00:00Z', g:'Group L', loc:'Toronto Stadium', h:'Panama', a:'Croatia', hs:null, as:null },
   { n:48, ts:'2026-06-24T02:00:00Z', g:'Group K', loc:'Guadalajara Stadium', h:'Colombia', a:'Congo DR', hs:null, as:null },
