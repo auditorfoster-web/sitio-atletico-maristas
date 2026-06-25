@@ -165,13 +165,42 @@ function actualizarGoles(html, tbodyNuevo) {
   return html.slice(0, si + startMarker.length) + '\n' + tbodyNuevo + '\n        ' + html.slice(ei);
 }
 
+// Ranking de goleadores de Maristas de una sola serie (todos, ordenados).
+function generarRankingSerie(goleadores) {
+  if (!goleadores.length) {
+    return '          <tbody>\n            <tr><td colspan="3" style="text-align:center;color:var(--muted);padding:16px">Sin goleadores registrados aún.</td></tr>\n          </tbody>';
+  }
+  const sorted = goleadores.slice().sort((a, b) => b.goles - a.goles);
+  const lineas = sorted.map((f, i) => {
+    const medal = i === 0 ? '🥇 ' : i === 1 ? '🥈 ' : i === 2 ? '🥉 ' : `${i + 1} `;
+    return `            <tr class="yo"><td>${medal}</td><td><img src="escudo.png" alt="" style="width:16px;vertical-align:middle;margin-right:4px"/><strong>${toTitleCase(f.jugador)}</strong></td><td><strong>${f.goles}</strong> ⚽</td></tr>`;
+  });
+  return '          <tbody>\n' + lineas.join('\n') + '\n          </tbody>';
+}
+
+// Reemplaza el tbody de la tabla de goleadores de una serie (marcadores GOLESSERIE:<id>).
+function actualizarGolesSerie(html, serieId, tbodyNuevo) {
+  const startMarker = `<!-- GOLESSERIE:${serieId} -->`;
+  const endMarker   = `<!-- /GOLESSERIE:${serieId} -->`;
+  const si = html.indexOf(startMarker);
+  const ei = html.indexOf(endMarker);
+  if (si === -1 || ei === -1) {
+    console.log(`  ⚠  Marcadores GOLESSERIE:${serieId} no encontrados`);
+    return html;
+  }
+  return html.slice(0, si + startMarker.length) + '\n' + tbodyNuevo + '\n          ' + html.slice(ei);
+}
+
 
 function stripTags(html) {
   return html.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').trim();
 }
 
 function toTitleCase(str) {
-  return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+  // Capitaliza la primera letra de cada palabra. Usamos \p{L} (Unicode) y como
+  // separador solo inicio/espacio para que apellidos con "ñ" (Muñoz, Núñez) no
+  // queden con la letra posterior a la ñ en mayuscula.
+  return str.toLowerCase().replace(/(^|\s)(\p{L})/gu, (m, sep, c) => sep + c.toUpperCase());
 }
 
 function parsePosiciones(html) {
@@ -492,6 +521,8 @@ async function main() {
         const propios = filas.filter(f => f.equipo.toUpperCase().includes(NUESTRO_EQUIPO));
         propios.forEach(f => { f.serie = serie.label; });
         goleadoresMaristas.push(...propios);
+        // Tabla de goleadores por serie en la seccion "Goleadores del Club"
+        html = actualizarGolesSerie(html, serie.id, generarRankingSerie(propios));
         console.log(`OK (${propios.length} goleadores de Maristas)`);
       } catch (err) { console.log(`Error: ${err.message}`); }
     }
