@@ -2,7 +2,7 @@
 // Fixture y resultados del Mundial FIFA 2026 (fuente: fixturedownload.com).
 // "ts" esta en UTC; script.js lo convierte a hora de Chile.
 window.MUNDIAL = {
-  actualizado: '2026-06-25T07:42:58.481Z',
+  actualizado: '2026-06-25T10:42:36.782Z',
   partidos: [
   { n:1, ts:'2026-06-11T19:00:00Z', g:'Group A', loc:'Mexico City Stadium', h:'Mexico', a:'South Africa', hs:2, as:0 },
   { n:2, ts:'2026-06-12T02:00:00Z', g:'Group A', loc:'Guadalajara Stadium', h:'Korea Republic', a:'Czechia', hs:2, as:1 },
@@ -76,10 +76,10 @@ window.MUNDIAL = {
   { n:72, ts:'2026-06-27T23:30:00Z', g:'Group K', loc:'Atlanta Stadium', h:'Congo DR', a:'Uzbekistan', hs:null, as:null },
   { n:69, ts:'2026-06-28T02:00:00Z', g:'Group J', loc:'Kansas City Stadium', h:'Algeria', a:'Austria', hs:null, as:null },
   { n:70, ts:'2026-06-28T02:00:00Z', g:'Group J', loc:'Dallas Stadium', h:'Jordan', a:'Argentina', hs:null, as:null },
-  { n:73, ts:'2026-06-28T19:00:00Z', g:'', loc:'Los Angeles Stadium', h:'2A', a:'2B', hs:null, as:null },
-  { n:76, ts:'2026-06-29T17:00:00Z', g:'', loc:'Houston Stadium', h:'1C', a:'2F', hs:null, as:null },
+  { n:73, ts:'2026-06-28T19:00:00Z', g:'', loc:'Los Angeles Stadium', h:'South Africa', a:'Canada', hs:null, as:null },
+  { n:76, ts:'2026-06-29T17:00:00Z', g:'', loc:'Houston Stadium', h:'Brazil', a:'2F', hs:null, as:null },
   { n:74, ts:'2026-06-29T20:30:00Z', g:'', loc:'Boston Stadium', h:'Germany', a:'3ABCDF', hs:null, as:null },
-  { n:75, ts:'2026-06-30T01:00:00Z', g:'', loc:'Monterrey Stadium', h:'1F', a:'2C', hs:null, as:null },
+  { n:75, ts:'2026-06-30T01:00:00Z', g:'', loc:'Monterrey Stadium', h:'1F', a:'Morocco', hs:null, as:null },
   { n:78, ts:'2026-06-30T17:00:00Z', g:'', loc:'Dallas Stadium', h:'2E', a:'2I', hs:null, as:null },
   { n:77, ts:'2026-06-30T21:00:00Z', g:'', loc:'New York/New Jersey Stadium', h:'1I', a:'3CDFGH', hs:null, as:null },
   { n:79, ts:'2026-07-01T01:00:00Z', g:'', loc:'Mexico City Stadium', h:'Mexico', a:'3CEFHI', hs:null, as:null },
@@ -88,7 +88,7 @@ window.MUNDIAL = {
   { n:81, ts:'2026-07-02T00:00:00Z', g:'', loc:'San Francisco Bay Area Stadium', h:'USA', a:'3BEFIJ', hs:null, as:null },
   { n:84, ts:'2026-07-02T19:00:00Z', g:'', loc:'Los Angeles Stadium', h:'1H', a:'2J', hs:null, as:null },
   { n:83, ts:'2026-07-02T23:00:00Z', g:'', loc:'Toronto Stadium', h:'2K', a:'2L', hs:null, as:null },
-  { n:85, ts:'2026-07-03T03:00:00Z', g:'', loc:'BC Place Vancouver', h:'1B', a:'3EFGIJ', hs:null, as:null },
+  { n:85, ts:'2026-07-03T03:00:00Z', g:'', loc:'BC Place Vancouver', h:'Switzerland', a:'3EFGIJ', hs:null, as:null },
   { n:88, ts:'2026-07-03T18:00:00Z', g:'', loc:'Dallas Stadium', h:'2D', a:'2G', hs:null, as:null },
   { n:86, ts:'2026-07-03T22:00:00Z', g:'', loc:'Miami Stadium', h:'Argentina', a:'2H', hs:null, as:null },
   { n:87, ts:'2026-07-04T01:30:00Z', g:'', loc:'Kansas City Stadium', h:'1K', a:'3DEIJL', hs:null, as:null },
