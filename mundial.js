@@ -2,7 +2,7 @@
 // Fixture y resultados del Mundial FIFA 2026 (fuente: fixturedownload.com).
 // "ts" esta en UTC; script.js lo convierte a hora de Chile.
 window.MUNDIAL = {
-  actualizado: '2026-06-28T03:52:30.125Z',
+  actualizado: '2026-06-28T07:52:21.843Z',
   partidos: [
   { n:1, ts:'2026-06-11T19:00:00Z', g:'Group A', loc:'Mexico City Stadium', h:'Mexico', a:'South Africa', hs:2, as:0 },
   { n:2, ts:'2026-06-12T02:00:00Z', g:'Group A', loc:'Guadalajara Stadium', h:'Korea Republic', a:'Czechia', hs:2, as:1 },
@@ -74,8 +74,8 @@ window.MUNDIAL = {
   { n:68, ts:'2026-06-27T21:00:00Z', g:'Group L', loc:'Philadelphia Stadium', h:'Croatia', a:'Ghana', hs:2, as:1 },
   { n:71, ts:'2026-06-27T23:30:00Z', g:'Group K', loc:'Miami Stadium', h:'Colombia', a:'Portugal', hs:0, as:0 },
   { n:72, ts:'2026-06-27T23:30:00Z', g:'Group K', loc:'Atlanta Stadium', h:'Congo DR', a:'Uzbekistan', hs:3, as:1 },
-  { n:69, ts:'2026-06-28T02:00:00Z', g:'Group J', loc:'Kansas City Stadium', h:'Algeria', a:'Austria', hs:null, as:null },
-  { n:70, ts:'2026-06-28T02:00:00Z', g:'Group J', loc:'Dallas Stadium', h:'Jordan', a:'Argentina', hs:null, as:null },
+  { n:69, ts:'2026-06-28T02:00:00Z', g:'Group J', loc:'Kansas City Stadium', h:'Algeria', a:'Austria', hs:3, as:3 },
+  { n:70, ts:'2026-06-28T02:00:00Z', g:'Group J', loc:'Dallas Stadium', h:'Jordan', a:'Argentina', hs:1, as:3 },
   { n:73, ts:'2026-06-28T19:00:00Z', g:'', loc:'Los Angeles Stadium', h:'South Africa', a:'Canada', hs:null, as:null },
   { n:76, ts:'2026-06-29T17:00:00Z', g:'', loc:'Houston Stadium', h:'Brazil', a:'Japan', hs:null, as:null },
   { n:74, ts:'2026-06-29T20:30:00Z', g:'', loc:'Boston Stadium', h:'Germany', a:'Paraguay', hs:null, as:null },
@@ -86,9 +86,9 @@ window.MUNDIAL = {
   { n:80, ts:'2026-07-01T16:00:00Z', g:'', loc:'Atlanta Stadium', h:'England', a:'Congo DR', hs:null, as:null },
   { n:82, ts:'2026-07-01T20:00:00Z', g:'', loc:'Seattle Stadium', h:'Belgium', a:'Senegal', hs:null, as:null },
   { n:81, ts:'2026-07-02T00:00:00Z', g:'', loc:'San Francisco Bay Area Stadium', h:'USA', a:'Bosnia and Herzegovina', hs:null, as:null },
-  { n:84, ts:'2026-07-02T19:00:00Z', g:'', loc:'Los Angeles Stadium', h:'Spain', a:'2J', hs:null, as:null },
+  { n:84, ts:'2026-07-02T19:00:00Z', g:'', loc:'Los Angeles Stadium', h:'Spain', a:'Austria', hs:null, as:null },
   { n:83, ts:'2026-07-02T23:00:00Z', g:'', loc:'Toronto Stadium', h:'Portugal', a:'Croatia', hs:null, as:null },
-  { n:85, ts:'2026-07-03T03:00:00Z', g:'', loc:'BC Place Vancouver', h:'Switzerland', a:'3EFGIJ', hs:null, as:null },
+  { n:85, ts:'2026-07-03T03:00:00Z', g:'', loc:'BC Place Vancouver', h:'Switzerland', a:'Algeria', hs:null, as:null },
   { n:88, ts:'2026-07-03T18:00:00Z', g:'', loc:'Dallas Stadium', h:'Australia', a:'Egypt', hs:null, as:null },
   { n:86, ts:'2026-07-03T22:00:00Z', g:'', loc:'Miami Stadium', h:'Argentina', a:'Cabo Verde', hs:null, as:null },
   { n:87, ts:'2026-07-04T01:30:00Z', g:'', loc:'Kansas City Stadium', h:'Colombia', a:'Ghana', hs:null, as:null },
