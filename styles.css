@@ -157,6 +157,18 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
 .news-big .news-body h3 { font-size:18px; margin-bottom:10px; }
 .news-body h3 a:hover { color:var(--red); }
 .news-body p { font-size:13px; color:var(--muted); margin-bottom:10px; line-height:1.5; }
+/* Cita destacada del DT */
+.news-quote { position:relative; margin:16px 0; padding:16px 18px 16px 20px; background:var(--bg-gray,#f6f6f6); border-left:4px solid var(--red); border-radius:6px; }
+.news-quote > i { position:absolute; top:10px; left:14px; color:var(--red); opacity:.25; font-size:20px; }
+.news-quote p { font-size:16px; font-style:italic; font-weight:600; color:var(--text); line-height:1.5; margin:0 0 6px; padding-left:24px; }
+.news-quote cite { display:block; font-style:normal; font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; padding-left:24px; }
+/* Bloque de estadisticas de la serie */
+.news-stats { margin:18px 0; }
+.news-stats-title { font-size:13px; font-weight:700; color:var(--red); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; display:flex; align-items:center; gap:7px; }
+.news-stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); gap:10px; }
+.news-stat { background:var(--white); border:1px solid var(--border); border-radius:8px; padding:10px 8px; text-align:center; }
+.news-stat-val { display:block; font-size:22px; font-weight:800; color:var(--text); line-height:1.1; }
+.news-stat-label { display:block; font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin-top:3px; }
 .news-link { font-size:12px; font-weight:700; color:var(--red); display:inline-flex; align-items:center; gap:5px; transition:gap var(--t); }
 .news-link:hover { gap:8px; }
 .news-actions { display:flex; align-items:center; gap:12px; margin-top:10px; flex-wrap:wrap; }

@@ -39,6 +39,26 @@
       : `<div style="width:100%;height:100%;background:var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:28px"><i class="fas fa-futbol"></i></div>`;
   }
 
+  function quoteBlock(n) {
+    if (!n.cita) return '';
+    return `<blockquote class="news-quote">
+      <i class="fas fa-quote-left"></i>
+      <p>${n.cita}</p>
+      ${n.citaAutor ? `<cite>${n.citaAutor}</cite>` : ''}
+    </blockquote>`;
+  }
+
+  function statsBlock(n) {
+    if (!n.estadisticas || !n.estadisticas.length) return '';
+    const items = n.estadisticas.map(function(s) {
+      return `<div class="news-stat"><span class="news-stat-val">${s.v}</span><span class="news-stat-label">${s.l}</span></div>`;
+    }).join('');
+    return `<div class="news-stats">
+      <div class="news-stats-title"><i class="fas fa-chart-simple"></i> Estadísticas — ${n.serie}</div>
+      <div class="news-stats-grid">${items}</div>
+    </div>`;
+  }
+
   function bigCard(n) {
     return `<div class="news-big" data-ntitle="${n.titulo.replace(/"/g,'&quot;')}">
       <a class="news-img-wrap" href="#">${imgOrPlaceholder(n)}<span class="news-cat">${n.serie}</span></a>
@@ -46,6 +66,8 @@
         <time>${n.fecha}</time>
         <h3><a href="#">${n.titulo}</a></h3>
         ${n.resumen ? `<p>${n.resumen}</p>` : ''}
+        ${quoteBlock(n)}
+        ${statsBlock(n)}
         <a href="#" class="news-link">Leer más <i class="fas fa-arrow-right"></i></a>
         ${shareRow(n)}
       </div>
