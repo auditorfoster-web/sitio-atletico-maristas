@@ -2,7 +2,7 @@
 // Fixture y resultados del Mundial FIFA 2026 (fuente: fixturedownload.com).
 // "ts" esta en UTC; script.js lo convierte a hora de Chile.
 window.MUNDIAL = {
-  actualizado: '2026-06-29T22:58:04.056Z',
+  actualizado: '2026-06-30T03:40:38.402Z',
   partidos: [
   { n:1, ts:'2026-06-11T19:00:00Z', g:'Group A', loc:'Mexico City Stadium', h:'Mexico', a:'South Africa', hs:2, as:0 },
   { n:2, ts:'2026-06-12T02:00:00Z', g:'Group A', loc:'Guadalajara Stadium', h:'Korea Republic', a:'Czechia', hs:2, as:1 },
@@ -78,7 +78,7 @@ window.MUNDIAL = {
   { n:70, ts:'2026-06-28T02:00:00Z', g:'Group J', loc:'Dallas Stadium', h:'Jordan', a:'Argentina', hs:1, as:3 },
   { n:73, ts:'2026-06-28T19:00:00Z', g:'', loc:'Los Angeles Stadium', h:'South Africa', a:'Canada', hs:0, as:1 },
   { n:76, ts:'2026-06-29T17:00:00Z', g:'', loc:'Houston Stadium', h:'Brazil', a:'Japan', hs:2, as:1 },
-  { n:74, ts:'2026-06-29T20:30:00Z', g:'', loc:'Boston Stadium', h:'Germany', a:'Paraguay', hs:null, as:null },
+  { n:74, ts:'2026-06-29T20:30:00Z', g:'', loc:'Boston Stadium', h:'Germany', a:'Paraguay', hs:1, as:1 },
   { n:75, ts:'2026-06-30T01:00:00Z', g:'', loc:'Monterrey Stadium', h:'Netherlands', a:'Morocco', hs:null, as:null },
   { n:78, ts:'2026-06-30T17:00:00Z', g:'', loc:'Dallas Stadium', h:'Côte d\'Ivoire', a:'Norway', hs:null, as:null },
   { n:77, ts:'2026-06-30T21:00:00Z', g:'', loc:'New York/New Jersey Stadium', h:'France', a:'Sweden', hs:null, as:null },
@@ -93,7 +93,7 @@ window.MUNDIAL = {
   { n:86, ts:'2026-07-03T22:00:00Z', g:'', loc:'Miami Stadium', h:'Argentina', a:'Cabo Verde', hs:null, as:null },
   { n:87, ts:'2026-07-04T01:30:00Z', g:'', loc:'Kansas City Stadium', h:'Colombia', a:'Ghana', hs:null, as:null },
   { n:90, ts:'2026-07-04T17:00:00Z', g:'', loc:'Houston Stadium', h:'Canada', a:'To be announced', hs:null, as:null },
-  { n:89, ts:'2026-07-04T21:00:00Z', g:'', loc:'Philadelphia Stadium', h:'To be announced', a:'To be announced', hs:null, as:null },
+  { n:89, ts:'2026-07-04T21:00:00Z', g:'', loc:'Philadelphia Stadium', h:'Paraguay', a:'To be announced', hs:null, as:null },
   { n:91, ts:'2026-07-05T20:00:00Z', g:'', loc:'New York/New Jersey Stadium', h:'Brazil', a:'To be announced', hs:null, as:null },
   { n:92, ts:'2026-07-06T00:00:00Z', g:'', loc:'Mexico City Stadium', h:'To be announced', a:'To be announced', hs:null, as:null },
   { n:93, ts:'2026-07-06T19:00:00Z', g:'', loc:'Dallas Stadium', h:'To be announced', a:'To be announced', hs:null, as:null },
