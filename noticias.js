@@ -19,7 +19,7 @@ const NOTICIAS = [
       { l: "Ganados", v: "6" },
       { l: "Empatados", v: "1" },
       { l: "Perdidos", v: "2" },
-      { l: "Goles a favor", v: "19" },
+      { l: "Goles a favor", v: "20" },
       { l: "Goles en contra", v: "8" },
       { l: "Puntos", v: "19" },
       { l: "Rendimiento", v: "70%" }
