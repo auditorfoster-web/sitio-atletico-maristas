@@ -19,9 +19,7 @@ const NOTICIAS = [
       { l: "Ganados", v: "6" },
       { l: "Empatados", v: "1" },
       { l: "Perdidos", v: "2" },
-      { l: "Puntos", v: "19" },
-      { l: "Último partido", v: "vs Alianza" },
-      { l: "Resultado", v: "Victoria" }
+      { l: "Puntos", v: "19" }
     ],
     imagen: "fotos/dorada/dorada dt 2.jpg"
   }
