@@ -2,7 +2,7 @@
 // Fixture y resultados del Mundial FIFA 2026 (fuente: fixturedownload.com).
 // "ts" esta en UTC; script.js lo convierte a hora de Chile.
 window.MUNDIAL = {
-  actualizado: '2026-07-03T21:06:51.212Z',
+  actualizado: '2026-07-03T23:04:40.440Z',
   partidos: [
   { n:1, ts:'2026-06-11T19:00:00Z', g:'Group A', loc:'Mexico City Stadium', h:'Mexico', a:'South Africa', hs:2, as:0 },
   { n:2, ts:'2026-06-12T02:00:00Z', g:'Group A', loc:'Guadalajara Stadium', h:'Korea Republic', a:'Czechia', hs:2, as:1 },
@@ -89,7 +89,7 @@ window.MUNDIAL = {
   { n:84, ts:'2026-07-02T19:00:00Z', g:'', loc:'Los Angeles Stadium', h:'Spain', a:'Austria', hs:3, as:0 },
   { n:83, ts:'2026-07-02T23:00:00Z', g:'', loc:'Toronto Stadium', h:'Portugal', a:'Croatia', hs:2, as:1 },
   { n:85, ts:'2026-07-03T03:00:00Z', g:'', loc:'BC Place Vancouver', h:'Switzerland', a:'Algeria', hs:2, as:0 },
-  { n:88, ts:'2026-07-03T18:00:00Z', g:'', loc:'Dallas Stadium', h:'Australia', a:'Egypt', hs:null, as:null },
+  { n:88, ts:'2026-07-03T18:00:00Z', g:'', loc:'Dallas Stadium', h:'Australia', a:'Egypt', hs:1, as:1 },
   { n:86, ts:'2026-07-03T22:00:00Z', g:'', loc:'Miami Stadium', h:'Argentina', a:'Cabo Verde', hs:null, as:null },
   { n:87, ts:'2026-07-04T01:30:00Z', g:'', loc:'Kansas City Stadium', h:'Colombia', a:'Ghana', hs:null, as:null },
   { n:90, ts:'2026-07-04T17:00:00Z', g:'', loc:'Houston Stadium', h:'Canada', a:'Morocco', hs:null, as:null },
@@ -98,7 +98,7 @@ window.MUNDIAL = {
   { n:92, ts:'2026-07-06T00:00:00Z', g:'', loc:'Mexico City Stadium', h:'Mexico', a:'England', hs:null, as:null },
   { n:93, ts:'2026-07-06T19:00:00Z', g:'', loc:'Dallas Stadium', h:'Portugal', a:'Spain', hs:null, as:null },
   { n:94, ts:'2026-07-07T00:00:00Z', g:'', loc:'Seattle Stadium', h:'USA', a:'Belgium', hs:null, as:null },
-  { n:95, ts:'2026-07-07T16:00:00Z', g:'', loc:'Atlanta Stadium', h:'To be announced', a:'To be announced', hs:null, as:null },
+  { n:95, ts:'2026-07-07T16:00:00Z', g:'', loc:'Atlanta Stadium', h:'To be announced', a:'Egypt', hs:null, as:null },
   { n:96, ts:'2026-07-07T20:00:00Z', g:'', loc:'BC Place Vancouver', h:'Switzerland', a:'To be announced', hs:null, as:null },
   { n:97, ts:'2026-07-09T20:00:00Z', g:'', loc:'Boston Stadium', h:'To be announced', a:'To be announced', hs:null, as:null },
   { n:98, ts:'2026-07-10T19:00:00Z', g:'', loc:'Los Angeles Stadium', h:'To be announced', a:'To be announced', hs:null, as:null },
