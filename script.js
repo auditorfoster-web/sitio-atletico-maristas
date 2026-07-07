@@ -1022,10 +1022,23 @@ window.escudoRivalSrc = function (name) {
     t._tmr = setTimeout(function () { t.classList.remove('show'); }, 2800);
   }
 
+  // Cada seccion se comparte con SU propia pagina /s/*.html, que lleva las
+  // etiquetas Open Graph correctas para que el preview de WhatsApp/Instagram
+  // muestre esa seccion y no la noticia del home. Si no hay pagina asociada,
+  // caemos al ancla normal.
+  var LANDING = {
+    'competencia': '/s/tabla.html',
+    'proxima-fecha': '/s/proxima.html',
+    'resultados': '/s/resultados.html',
+    'goleadores': '/s/goleadores.html'
+  };
+
   Array.prototype.forEach.call(rows, function (row) {
     var target = row.getAttribute('data-target');
     var title = row.getAttribute('data-title') || 'Club Atlético Maristas';
-    var url = location.origin + location.pathname + '#' + target;
+    var url = LANDING[target]
+      ? location.origin + LANDING[target]
+      : location.origin + location.pathname + '#' + target;
     var texto = '⚽ ' + title + ' — Club Atlético Maristas\n' + url;
 
     var label = document.createElement('span');

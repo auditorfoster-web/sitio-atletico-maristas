@@ -518,9 +518,9 @@
 
       <div class="news-share" style="margin-top:18px;justify-content:center">
         <span class="news-share-label">Compartir ranking:</span>
-        <a class="ns-btn ns-wa" href="javascript:void(0)" onclick="(function(){var u=encodeURIComponent(window.location.href);var t=encodeURIComponent('🏆 Goleadores del Club Atlético Maristas — Ranking AP. 2026');window.open('https://wa.me/?text='+t+'%20'+u,'_blank')})()" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <button class="ns-btn ns-ig" onclick="(function(){if(navigator.share){navigator.share({title:'Goleadores del Club Atlético Maristas',url:window.location.href})}else{alert('Abre Instagram en tu celular para compartir.')}})()" title="Instagram / Compartir"><i class="fab fa-instagram"></i></button>
-        <button class="ns-btn ns-copy" onclick="(function(b){navigator.clipboard&&navigator.clipboard.writeText(window.location.href).then(function(){var o=b.innerHTML;b.innerHTML='<i class=\'fas fa-check\'></i>';setTimeout(function(){b.innerHTML=o},1500)})})(this)" title="Copiar enlace"><i class="fas fa-link"></i></button>
+        <a class="ns-btn ns-wa" href="javascript:void(0)" onclick="(function(){var u=encodeURIComponent(location.origin+'/s/goleadores.html');var t=encodeURIComponent('🏆 Goleadores del Club Atlético Maristas — Ranking AP. 2026');window.open('https://wa.me/?text='+t+'%20'+u,'_blank')})()" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <button class="ns-btn ns-ig" onclick="(function(){var u=location.origin+'/s/goleadores.html';if(navigator.share){navigator.share({title:'Goleadores del Club Atlético Maristas',url:u})}else{alert('Abre Instagram en tu celular para compartir.')}})()" title="Instagram / Compartir"><i class="fab fa-instagram"></i></button>
+        <button class="ns-btn ns-copy" onclick="(function(b){var u=location.origin+'/s/goleadores.html';navigator.clipboard&&navigator.clipboard.writeText(u).then(function(){var o=b.innerHTML;b.innerHTML='<i class=\'fas fa-check\'></i>';setTimeout(function(){b.innerHTML=o},1500)})})(this)" title="Copiar enlace"><i class="fas fa-link"></i></button>
       </div>
 
     </div>
