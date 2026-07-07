@@ -24,7 +24,7 @@ window.CUMPLEANOS = [
   { n:'Hervy Aroca', s:'Dorados', d:15, m:3, y:1976 },
   { n:'Cristofferr Luna', s:'Senior', d:16, m:3, y:1996 },
   { n:'Willy Jeno', s:'Senior', d:18, m:3, y:1995 },
-  { n:'Gabriel Diaz', s:'Infantil', d:21, m:3, y:1985 },
+  { n:'Gabriel Diaz', s:'Super Senior', d:21, m:3, y:1985 },
   { n:'Victor Zamudio', s:'Dorados', d:23, m:3, y:1976 },
   { n:'Luis Becerra', s:'Dorados', d:24, m:3, y:1976 },
   { n:'Alonso Viscarra', s:'Junior', d:28, m:3, y:2000 },
