@@ -2,7 +2,7 @@
 // Fixture y resultados del Mundial FIFA 2026 (fuente: fixturedownload.com).
 // "ts" esta en UTC; script.js lo convierte a hora de Chile.
 window.MUNDIAL = {
-  actualizado: '2026-07-09T21:23:47.749Z',
+  actualizado: '2026-07-09T23:12:20.548Z',
   partidos: [
   { n:1, ts:'2026-06-11T19:00:00Z', g:'Group A', loc:'Mexico City Stadium', h:'Mexico', a:'South Africa', hs:2, as:0 },
   { n:2, ts:'2026-06-12T02:00:00Z', g:'Group A', loc:'Guadalajara Stadium', h:'Korea Republic', a:'Czechia', hs:2, as:1 },
@@ -100,11 +100,11 @@ window.MUNDIAL = {
   { n:94, ts:'2026-07-07T00:00:00Z', g:'', loc:'Seattle Stadium', h:'USA', a:'Belgium', hs:1, as:4 },
   { n:95, ts:'2026-07-07T16:00:00Z', g:'', loc:'Atlanta Stadium', h:'Argentina', a:'Egypt', hs:3, as:2 },
   { n:96, ts:'2026-07-07T20:00:00Z', g:'', loc:'BC Place Vancouver', h:'Switzerland', a:'Colombia', hs:0, as:0 },
-  { n:97, ts:'2026-07-09T20:00:00Z', g:'', loc:'Boston Stadium', h:'France', a:'Morocco', hs:null, as:null },
+  { n:97, ts:'2026-07-09T20:00:00Z', g:'', loc:'Boston Stadium', h:'France', a:'Morocco', hs:2, as:0 },
   { n:98, ts:'2026-07-10T19:00:00Z', g:'', loc:'Los Angeles Stadium', h:'Spain', a:'Belgium', hs:null, as:null },
   { n:99, ts:'2026-07-11T21:00:00Z', g:'', loc:'Miami Stadium', h:'Norway', a:'England', hs:null, as:null },
   { n:100, ts:'2026-07-12T01:00:00Z', g:'', loc:'Kansas City Stadium', h:'Argentina', a:'Switzerland', hs:null, as:null },
-  { n:101, ts:'2026-07-14T19:00:00Z', g:'', loc:'Dallas Stadium', h:'To be announced', a:'To be announced', hs:null, as:null },
+  { n:101, ts:'2026-07-14T19:00:00Z', g:'', loc:'Dallas Stadium', h:'France', a:'To be announced', hs:null, as:null },
   { n:102, ts:'2026-07-15T19:00:00Z', g:'', loc:'Atlanta Stadium', h:'To be announced', a:'To be announced', hs:null, as:null },
   { n:103, ts:'2026-07-18T21:00:00Z', g:'', loc:'Miami Stadium', h:'To be announced', a:'To be announced', hs:null, as:null },
   { n:104, ts:'2026-07-19T19:00:00Z', g:'', loc:'New York/New Jersey Stadium', h:'To be announced', a:'To be announced', hs:null, as:null }
