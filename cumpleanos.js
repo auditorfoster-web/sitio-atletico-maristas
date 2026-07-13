@@ -62,6 +62,7 @@ window.CUMPLEANOS = [
   { n:'Cristian Cancino', s:'Dorados', d:26, m:6, y:1973 },
   { n:'Joel Gonzalez', s:'Senior', d:1, m:7, y:1991 },
   { n:'Julio Panez', s:'Diamantes', d:3, m:7, y:1965 },
+  { n:'Ulises Galvez', s:'Senior', d:10, m:7, y:1994 },
   { n:'Gabriel Labbe', s:'Junior', d:11, m:7, y:2003 },
   { n:'Remigio Flores', s:'Dorados', d:13, m:7, y:1973 },
   { n:'Wilber Chipao', s:'Super Senior', d:16, m:7, y:1982 },
