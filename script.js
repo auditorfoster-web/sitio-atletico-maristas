@@ -39,6 +39,17 @@
       : `<div style="width:100%;height:100%;background:var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:28px"><i class="fas fa-futbol"></i></div>`;
   }
 
+  function galleryBlock(n) {
+    if (!n.imagenes || !n.imagenes.length) return '';
+    // Evita repetir la imagen principal (hero) dentro de la galería.
+    const extra = n.imagenes.filter(function (src) { return src && src !== n.imagen; });
+    if (!extra.length) return '';
+    const items = extra.map(function (src) {
+      return `<a class="news-gitem" href="${src}" target="_blank" rel="noopener"><img src="${src}" alt="${n.titulo}" loading="lazy" /></a>`;
+    }).join('');
+    return `<div class="news-gallery">${items}</div>`;
+  }
+
   function quoteBlock(n) {
     if (!n.cita) return '';
     return `<blockquote class="news-quote">
@@ -66,6 +77,7 @@
         <time>${n.fecha}</time>
         <h3><a href="#">${n.titulo}</a></h3>
         ${n.resumen ? `<p>${n.resumen}</p>` : ''}
+        ${galleryBlock(n)}
         ${quoteBlock(n)}
         ${statsBlock(n)}
         <a href="#" class="news-link">Leer más <i class="fas fa-arrow-right"></i></a>

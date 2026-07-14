@@ -1123,10 +1123,10 @@
       var f = window.fixtureProxima();
       var badge = document.querySelector('.proxima-updated');
       if (!f) { if (badge) badge.textContent = 'Temporada finalizada'; return; }
-      if (badge) badge.textContent = 'Fecha ' + f.n + ' · ' + f.fecha;
+      var etiquetaN = (f.ns && f.ns.length > 1) ? f.ns.join(' y ') : f.n;
+      if (badge) badge.textContent = 'Fecha ' + etiquetaN + ' · ' + f.fecha;
 
       var SERIES = window.FIXTURE_SERIES || {};
-      var anio = String(window.FIXTURE_FIN[f.n] || '').slice(0, 4) || String(new Date().getFullYear());
       function pad(n) { return (n < 10 ? '0' : '') + n; }
       function esc(s) {
         return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -1134,6 +1134,8 @@
 
       var rows = '';
       f.dias.forEach(function (d) {
+        var nFecha = d.n || f.n;
+        var anio = String(window.FIXTURE_FIN[nFecha] || '').slice(0, 4) || String(new Date().getFullYear());
         var dm = String(d.dia || '').match(/(\d{2})\/(\d{2})/);
         var fechaDdMm = dm ? (dm[1] + '/' + dm[2] + '/' + anio) : '';
         d.p.forEach(function (m) {
@@ -1152,7 +1154,7 @@
           rows +=
             '<tr>' +
             '<td class="serie-badge">' + esc(serie) + '</td>' +
-            '<td style="text-align:center;white-space:nowrap">' + f.n + '</td>' +
+            '<td style="text-align:center;white-space:nowrap">' + nFecha + '</td>' +
             '<td style="white-space:nowrap">' + esc(prog) + '</td>' +
             localCell + visitaCell +
             '<td style="white-space:nowrap">' + esc(m.c || '') + '</td>' +

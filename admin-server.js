@@ -82,7 +82,34 @@ function saveNoticias(arr) {
     const cmt = i === 0
       ? '  // ---- NOTICIA PRINCIPAL (aparece grande en el sitio) ----\n'
       : i === 1 ? '  // ---- NOTICIAS SECUNDARIAS ----\n' : '';
-    return `${cmt}  {\n    serie:   ${JSON.stringify(n.serie   || '')},\n    titulo:  ${JSON.stringify(n.titulo  || '')},\n    fecha:   ${JSON.stringify(n.fecha   || '')},\n    resumen: ${JSON.stringify(n.resumen || '')},\n    imagen:  ${JSON.stringify(n.imagen  || '')}\n  }`;
+
+    // Campos base (siempre presentes).
+    const props = [
+      `    serie:   ${JSON.stringify(n.serie   || '')}`,
+      `    titulo:  ${JSON.stringify(n.titulo  || '')}`,
+      `    fecha:   ${JSON.stringify(n.fecha   || '')}`,
+      `    resumen: ${JSON.stringify(n.resumen || '')}`,
+    ];
+
+    // Campos ricos (cita del DT + estadisticas), solo si vienen definidos, para
+    // no perderlos al guardar desde el panel.
+    if (n.cita)      props.push(`    cita:       ${JSON.stringify(n.cita)}`);
+    if (n.citaAutor) props.push(`    citaAutor:  ${JSON.stringify(n.citaAutor)}`);
+    if (Array.isArray(n.estadisticas) && n.estadisticas.length) {
+      const stats = n.estadisticas.map(s =>
+        `      { l: ${JSON.stringify(s.l || '')}, v: ${JSON.stringify(s.v || '')} }`
+      ).join(',\n');
+      props.push(`    estadisticas: [\n${stats}\n    ]`);
+    }
+
+    // Imagen principal (hero) + galeria opcional de fotos adicionales.
+    props.push(`    imagen:  ${JSON.stringify(n.imagen || '')}`);
+    if (Array.isArray(n.imagenes) && n.imagenes.length) {
+      const imgs = n.imagenes.map(src => `      ${JSON.stringify(src || '')}`).join(',\n');
+      props.push(`    imagenes: [\n${imgs}\n    ]`);
+    }
+
+    return `${cmt}  {\n${props.join(',\n')}\n  }`;
   });
 
   const out = `// ================================================================

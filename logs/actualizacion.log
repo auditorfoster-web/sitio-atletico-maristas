@@ -257,4 +257,39 @@ Descubriendo series desde futbol.aira.cl...
 [04-06-2026 13:46:00,59] Fin. 
  
 [11-06-2026  7:00:21,83] Iniciando actualizacion automatica... 
-^C
+^C 
+[09-07-2026  7:00:01,74] Iniciando actualizacion automatica... 
+
+Descubriendo series desde futbol.aira.cl...
+
+  ✓  5 series encontradas: Junior, Senior, Super Senior, Dorada, Diamante
+
+  Posiciones junior       ... OK (14 equipos)
+  Roster       junior    ... OK (28 jugadores)
+  Resultados   junior    ... OK (ATLETICO MARISTA JUNIOR 3-0 ALIANZA JUNIOR)
+  Goleadores   junior    ... OK (6 goleadores de Maristas)
+  Posiciones senior       ... OK (14 equipos)
+  Roster       senior    ... OK (22 jugadores)
+  Resultados   senior    ... OK (ALIANZA SENIOR 2-2 ATLETICO MARISTA SENIOR) — Daniel Candia x1, Marcelo Guerra x1
+  Goleadores   senior    ... OK (6 goleadores de Maristas)
+  Posiciones supersenior  ... OK (12 equipos)
+  Roster       supersenior... OK (29 jugadores)
+  Resultados   supersenior... OK (ATLETICO MARISTA SUPER SENIOR 1-5 LEYENDA 216 SUPER SENIOR) — Francisco Aguero x1
+  Goleadores   supersenior... OK (9 goleadores de Maristas)
+  Posiciones dorada       ... OK (12 equipos)
+  Roster       dorada    ... OK (28 jugadores)
+  Resultados   dorada    ... OK (ATLETICO MARISTA DORADOS 4-0 AMERICA DORADOS) — Hervy Aroca x1, Luis Ayala x1, Victor Garcia x1, Nicolas Petrovich x1
+  Goleadores   dorada    ... OK (8 goleadores de Maristas)
+  Posiciones diamante     ... OK (12 equipos)
+  Roster       diamante  ... OK (20 jugadores)
+  Resultados   diamante  ... OK (ATLETICO MARISTA DIAMANTES 1-0 UNIVERSITARIO DIAMANTES) — Enrique Urbina x1
+  Goleadores   diamante  ... OK (2 goleadores de Maristas)
+
+  Goleadores Maristas: 31 jugador(es) en el ranking
+  Ultimos resultados: 5 serie(s)
+  Cumpleaños: 101 jugador(es) con fecha de nacimiento
+  Mundial 2026: 104 partido(s) en el fixture
+
+  ✓  index.html actualizado (5/5 series)
+
+[09-07-2026  7:00:17,12] Fin. 

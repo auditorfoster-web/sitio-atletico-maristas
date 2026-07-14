@@ -8,23 +8,26 @@
 
 const NOTICIAS = [
   {
-    titulo: "La Dorada, en plena pelea por el título: vienen las fechas decisivas",
+    titulo: "La Dorada, a 60 minutos de la gloria: gana y es campeón",
     serie: "Dorada",
-    fecha: "30 de junio de 2026",
-    resumen: "Atlético Marista Dorados se mantiene en lo más alto de una tabla apretadísima: con 19 puntos, marcha en la cima y pelea palmo a palmo por la copa. La Dorada llega envalentonada tras quedarse con un triunfo clave ante Alianza en su último compromiso. El campeonato entra en su tramo final y vienen las fechas decisivas: el equipo recibe a América el domingo 5 de julio (9:40 hrs, Cancha 2) y a Juventus el domingo 12 de julio (9:40 hrs, Cancha 1), y visita a Doveramigos en la fecha reprogramada del sábado 25 de julio (16:50 hrs, Cancha 2). Cada punto será determinante en la recta definitiva. La Dorada afronta este desafío con la ilusión intacta y el respaldo de todas las series del equipo marista.",
-    cita: "Tengo una fe incondicional en cada jugador del plantel.",
+    fecha: "13 de julio de 2026",
+    resumen: "No hay margen para el cálculo: Atlético Marista Dorados llega a la definición instalado en la cima y con el título al alcance de la mano. Con 22 puntos en nueve fechas —siete triunfos, un empate y una sola derrota—, el conjunto dorado manda en una tabla de hierro y exhibe, además, la valla menos vencida del torneo: apenas 5 goles en contra y un contundente saldo de 24 a favor. La cita decisiva quedó fijada para el sábado 25 de julio: en el duelo reprogramado de la fecha 8, la Dorada visitará a Doveramigos a las 16:50 horas en la Cancha 2, y la ecuación no admite matices: un triunfo la corona campeona. Detrás acechan Banco Bice (21) y la dupla de Mapuches y Unión Marista (20), obligados a esperar un tropiezo que el líder no piensa regalar. El plantel marista, que viene de firmar su mejor versión en las últimas jornadas, afrontará los 60 minutos más importantes de la temporada con todo el club empujando y soñando con levantar la copa.",
+    cita: "Trabajamos todo el primer semestre para llegar a esta instancia. Es una final y vamos a jugarla como tal: a ganar.",
     citaAutor: "Director Técnico — Serie Dorada",
     estadisticas: [
-      { l: "Partidos jugados", v: "8" },
-      { l: "Ganados", v: "6" },
+      { l: "Partidos jugados", v: "9" },
+      { l: "Ganados", v: "7" },
       { l: "Empatados", v: "1" },
       { l: "Perdidos", v: "1" },
-      { l: "Goles a favor", v: "20" },
+      { l: "Goles a favor", v: "24" },
       { l: "Goles en contra", v: "5" },
-      { l: "Puntos", v: "19" },
-      { l: "Rendimiento", v: "79%" }
+      { l: "Puntos", v: "22" },
+      { l: "Rendimiento", v: "81%" }
     ],
-    imagen: "fotos/dorada/dorada dt 2.jpg"
+    imagen: "fotos/dorada/dorada 12-07.jpg",
+    imagenes: [
+      "fotos/dorada/dorada 12-07.jpg",
+      "fotos/dorada/dorada 2 12-07.jpg"
+    ]
   }
 ];
-

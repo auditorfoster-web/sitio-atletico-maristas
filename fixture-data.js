@@ -162,12 +162,77 @@ window.fixtureHoyISO = function () {
     String(d.getDate()).padStart(2, '0');
 };
 
-// Devuelve el objeto de la PRÓXIMA FECHA (la primera cuyo último día aún no pasó),
-// o null si la temporada ya terminó.
+// ISO (YYYY-MM-DD) de un día del fixture. El texto trae "DD/MM"; el año se saca
+// de FIXTURE_FIN de la jornada a la que pertenece.
+window.fixtureDiaISO = function (diaTxt, n) {
+  var m = String(diaTxt || '').match(/(\d{2})\/(\d{2})/);
+  if (!m) return null;
+  var anio = String(window.FIXTURE_FIN[n] || '').slice(0, 4) || '9999';
+  return anio + '-' + m[2] + '-' + m[1];
+};
+
+// Etiqueta humana "DD de Mes" a partir de un ISO (para fechas reprogramadas sueltas).
+window.fixtureFechaLarga = function (iso) {
+  var MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+               'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  var m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m ? (Number(m[3]) + ' de ' + MESES[Number(m[2]) - 1]) : '';
+};
+
+// Devuelve la PRÓXIMA FECHA e INCLUYE todos los partidos que se juegan en esa
+// ventana de fechas, aunque pertenezcan a otra jornada por reprogramación.
+// Ej.: la Fecha 8 se reprogramó y Súper Senior/Dorada/Diamante se juegan el 25/07,
+// el mismo día que la Fecha 12 (Junior/Senior): en el home aparecen todos.
+// Cada día del resultado lleva `n` (número de fecha real) para etiquetar cada fila.
+// Devuelve null si la temporada ya terminó.
 window.fixtureProxima = function () {
   var hoy = window.fixtureHoyISO();
+
+  // Jornada vigente: la primera cuyo último día (FIXTURE_FIN) aún no pasó.
+  var primary = null;
   for (var i = 0; i < window.FIXTURE.length; i++) {
-    if ((window.FIXTURE_FIN[window.FIXTURE[i].n] || '9999') >= hoy) return window.FIXTURE[i];
+    if ((window.FIXTURE_FIN[window.FIXTURE[i].n] || '9999') >= hoy) { primary = window.FIXTURE[i]; break; }
   }
-  return null;
+
+  var lo = null, hi = null, fechaLbl = null;
+  if (primary) {
+    // Ventana = fin de semana completo de la jornada vigente (min/max de sus días).
+    primary.dias.forEach(function (d) {
+      var iso = window.fixtureDiaISO(d.dia, primary.n);
+      if (!iso) return;
+      if (!lo || iso < lo) lo = iso;
+      if (!hi || iso > hi) hi = iso;
+    });
+    fechaLbl = primary.fecha;
+  } else {
+    // Sin jornada vigente por FIN, pero pueden quedar días reprogramados sueltos
+    // (ej. Junior/Senior de la Fecha 8 el 08/08). Toma el día futuro más cercano.
+    window.FIXTURE.forEach(function (f) {
+      f.dias.forEach(function (d) {
+        var iso = window.fixtureDiaISO(d.dia, f.n);
+        if (iso && iso >= hoy && (!lo || iso < lo)) { lo = iso; }
+      });
+    });
+    if (!lo) return null;           // temporada realmente terminada
+    hi = lo;                         // ventana de un solo día
+    fechaLbl = window.fixtureFechaLarga(lo);
+  }
+
+  // Reúne TODOS los días (de cualquier jornada) dentro de [lo, hi]. Primero la
+  // jornada vigente para conservar el orden natural, luego el resto.
+  var dias = [], ns = {};
+  function add(f) {
+    f.dias.forEach(function (d) {
+      var iso = window.fixtureDiaISO(d.dia, f.n);
+      if (iso && iso >= lo && iso <= hi) { dias.push({ dia: d.dia, p: d.p, n: f.n }); ns[f.n] = true; }
+    });
+  }
+  if (primary) add(primary);
+  window.FIXTURE.forEach(function (f) { if (f !== primary) add(f); });
+
+  var nsArr = Object.keys(ns).map(Number).sort(function (a, b) { return a - b; });
+  // `n` = jornada principal para resaltar en la vista completa (fixture.html):
+  // la vigente por FIN si existe, o la del día reprogramado más cercano.
+  var principalN = primary ? primary.n : nsArr[0];
+  return { n: principalN, fecha: fechaLbl, dias: dias, ns: nsArr };
 };
