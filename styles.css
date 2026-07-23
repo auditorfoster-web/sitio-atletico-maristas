@@ -114,6 +114,10 @@ nav a:hover, nav a.active { color:var(--red); background:rgba(200,16,46,.06); }
 .proxima-head { background:var(--red); color:var(--white); padding:10px 16px; font-size:13px; font-weight:700; letter-spacing:.5px; display:flex; justify-content:space-between; align-items:center; }
 .proxima-head i { margin-right:6px; }
 .proxima-updated { font-size:11px; font-weight:400; opacity:.75; }
+.proxima-cancel { display:flex; align-items:center; gap:14px; padding:20px 18px; background:#fff5f5; border-left:4px solid var(--red); }
+.proxima-cancel i { font-size:26px; color:var(--red); flex:none; }
+.proxima-cancel strong { display:block; font-size:15px; color:var(--red); margin-bottom:3px; }
+.proxima-cancel span { display:block; font-size:13px; color:#555; line-height:1.4; }
 .proxima-table-wrap { overflow-x:auto; }
 .proxima-tabla { box-shadow:none; border-radius:0; }
 .fixture-download { display:flex; flex-direction:column; align-items:center; gap:8px; padding:16px; background:var(--gray,#f5f5f5); border-top:1px solid var(--border); text-align:center; }
