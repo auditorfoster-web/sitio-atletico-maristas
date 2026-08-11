@@ -201,16 +201,7 @@
       <div class="proxima-block" id="proxima-fecha">
         <div class="proxima-head">
           <span><i class="fas fa-calendar-alt"></i> Próxima Fecha — Atletico Maristas</span>
-          <span class="proxima-updated">Fechas canceladas</span>
-        </div>
-
-        <!-- AVISO: todas las fechas del torneo fueron canceladas -->
-        <div class="proxima-cancel" role="status">
-          <i class="fas fa-ban"></i>
-          <div>
-            <strong>Todas las fechas fueron canceladas.</strong>
-            <span>No hay partidos programados por el momento. Te avisaremos apenas se reprograme el torneo.</span>
-          </div>
+          <span class="proxima-updated">Actualizado: 10-08-2026</span>
         </div>
 
         <!-- TARJETAS POR SERIE (las arma script.js desde la tabla oculta de abajo) -->
@@ -1099,12 +1090,60 @@
   <script src="resultados.js?v=20260614"></script>
   <script src="cumpleanos.js?v=20260616"></script>
   <script src="hero-fotos.js?v=20260614"></script>
-  <script src="fixture-data.js?v=20260622"></script>
+  <script src="fixture-data.js?v=20260811"></script>
 
-  <!-- PRÓXIMA FECHA: TODAS LAS FECHAS CANCELADAS. Ya no se arma la próxima jornada
-       desde fixture-data.js; el aviso .proxima-cancel del HTML queda visible. Para
-       reactivar el torneo, restaurar el script que llena #proxima-tbody (ver historial
-       de git) y quitar el bloque .proxima-cancel. -->
+  <!-- PRÓXIMA FECHA: se arma desde el fixture oficial (fixture-data.js), no desde
+       AIRA. Llena #proxima-tbody con la jornada cuyo último día aún no pasó; las
+       tarjetas y la cuenta regresiva las construye script.js leyendo esa tabla.
+       Corre antes que script.js (que es defer) para que la tabla ya esté lista. -->
+  <script>
+    (function () {
+      var tbody = document.getElementById('proxima-tbody');
+      if (!tbody || typeof window.fixtureProxima !== 'function') return;
+      var f = window.fixtureProxima();
+      var badge = document.querySelector('.proxima-updated');
+      if (!f) { if (badge) badge.textContent = 'Temporada finalizada'; return; }
+      var etiquetaN = (f.ns && f.ns.length > 1) ? f.ns.join(' y ') : f.n;
+      if (badge) badge.textContent = 'Fecha ' + etiquetaN + ' · ' + f.fecha;
+
+      var SERIES = window.FIXTURE_SERIES || {};
+      function pad(n) { return (n < 10 ? '0' : '') + n; }
+      function esc(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      var rows = '';
+      f.dias.forEach(function (d) {
+        var nFecha = d.n || f.n;
+        var anio = String(window.FIXTURE_FIN[nFecha] || '').slice(0, 4) || String(new Date().getFullYear());
+        var dm = String(d.dia || '').match(/(\d{2})\/(\d{2})/);
+        var fechaDdMm = dm ? (dm[1] + '/' + dm[2] + '/' + anio) : '';
+        d.p.forEach(function (m) {
+          var serie = (SERIES[m.s] || {}).label || m.s;
+          var hm = String(m.h || '').match(/(\d{1,2}):(\d{2})/);
+          var prog = (fechaDdMm && hm) ? (fechaDdMm + ' ' + pad(+hm[1]) + ':' + hm[2]) : '';
+          var am = 'Atletico Marista ' + serie;
+          var local = m.home ? am : m.vs;
+          var visita = m.home ? m.vs : am;
+          var localCell = m.home
+            ? '<td><strong style="color:var(--red)">' + esc(local) + '</strong></td>'
+            : '<td>' + esc(local) + '</td>';
+          var visitaCell = m.home
+            ? '<td>' + esc(visita) + '</td>'
+            : '<td><strong style="color:var(--red)">' + esc(visita) + '</strong></td>';
+          rows +=
+            '<tr>' +
+            '<td class="serie-badge">' + esc(serie) + '</td>' +
+            '<td style="text-align:center;white-space:nowrap">' + nFecha + '</td>' +
+            '<td style="white-space:nowrap">' + esc(prog) + '</td>' +
+            localCell + visitaCell +
+            '<td style="white-space:nowrap">' + esc(m.c || '') + '</td>' +
+            '</tr>';
+        });
+      });
+      tbody.innerHTML = rows;
+    })();
+  </script>
 
   <script src="script.js?v=20260722" defer></script>
 

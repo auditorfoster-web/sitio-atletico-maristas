@@ -2,6 +2,10 @@
 // La consumen fixture.html (vista completa) e index.html (sección "Próxima Fecha").
 // La serie (s) se extrajo del color del fixture PDF oficial y se validó con AIRA.
 // Para actualizar el calendario, edita SOLO este archivo.
+//
+// Última sincronización: fixture oficial "TORNEO APERTURA 2026 — LIGA LA REINA",
+// actualización del 10 de agosto de 2026. De ahí salen las fechas 14 (15/08, la
+// única con las cinco series), 15 (22/08) y 16 (29/08).
 
 // Series (color = CLAVE del fixture oficial)
 window.FIXTURE_SERIES = {
@@ -144,14 +148,37 @@ window.FIXTURE = [
       { h:"11:10", c:"Cancha 1", vs:"Dinastía", home:true, s:"senior" },
     ]},
   ]},
+  // --- Fixture oficial actualizado al 10/08/2026 ---
+  { n:14, fecha:"15 de Agosto", nota:"Única fecha con las cinco series en cancha: Junior y Senior en la mañana (Cancha 1) y Diamante, Dorada y Súper Senior en la tarde (Cancha 2).", dias:[
+    { dia:"Sábado 15/08", p:[
+      { h:"9:30",  c:"Cancha 1", vs:"Dinastía", home:true, s:"junior" },
+      { h:"11:10", c:"Cancha 1", vs:"Dinastía", home:true, s:"senior" },
+      { h:"15:30", c:"Cancha 2", vs:"Doveramigos", home:false, s:"diamante" },
+      { h:"16:50", c:"Cancha 2", vs:"Doveramigos", home:false, s:"dorada" },
+      { h:"18:20", c:"Cancha 2", vs:"Doveramigos", home:false, s:"supersenior" },
+    ]},
+  ]},
+  { n:15, fecha:"22 de Agosto", nota:"Juegan Senior y Junior. Súper Senior, Dorada y Diamante inician el Clausura y aún no tienen rival asignado en el fixture oficial.", dias:[
+    { dia:"Sábado 22/08", p:[
+      { h:"9:30",  c:"Cancha 2", vs:"Juventus", home:true, s:"junior" },
+      { h:"11:10", c:"Cancha 2", vs:"Charkaplax", home:true, s:"senior" },
+    ]},
+  ]},
+  { n:16, fecha:"29 de Agosto", nota:"Juegan Senior y Junior. En las fechas siguientes (5/09, 12/09 y 26/09) el fixture al 10/08 aún no asigna partidos a Atlético Maristas. Los días 19 y 20 de septiembre no se juega.", dias:[
+    { dia:"Sábado 29/08", p:[
+      { h:"12:50", c:"Cancha 1", vs:"Manchester", home:false, s:"junior" },
+      { h:"19:50", c:"Cancha 1", vs:"Manchester", home:false, s:"senior" },
+    ]},
+  ]},
 ];
 
 // Fecha de término de cada jornada (último día del fin de semana) para detectar
 // automáticamente la PRÓXIMA FECHA según el día de hoy, sin depender de AIRA.
 window.FIXTURE_FIN = {
   1:'2026-04-12', 2:'2026-04-19', 3:'2026-04-26', 4:'2026-05-10', 5:'2026-05-17',
-  6:'2026-05-31', 7:'2026-06-07', 8:'2026-06-13', 9:'2026-06-21', 10:'2026-07-05',
-  11:'2026-07-12', 12:'2026-07-25', 13:'2026-08-01'
+  6:'2026-05-31', 7:'2026-06-07', 8:'2026-08-08', 9:'2026-06-21', 10:'2026-07-05',
+  11:'2026-07-12', 12:'2026-07-25', 13:'2026-08-01',
+  14:'2026-08-15', 15:'2026-08-22', 16:'2026-08-29'
 };
 
 // Fecha de hoy en ISO local (YYYY-MM-DD).
