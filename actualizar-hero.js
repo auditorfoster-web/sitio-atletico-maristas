@@ -6,8 +6,10 @@
  * Escanea las carpetas de fotos de cada serie y reescribe `hero-fotos.js`
  * con la lista completa de imagenes candidatas para el carrusel del hero.
  *
- * El hero SIEMPRE muestra los 3 videos del drone al inicio (estan fijos en
- * index.html). Las fotos se eligen solas en el navegador (script.js) segun la
+ * El hero SIEMPRE abre con las slides de campeones + los 3 videos del drone
+ * (estan fijas en index.html; `fotos/campeones` queda fuera de CARPETAS a
+ * proposito para no repetirlas aca).
+ * Las fotos restantes se eligen solas en el navegador (script.js) segun la
  * fecha: el set cambia cada 2 semanas. Aqui solo generamos el inventario.
  *
  * Corre esto cada vez que subas o borres fotos:

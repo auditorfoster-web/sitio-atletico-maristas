@@ -3,3 +3,7 @@ DRON/
 
 # Respaldo local de la foto original de la camiseta
 fotos/camiseta-2026-original.jpg
+
+# Original pesado del gol del campeonato (7 MB). La version que sirve el sitio
+# es videos/gol-campeonato.mp4, recomprimida y recortada.
+fotos/campeones/video gol campeonato.mp4

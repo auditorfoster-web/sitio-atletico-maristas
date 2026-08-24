@@ -50,6 +50,23 @@
     return `<div class="news-gallery">${items}</div>`;
   }
 
+  // Video de la noticia. El clip del gol es vertical (grabado con celular), asi
+  // que se muestra entero dentro de un escenario 16:9 con el poster borroso de
+  // fondo: queda horizontal sin recortarle nada a la jugada.
+  function videoBlock(n) {
+    if (!n.video) return '';
+    const poster = n.videoPoster ? ` poster="${n.videoPoster}"` : '';
+    return `<figure class="news-video">
+      <div class="news-video-stage">
+        ${n.videoPoster ? `<div class="news-video-blur" style="background-image:url('${n.videoPoster}')"></div>` : ''}
+        <video controls playsinline preload="none"${poster}>
+          <source src="${n.video}" type="video/mp4" />
+        </video>
+      </div>
+      ${n.videoCaption ? `<figcaption><i class="fas fa-video"></i> ${n.videoCaption}</figcaption>` : ''}
+    </figure>`;
+  }
+
   function quoteBlock(n) {
     if (!n.cita) return '';
     return `<blockquote class="news-quote">
@@ -77,6 +94,7 @@
         <time>${n.fecha}</time>
         <h3><a href="#">${n.titulo}</a></h3>
         ${n.resumen ? `<p>${n.resumen}</p>` : ''}
+        ${videoBlock(n)}
         ${galleryBlock(n)}
         ${quoteBlock(n)}
         ${statsBlock(n)}
@@ -277,6 +295,17 @@ document.getElementById('contactForm')?.addEventListener('submit', async e => {
   const dotsWrap = document.getElementById('hsDots');
   if (!slides.length || !dotsWrap) return;
 
+  // Con una sola slide no hay carrusel: nada de flechas, puntos ni timer.
+  // Se oculta con style.display porque .hs-arrow/.hs-dots declaran display:flex
+  // y ese display le gana al atributo [hidden].
+  if (slides.length === 1) {
+    dotsWrap.style.display = 'none';
+    document.querySelectorAll('.hs-arrow').forEach((b) => { b.style.display = 'none'; });
+    const v = slides[0].querySelector('video');
+    if (v) { const p = v.play(); if (p) p.catch(() => {}); }
+    return;
+  }
+
   let current = 0, timer;
 
   // Crear dots
@@ -306,6 +335,16 @@ document.getElementById('contactForm')?.addEventListener('submit', async e => {
     });
   }
 
+  // Cada slide dura 5s salvo que declare data-dwell (la foto de campeones se
+  // queda mas rato para que alcance a leerse la leyenda).
+  function dwellMs(i) {
+    return parseInt(slides[i].dataset.dwell || '', 10) || 5000;
+  }
+  function schedule() {
+    clearTimeout(timer);
+    timer = setTimeout(() => goTo(current + 1), dwellMs(current));
+  }
+
   function goTo(n) {
     slides[current].classList.remove('active');
     dotsWrap.children[current].classList.remove('active');
@@ -315,8 +354,7 @@ document.getElementById('contactForm')?.addEventListener('submit', async e => {
     slides[current].classList.add('active');
     dotsWrap.children[current].classList.add('active');
     playActive();
-    clearInterval(timer);
-    timer = setInterval(() => goTo(current + 1), 5000);
+    schedule();
   }
 
   // Pre-carga slide 1 antes de que aparezca y reproduce el video inicial
@@ -328,10 +366,10 @@ document.getElementById('contactForm')?.addEventListener('submit', async e => {
 
   // Pausa al pasar el mouse
   const hero = document.querySelector('.hero');
-  hero?.addEventListener('mouseenter', () => clearInterval(timer));
-  hero?.addEventListener('mouseleave', () => { timer = setInterval(() => goTo(current + 1), 5000); });
+  hero?.addEventListener('mouseenter', () => clearTimeout(timer));
+  hero?.addEventListener('mouseleave', schedule);
 
-  timer = setInterval(() => goTo(current + 1), 5000);
+  schedule();
 })();
 
 // ---- TEAM SHIELDS from AIRA ----

@@ -4,30 +4,29 @@
 //
 //  La primera noticia aparece GRANDE (noticia principal).
 //  Las siguientes aparecen como noticias secundarias.
+//
+//  Campos opcionales de video: `video` (mp4), `videoPoster`, `videoCaption`.
+//  El player se muestra en un escenario 16:9 aunque el clip sea vertical.
 // ================================================================
 
 const NOTICIAS = [
   {
-    titulo: "La Dorada, a 70 minutos de la gloria: gana y es campeón",
+    titulo: "Dorada, campeón del Apertura 2026: sufrió, resistió y gritó campeón ante Dover",
     serie: "Dorada",
-    fecha: "13 de julio de 2026",
-    resumen: "No hay margen para el cálculo: Atlético Marista Dorados llega a la definición instalado en la cima y con el título al alcance de la mano. Con 25 puntos en diez fechas —ocho triunfos, un empate y una sola derrota—, el conjunto dorado manda en una tabla de hierro y exhibe, además, la valla menos vencida del torneo: apenas 5 goles en contra y un contundente saldo de 25 a favor. La cita decisiva quedó fijada para el sábado 25 de julio: en el duelo reprogramado de la fecha 8, la Dorada visitará a Doveramigos a las 16:50 horas en la Cancha 2, y la ecuación no admite matices: un triunfo la corona campeona. Detrás acechan Banco Bice (24) y la dupla de Mapuches y Unión Marista (21), obligados a esperar un tropiezo que el líder no piensa regalar. El plantel marista, que viene de firmar su mejor versión en las últimas jornadas, afrontará los 70 minutos más importantes de la temporada con todo el club empujando y soñando con levantar la copa.",
-    cita: "Trabajamos todo el primer semestre para llegar a esta instancia. Es una final y vamos a jugarla como tal: a ganar.",
-    citaAutor: "Director Técnico — Serie Dorada",
-    estadisticas: [
-      { l: "Partidos jugados", v: "10" },
-      { l: "Ganados", v: "8" },
-      { l: "Empatados", v: "1" },
-      { l: "Perdidos", v: "1" },
-      { l: "Goles a favor", v: "25" },
-      { l: "Goles en contra", v: "5" },
-      { l: "Puntos", v: "25" },
-      { l: "Rendimiento", v: "83%" }
-    ],
-    imagen: "fotos/dorada/dorada 12-07.jpg",
+    fecha: "22 de agosto de 2026",
+    resumen: "Bajo el sol del sábado, Dorada se consagró campeón del Torneo Apertura 2026 tras vencer 1-0 a Dover con un golazo de Aroca.<br><br>La final estuvo lejos de ser una fiesta: Dover apostó por un planteo basado en la pierna fuerte, faltas constantes, simulaciones y demoras para cortar el circuito de juego. Sin embargo, en medio del trámite friccionado y mañoso, apareció la jerarquía de Aroca para romper el cero con una definición exquisita.<br><br>Dorada atacó todo el partido, ahogando a Dover hasta el pitazo final. Una consagración sufrida y heroica que deja la copa en casa.",
+    video: "videos/gol-campeonato.mp4",
+    videoPoster: "videos/gol-campeonato-poster.jpg",
+    videoCaption: "El gol de Aroca que valió el título, y el festejo del plantel.",
+    imagen: "fotos/campeones/equipo campeon.jpeg",
     imagenes: [
-      "fotos/dorada/dorada 12-07.jpg",
-      "fotos/dorada/dorada 2 12-07.jpg"
+      "fotos/campeones/equipo campeon.jpeg",
+      "fotos/campeones/campeones copa 1.jpeg",
+      "fotos/campeones/campeones copa 2.jpeg",
+      "fotos/campeones/campeones copa 3.jpeg",
+      "fotos/campeones/campeones copa 4.jpeg",
+      "fotos/campeones/campeones copa 5.jpeg",
+      "fotos/campeones/campeones celebracion.jpeg"
     ]
   }
 ];

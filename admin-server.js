@@ -102,6 +102,11 @@ function saveNoticias(arr) {
       props.push(`    estadisticas: [\n${stats}\n    ]`);
     }
 
+    // Video opcional de la noticia (se muestra en un escenario 16:9).
+    if (n.video)        props.push(`    video:        ${JSON.stringify(n.video)}`);
+    if (n.videoPoster)  props.push(`    videoPoster:  ${JSON.stringify(n.videoPoster)}`);
+    if (n.videoCaption) props.push(`    videoCaption: ${JSON.stringify(n.videoCaption)}`);
+
     // Imagen principal (hero) + galeria opcional de fotos adicionales.
     props.push(`    imagen:  ${JSON.stringify(n.imagen || '')}`);
     if (Array.isArray(n.imagenes) && n.imagenes.length) {

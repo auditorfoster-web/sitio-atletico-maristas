@@ -63,7 +63,7 @@
 
   <link rel="icon" type="image/png" href="escudo.png" />
   <link rel="apple-touch-icon" href="escudo.png" />
-  <link rel="stylesheet" href="styles.css?v=20260616h" />
+  <link rel="stylesheet" href="styles.css?v=20260824" />
   <!-- Preconnect para reducir latencia de fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -121,19 +121,21 @@
   <!-- HERO -->
   <section class="hero" id="inicio">
     <div class="hero-slider" id="heroSlider">
-      <div class="hs-slide hs-vid active">
-        <video muted loop playsinline preload="auto" poster="videos/dron1-poster.jpg">
-          <source src="videos/dron1.mp4" type="video/mp4" />
-        </video>
+      <!-- CAMPEONES APERTURA 2026 — Dorada. UNICA slide del hero: el carrusel
+           quedo con los videos de drone y las fotos rotativas desactivados.
+           Para volver a activarlos: reponer los <div class="hs-slide hs-vid">
+           de dron1/2/3 aca y descomentar <script src="hero-fotos.js"> al final
+           del body (script.js inyecta esas fotos y el slider se reactiva solo
+           en cuanto haya mas de una slide).
+           La foto es 1600x837 y el hero mide 520px: se encuadra alto (25%) para
+           no cortar las cabezas de la fila de atras.
+           data-dwell: 14s en pantalla, si algun dia vuelve a haber carrusel. -->
+      <div class="hs-slide active" data-dwell="14000" style="background-image:url('fotos/campeones/equipo campeon.jpeg'); background-position:center 25%">
+        <div class="hs-legend">
+          <span class="hs-legend-top">Campeones</span>
+          <span class="hs-legend-sub">Apertura 2026 &middot; Serie Dorada</span>
+        </div>
       </div>
-      <div class="hs-slide hs-vid">
-        <video muted loop playsinline preload="none"><source src="videos/dron2.mp4" type="video/mp4" /></video>
-      </div>
-      <div class="hs-slide hs-vid">
-        <video muted loop playsinline preload="none"><source src="videos/dron3.mp4" type="video/mp4" /></video>
-      </div>
-      <!-- Las slides de foto las inyecta script.js desde hero-fotos.js.
-           Rotan solas cada 2 semanas. Los 3 videos de arriba van siempre. -->
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-body wrap">
@@ -193,6 +195,17 @@
   <section class="section" id="noticias">
     <div class="wrap">
       <div class="sec-head">
+        <h2>Noticias</h2>
+      </div>
+      <div class="news-grid" id="newsGrid"></div>
+    </div>
+  </section>
+
+
+  <!-- FECHAS / PROXIMA FECHA -->
+  <section class="section" id="fechas">
+    <div class="wrap">
+      <div class="sec-head">
         <h2>Fechas</h2>
         <a href="#" class="ver-mas">Ver todas <i class="fas fa-arrow-right"></i></a>
       </div>
@@ -232,17 +245,6 @@
       </div>
       <!-- /PROXIMA-FECHA -->
       <div class="share-row share-end" data-target="proxima-fecha" data-title="Próxima Fecha"></div>
-    </div>
-  </section>
-
-
-  <!-- NOTICIAS -->
-  <section class="section" id="noticias-club">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Noticias</h2>
-      </div>
-      <div class="news-grid" id="newsGrid"></div>
     </div>
   </section>
 
@@ -922,6 +924,12 @@
       <div class="copas-grid">
         <div class="copa-card">
           <i class="fas fa-trophy copa-icon" style="color:#f59e0b"></i>
+          <span class="copa-year">2026</span>
+          <p class="copa-name">Copa de Oro</p>
+          <span class="copa-serie">Dorada · Ap. 2026</span>
+        </div>
+        <div class="copa-card">
+          <i class="fas fa-trophy copa-icon" style="color:#f59e0b"></i>
           <span class="copa-year">2024</span>
           <p class="copa-name">Copa de Plata</p>
           <span class="copa-serie">Super Senior · Ap. 2024</span>
@@ -1089,7 +1097,10 @@
   <script src="instagram-posts.js"></script>
   <script src="resultados.js?v=20260614"></script>
   <script src="cumpleanos.js?v=20260616"></script>
-  <script src="hero-fotos.js?v=20260614"></script>
+  <!-- Fotos rotativas del hero: desactivadas mientras el header muestre solo la
+       foto de campeones. Descomentar para volver al carrusel (ver comentario en
+       la seccion HERO). `node actualizar-hero.js` sigue manteniendo el archivo. -->
+  <!-- <script src="hero-fotos.js?v=20260614"></script> -->
   <script src="fixture-data.js?v=20260811"></script>
 
   <!-- PRÓXIMA FECHA: se arma desde el fixture oficial (fixture-data.js), no desde
@@ -1145,7 +1156,7 @@
     })();
   </script>
 
-  <script src="script.js?v=20260722" defer></script>
+  <script src="script.js?v=20260824" defer></script>
 
   <script>
     (function() {
