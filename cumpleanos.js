@@ -68,6 +68,7 @@ window.CUMPLEANOS = [
   { n:'Remigio Flores', s:'Dorados', d:13, m:7, y:1973 },
   { n:'Wilber Chipao', s:'Super Senior', d:16, m:7, y:1982 },
   { n:'Mauricio Arias', s:'Super Senior', d:24, m:7, y:1980 },
+  { n:'Patricio Rosas', s:'Senior', d:25, m:7, y:1994 },
   { n:'Andres Olivares', s:'Senior', d:26, m:7, y:1994 },
   { n:'Diego Alcota', s:'Super Senior', d:28, m:7, y:1983 },
   { n:'Julian Gonzalez', s:'Junior', d:4, m:8, y:2008 },
