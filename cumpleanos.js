@@ -7,6 +7,7 @@ window.CUMPLEANOS = [
   { n:'Ariel Silva', s:'Senior', d:4, m:1, y:1994 },
   { n:'Francisco Cabezas', s:'Super Senior', d:6, m:1, y:1983 },
   { n:'Carlos Madrid', s:'Super Senior', d:8, m:1, y:1978 },
+  { n:'Ariel Viveros', s:'Junior', d:10, m:1, y:2008 },
   { n:'Sebastian Toledo', s:'Super Senior', d:14, m:1, y:1983 },
   { n:'Albert Avellaneda', s:'Senior', d:15, m:1, y:1995 },
   { n:'Enrique Urbina', s:'Diamantes', d:16, m:1, y:1966 },
