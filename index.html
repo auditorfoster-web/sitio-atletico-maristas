@@ -63,7 +63,7 @@
 
   <link rel="icon" type="image/png" href="escudo.png" />
   <link rel="apple-touch-icon" href="escudo.png" />
-  <link rel="stylesheet" href="styles.css?v=20260824" />
+  <link rel="stylesheet" href="styles.css?v=20260901" />
   <!-- Preconnect para reducir latencia de fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1088,7 +1088,7 @@
        foto de campeones. Descomentar para volver al carrusel (ver comentario en
        la seccion HERO). `node actualizar-hero.js` sigue manteniendo el archivo. -->
   <!-- <script src="hero-fotos.js?v=20260614"></script> -->
-  <script src="fixture-data.js?v=20260811"></script>
+  <script src="fixture-data.js?v=20260901"></script>
 
   <!-- PRÓXIMA FECHA: se arma desde el fixture oficial (fixture-data.js), no desde
        AIRA. Llena #proxima-tbody con la jornada cuyo último día aún no pasó; las
@@ -1101,7 +1101,10 @@
       var f = window.fixtureProxima();
       var badge = document.querySelector('.proxima-updated');
       if (!f) { if (badge) badge.textContent = 'Temporada finalizada'; return; }
-      var etiquetaN = (f.ns && f.ns.length > 1) ? f.ns.join(' y ') : f.n;
+      // nsLabels/nLabel en vez de los `n` crudos: el Clausura reinicia la
+      // numeracion y su fecha 2 vive en n:17 (clave interna de FIXTURE_FIN).
+      var etiquetas = f.nsLabels || f.ns || [];
+      var etiquetaN = (etiquetas.length > 1) ? etiquetas.join(' y ') : (f.nLabel || f.n);
       if (badge) badge.textContent = 'Fecha ' + etiquetaN + ' · ' + f.fecha;
 
       var SERIES = window.FIXTURE_SERIES || {};
@@ -1113,6 +1116,7 @@
       var rows = '';
       f.dias.forEach(function (d) {
         var nFecha = d.n || f.n;
+        var nVisible = d.nLabel || nFecha;
         var anio = String(window.FIXTURE_FIN[nFecha] || '').slice(0, 4) || String(new Date().getFullYear());
         var dm = String(d.dia || '').match(/(\d{2})\/(\d{2})/);
         var fechaDdMm = dm ? (dm[1] + '/' + dm[2] + '/' + anio) : '';
@@ -1132,7 +1136,7 @@
           rows +=
             '<tr>' +
             '<td class="serie-badge">' + esc(serie) + '</td>' +
-            '<td style="text-align:center;white-space:nowrap">' + nFecha + '</td>' +
+            '<td style="text-align:center;white-space:nowrap">' + esc(nVisible) + '</td>' +
             '<td style="white-space:nowrap">' + esc(prog) + '</td>' +
             localCell + visitaCell +
             '<td style="white-space:nowrap">' + esc(m.c || '') + '</td>' +
@@ -1143,7 +1147,7 @@
     })();
   </script>
 
-  <script src="script.js?v=20260824" defer></script>
+  <script src="script.js?v=20260901" defer></script>
 
   <script>
     (function() {

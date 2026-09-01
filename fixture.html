@@ -182,7 +182,7 @@
     </div>
   </footer>
 
-  <script src="fixture-data.js?v=20260811"></script>
+  <script src="fixture-data.js?v=20260901"></script>
   <script>
     // Menú móvil
     var burger = document.getElementById('burger');
@@ -218,7 +218,7 @@
       var cont = document.getElementById('fxContent');
       var jhtml = '', chtml = '';
       FIXTURE.forEach(function (f) {
-        jhtml += '<a href="#fecha-' + f.n + '">Fecha ' + f.n + '</a>';
+        jhtml += '<a href="#fecha-' + f.n + '">Fecha ' + window.fixtureNLabel(f) + '</a>';
         var body = '';
         if (f.nota) body += '<div class="fx-note"><i class="fas fa-circle-info"></i> ' + f.nota + '</div>';
         f.dias.forEach(function (d) {
@@ -228,7 +228,7 @@
         var esProxima = (f.n === proximaN);
         var badge = esProxima ? '<span class="fx-prox-badge"><i class="fas fa-star"></i> PRÓXIMA</span>' : '';
         chtml += '<div class="fx-card' + (esProxima ? ' proxima' : '') + '" id="fecha-' + f.n + '">' +
-          '<div class="fx-card-head"><span class="fx-n">Fecha ' + f.n + '</span>' +
+          '<div class="fx-card-head"><span class="fx-n">Fecha ' + window.fixtureNLabel(f) + '</span>' +
           '<span style="display:flex;align-items:center;gap:10px">' + badge +
           '<span class="fx-date"><i class="far fa-calendar"></i> ' + f.fecha + '</span></span></div>' +
           '<div class="fx-card-body">' + body + '</div></div>';
@@ -277,7 +277,7 @@
       if (!proximaObj) { box.innerHTML = ''; return; }
       box.innerHTML = '<div class="fx-proxima-banner">' +
         '<span class="lbl"><i class="fas fa-star"></i> Próxima fecha</span>' +
-        '<span class="info">Fecha ' + proximaObj.n + ' · ' + proximaObj.fecha + '</span>' +
+        '<span class="info">Fecha ' + window.fixtureNLabel(proximaObj) + ' · ' + proximaObj.fecha + '</span>' +
         '<a class="go" href="#fecha-' + proximaObj.n + '">Ver partidos <i class="fas fa-arrow-down"></i></a>' +
         '</div>';
     }

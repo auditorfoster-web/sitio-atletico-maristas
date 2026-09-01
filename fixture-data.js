@@ -170,6 +170,19 @@ window.FIXTURE = [
       { h:"19:50", c:"Cancha 1", vs:"Manchester", home:false, s:"senior" },
     ]},
   ]},
+
+  // ---- CLAUSURA 2026 ----
+  // Torneo nuevo, con su propia numeracion: AIRA la llama "Fecha 2" (de ahi el
+  // nLabel), pero `n` sigue la cuenta corrida de la temporada porque es la CLAVE
+  // de FIXTURE_FIN y no puede repetirse con la fecha 2 del Apertura.
+  // Tomado de la Programacion de AIRA (futbol.aira.cl), CL. 2026 - FASE REGULAR.
+  { n:17, nLabel:'2 (Clausura)', fecha:"6 de Septiembre", nota:"Arranca el Clausura 2026 para Súper Senior, Dorada y Diamante: las tres juegan de visita en Cancha 1. Junior y Senior siguen en el Apertura y el fixture oficial aún no les asigna rival.", dias:[
+    { dia:"Domingo 06/09", p:[
+      { h:"9:40",  c:"Cancha 1", vs:"Estudiantes", home:false, s:"dorada" },
+      { h:"11:00", c:"Cancha 1", vs:"Estudiantes", home:false, s:"diamante" },
+      { h:"12:20", c:"Cancha 1", vs:"Mapuches",    home:false, s:"supersenior" },
+    ]},
+  ]},
 ];
 
 // Fecha de término de cada jornada (último día del fin de semana) para detectar
@@ -178,7 +191,14 @@ window.FIXTURE_FIN = {
   1:'2026-04-12', 2:'2026-04-19', 3:'2026-04-26', 4:'2026-05-10', 5:'2026-05-17',
   6:'2026-05-31', 7:'2026-06-07', 8:'2026-08-08', 9:'2026-06-21', 10:'2026-07-05',
   11:'2026-07-12', 12:'2026-07-25', 13:'2026-08-01',
-  14:'2026-08-15', 15:'2026-08-22', 16:'2026-08-29'
+  14:'2026-08-15', 15:'2026-08-22', 16:'2026-08-29',
+  17:'2026-09-06'
+};
+
+// Etiqueta visible de una jornada. El Clausura reinicia la numeracion, asi que
+// `n` (clave interna, unica) y lo que se muestra dejaron de coincidir.
+window.fixtureNLabel = function (f) {
+  return (f && f.nLabel) || (f && f.n) || '';
 };
 
 // Fecha de hoy en ISO local (YYYY-MM-DD).
@@ -251,15 +271,25 @@ window.fixtureProxima = function () {
   function add(f) {
     f.dias.forEach(function (d) {
       var iso = window.fixtureDiaISO(d.dia, f.n);
-      if (iso && iso >= lo && iso <= hi) { dias.push({ dia: d.dia, p: d.p, n: f.n }); ns[f.n] = true; }
+      if (iso && iso >= lo && iso <= hi) {
+        dias.push({ dia: d.dia, p: d.p, n: f.n, nLabel: f.nLabel });
+        ns[f.n] = f.nLabel || f.n;
+      }
     });
   }
   if (primary) add(primary);
   window.FIXTURE.forEach(function (f) { if (f !== primary) add(f); });
 
   var nsArr = Object.keys(ns).map(Number).sort(function (a, b) { return a - b; });
+  // Mismo orden que nsArr, pero con la etiqueta visible de cada jornada.
+  var nsLabels = nsArr.map(function (k) { return ns[k]; });
   // `n` = jornada principal para resaltar en la vista completa (fixture.html):
   // la vigente por FIN si existe, o la del día reprogramado más cercano.
-  var principalN = primary ? primary.n : nsArr[0];
-  return { n: principalN, fecha: fechaLbl, dias: dias, ns: nsArr };
+  var principal = primary || null;
+  var principalN = principal ? principal.n : nsArr[0];
+  return {
+    n: principalN,
+    nLabel: principal ? principal.nLabel : ns[principalN],
+    fecha: fechaLbl, dias: dias, ns: nsArr, nsLabels: nsLabels
+  };
 };

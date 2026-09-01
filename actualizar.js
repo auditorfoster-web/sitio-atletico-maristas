@@ -9,7 +9,6 @@
 const fs    = require('fs');
 const path  = require('path');
 const https = require('https');
-const { actualizarMundial } = require('./actualizar-mundial');
 
 const HTML_FILE     = path.join(__dirname, 'index.html');
 const SIDE_URL      = 'https://futbol.aira.cl/lig/side.aspx';
@@ -539,12 +538,6 @@ async function main() {
   // 4b. Cumpleaños (cumpleanos.js)
   const nCumples = escribirCumpleanos(rosterMaristas);
   console.log(`  Cumpleaños: ${nCumples} jugador(es) con fecha de nacimiento`);
-
-  // 4c. Mundial FIFA 2026 (mundial.js) — para el banner de partidos del dia
-  try {
-    const n = await actualizarMundial();
-    console.log(`  Mundial 2026: ${n} partido(s) en el fixture`);
-  } catch (err) { console.log(`  Mundial 2026: Error (${err.message})`); }
 
   // 5. Proxima fecha: YA NO se toma de AIRA. La maneja el fixture oficial en
   //    fixture-data.js (lo renderiza index.html en el cliente). AIRA va atrasada
