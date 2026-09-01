@@ -171,13 +171,20 @@ window.FIXTURE = [
     ]},
   ]},
 
-  // ---- CLAUSURA 2026 ----
-  // Torneo nuevo, con su propia numeracion: AIRA la llama "Fecha 2" (de ahi el
-  // nLabel), pero `n` sigue la cuenta corrida de la temporada porque es la CLAVE
-  // de FIXTURE_FIN y no puede repetirse con la fecha 2 del Apertura.
-  // Tomado de la Programacion de AIRA (futbol.aira.cl), CL. 2026 - FASE REGULAR.
-  { n:17, nLabel:'2 (Clausura)', fecha:"6 de Septiembre", nota:"Arranca el Clausura 2026 para Súper Senior, Dorada y Diamante: las tres juegan de visita en Cancha 1. Junior y Senior siguen en el Apertura y el fixture oficial aún no les asigna rival.", dias:[
-    { dia:"Domingo 06/09", p:[
+  // ---- FIN DE SEMANA PARTIDO ENTRE DOS TORNEOS ----
+  // Junior y Senior siguen en el APERTURA (fecha 13, sabado 05/09) mientras
+  // Super Senior, Dorada y Diamante ya arrancaron el CLAUSURA (fecha 2, domingo
+  // 06/09). Por eso cada dia lleva su propio nLabel: el Clausura reinicia la
+  // numeracion y una sola etiqueta mentiria para la mitad de las series.
+  // `n` sigue la cuenta corrida de la temporada porque es la CLAVE de
+  // FIXTURE_FIN y no puede repetir la fecha 2 del Apertura.
+  // Fuente: Programacion de AIRA (futbol.aira.cl/ini/lstProgramacionPublico.aspx).
+  { n:17, nLabel:'13 Ap. / 2 Cl.', fecha:"5 y 6 de Septiembre", nota:"Fin de semana partido entre dos torneos: Junior y Senior cierran la fecha 13 del Apertura el sábado, de local; Súper Senior, Dorada y Diamante juegan la fecha 2 del Clausura el domingo, las tres de visita. Todo en Cancha 1.", dias:[
+    { dia:"Sábado 05/09", nLabel:'13 Ap.', p:[
+      { h:"10:30", c:"Cancha 1", vs:"Dinastía FC", home:true,  s:"junior" },
+      { h:"12:10", c:"Cancha 1", vs:"Dinastía FC", home:true,  s:"senior" },
+    ]},
+    { dia:"Domingo 06/09", nLabel:'2 Cl.', p:[
       { h:"9:40",  c:"Cancha 1", vs:"Estudiantes", home:false, s:"dorada" },
       { h:"11:00", c:"Cancha 1", vs:"Estudiantes", home:false, s:"diamante" },
       { h:"12:20", c:"Cancha 1", vs:"Mapuches",    home:false, s:"supersenior" },
@@ -267,29 +274,33 @@ window.fixtureProxima = function () {
 
   // Reúne TODOS los días (de cualquier jornada) dentro de [lo, hi]. Primero la
   // jornada vigente para conservar el orden natural, luego el resto.
-  var dias = [], ns = {};
+  // Cada día puede traer su propio n/nLabel: un mismo fin de semana puede mezclar
+  // jornadas de dos torneos (Apertura el sábado, Clausura el domingo).
+  var dias = [], vistos = {}, jornadas = [];
   function add(f) {
     f.dias.forEach(function (d) {
       var iso = window.fixtureDiaISO(d.dia, f.n);
       if (iso && iso >= lo && iso <= hi) {
-        dias.push({ dia: d.dia, p: d.p, n: f.n, nLabel: f.nLabel });
-        ns[f.n] = f.nLabel || f.n;
+        var nn = d.n || f.n;
+        var lbl = d.nLabel || f.nLabel || nn;
+        dias.push({ dia: d.dia, p: d.p, n: nn, nLabel: lbl });
+        if (!vistos[lbl]) { vistos[lbl] = true; jornadas.push({ n: nn, label: lbl }); }
       }
     });
   }
   if (primary) add(primary);
   window.FIXTURE.forEach(function (f) { if (f !== primary) add(f); });
 
-  var nsArr = Object.keys(ns).map(Number).sort(function (a, b) { return a - b; });
-  // Mismo orden que nsArr, pero con la etiqueta visible de cada jornada.
-  var nsLabels = nsArr.map(function (k) { return ns[k]; });
+  // ns = claves internas (para resaltar tarjetas); nsLabels = texto visible, en
+  // el mismo orden en que aparecen los días.
+  var nsArr = jornadas.map(function (j) { return j.n; });
+  var nsLabels = jornadas.map(function (j) { return j.label; });
   // `n` = jornada principal para resaltar en la vista completa (fixture.html):
   // la vigente por FIN si existe, o la del día reprogramado más cercano.
-  var principal = primary || null;
-  var principalN = principal ? principal.n : nsArr[0];
+  var principalN = primary ? primary.n : nsArr[0];
   return {
     n: principalN,
-    nLabel: principal ? principal.nLabel : ns[principalN],
+    nLabel: primary ? primary.nLabel : nsLabels[0],
     fecha: fechaLbl, dias: dias, ns: nsArr, nsLabels: nsLabels
   };
 };
