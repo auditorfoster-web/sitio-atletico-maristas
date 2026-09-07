@@ -10,6 +10,7 @@ window.CUMPLEANOS = [
   { n:'Ariel Viveros', s:'Junior', d:10, m:1, y:2008 },
   { n:'Sebastian Toledo', s:'Super Senior', d:14, m:1, y:1983 },
   { n:'Albert Avellaneda', s:'Senior', d:15, m:1, y:1995 },
+  { n:'Hernan Leiva', s:'Super Senior', d:16, m:1, y:1981 },
   { n:'Enrique Urbina', s:'Diamantes', d:16, m:1, y:1966 },
   { n:'Bastian Quilodran', s:'Junior', d:19, m:1, y:2005 },
   { n:'Pablo Hernandez', s:'Super Senior', d:25, m:1, y:1986 },
