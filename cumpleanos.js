@@ -59,6 +59,7 @@ window.CUMPLEANOS = [
   { n:'Javier Bravo', s:'Dorados', d:5, m:6, y:1974 },
   { n:'Nicolas Petrovich', s:'Super Senior', d:10, m:6, y:1977 },
   { n:'Mario Silva', s:'Dorados', d:16, m:6, y:1972 },
+  { n:'Rene Murillo', s:'Diamantes', d:22, m:6, y:1966 },
   { n:'Byron Bascur', s:'Senior', d:25, m:6, y:1990 },
   { n:'Cristian Cancino', s:'Dorados', d:26, m:6, y:1973 },
   { n:'Joel Gonzalez', s:'Senior', d:1, m:7, y:1991 },
