@@ -82,6 +82,8 @@ window.CUMPLEANOS = [
   { n:'German Ugalde', s:'Dorados', d:17, m:8, y:1967 },
   { n:'Marcelo Teuber', s:'Super Senior', d:24, m:8, y:1978 },
   { n:'Gonzalo Moya', s:'Infantil', d:14, m:9, y:1978 },
+  { n:'Santiago Gonzalez', s:'Infantil', d:14, m:9, y:2010 },
+  { n:'Luciano Madrid', s:'Infantil', d:14, m:9, y:2010 },
   { n:'Fernando Navarro', s:'Diamantes', d:15, m:9, y:1965 },
   { n:'Roberto Soto', s:'Diamantes', d:20, m:9, y:1964 },
   { n:'Diego Gomez', s:'Junior', d:21, m:9, y:2004 },
