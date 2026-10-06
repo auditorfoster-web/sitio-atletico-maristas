@@ -15,6 +15,7 @@ window.CUMPLEANOS = [
   { n:'Bastian Quilodran', s:'Junior', d:19, m:1, y:2005 },
   { n:'Pablo Hernandez', s:'Super Senior', d:25, m:1, y:1986 },
   { n:'Cristian Arancibia', s:'Super Senior', d:28, m:1, y:1984 },
+  { n:'Mauricio Pavez', s:'Infantil', d:12, m:2, y:1996 },
   { n:'Felipe Arancibia', s:'Super Senior', d:19, m:2, y:1987 },
   { n:'Sebastian Rodriguez', s:'Super Senior', d:20, m:2, y:1987 },
   { n:'Tomas Fica', s:'Junior', d:21, m:2, y:2005 },
