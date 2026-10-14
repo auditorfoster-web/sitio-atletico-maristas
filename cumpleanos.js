@@ -111,6 +111,7 @@ window.CUMPLEANOS = [
   { n:'Nicolas Maldonado', s:'Senior', d:17, m:12, y:1996 },
   { n:'Raul Coccio', s:'Dorados', d:19, m:12, y:1968 },
   { n:'Juan Castillo', s:'Senior', d:24, m:12, y:1994 },
+  { n:'Marcelo Aguirre', s:'Infantil', d:27, m:12, y:2000 },
   { n:'Moises Martinez', s:'Dorados', d:27, m:12, y:1976 },
   { n:'Luis Barrera', s:'Dorados', d:30, m:12, y:1974 },
   { n:'Gerard Aguirre', s:'Super Senior', d:31, m:12, y:1977 }
