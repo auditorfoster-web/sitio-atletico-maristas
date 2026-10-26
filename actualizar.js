@@ -337,6 +337,40 @@ function escribirResultados(resultados) {
   fs.writeFileSync(path.join(__dirname, 'resultados.js'), out, 'utf8');
 }
 
+// Programacion de AIRA (lstProgramacionPublico.aspx). Columnas:
+// 0 fecha+hora | 1 recinto | 2 cancha | 3 local | 4 visita | 5 jornada | 6 id.
+// Devuelve solo los partidos de Atletico Maristas (se omiten las filas LIBRE).
+function parseProgramacion(html) {
+  const out = [];
+  const filas = [...html.matchAll(/<tr class="itemGrillaNormal"[^>]*>([\s\S]*?)<\/tr>/gi)];
+  for (const r of filas) {
+    const c = [...r[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(m => stripTags(m[1]).trim());
+    if (c.length < 7) continue;
+    const local = normalizar(c[3]), visita = normalizar(c[4]);
+    const home = local.includes(NUESTRO_EQUIPO);
+    if (!home && !visita.includes(NUESTRO_EQUIPO)) continue;
+    if (local === 'LIBRE' || visita === 'LIBRE') continue;
+    const m = c[0].match(/(\d{2}\/\d{2}\/\d{4})\s+(\d{1,2}:\d{2})/);
+    if (!m) continue;
+    out.push({ fecha: m[1], h: m[2], cancha: c[2], vs: home ? c[4] : c[3], home, jornada: c[5] });
+  }
+  return out;
+}
+
+// Respaldo de la "Proxima Fecha": cuando fixture-data.js se queda sin jornadas
+// futuras, index.html usa estos partidos (los que aun no se jugaron).
+function escribirProgramacion(partidos) {
+  const esc = s => String(s).replace(/'/g, "\\'");
+  const items = partidos.map(p =>
+    `  { s:'${p.s}', fecha:'${p.fecha}', h:'${p.h}', c:'Cancha ${esc(p.cancha)}', vs:'${esc(toTitleCase(p.vs))}', home:${p.home}, n:'${esc(p.jornada)} Cl.' }`
+  ).join(',\n');
+  const out =
+    '// Generado por actualizar.js — NO editar a mano.\n' +
+    '// Programacion publicada por AIRA para Atletico Maristas (respaldo de la Proxima Fecha).\n' +
+    'window.PROGRAMACION_AIRA = [\n' + items + (items ? '\n' : '') + '];\n';
+  fs.writeFileSync(path.join(__dirname, 'programacion.js'), out, 'utf8');
+}
+
 // Parsea la pagina "Equipo" (verEquipoPublico.aspx) — tabla [30] Jugadores.
 // Columnas: Serie | Jugador | F.Nacimiento (DD/MM/YYYY) | Edad | Bloq | FS | FC | FP
 // Devuelve [{ serieJug, raw, fnac }] de las filas con fecha valida.
@@ -449,6 +483,8 @@ async function main() {
   const goleadoresMaristas = [];
   const resultadosMaristas = [];
   const rosterMaristas = [];
+  const programacionMaristas = [];
+  let programacionOk = true;
 
   // 2. Por cada serie: posiciones + programacion
   for (const serie of series) {
@@ -525,6 +561,18 @@ async function main() {
         console.log(`OK (${propios.length} goleadores de Maristas)`);
       } catch (err) { console.log(`Error: ${err.message}`); }
     }
+
+    // Programacion (respaldo de la Proxima Fecha)
+    if (serie.progUrl) {
+      process.stdout.write(`  Programacion ${serie.id.padEnd(10)}... `);
+      try {
+        const progHtml = await fetchPage(serie.progUrl);
+        const propios = parseProgramacion(progHtml);
+        propios.forEach(p => { p.s = serie.id; });
+        programacionMaristas.push(...propios);
+        console.log(propios.length ? `OK (${propios.map(p => p.fecha + ' ' + p.h).join(', ')})` : 'sin partido');
+      } catch (err) { programacionOk = false; console.log(`Error: ${err.message}`); }
+    }
   }
 
   // 3. Ranking goleadores Maristas
@@ -539,9 +587,15 @@ async function main() {
   const nCumples = escribirCumpleanos(rosterMaristas);
   console.log(`  Cumpleaños: ${nCumples} jugador(es) con fecha de nacimiento`);
 
-  // 5. Proxima fecha: YA NO se toma de AIRA. La maneja el fixture oficial en
+  // 5. Proxima fecha: la fuente principal es el fixture oficial en
   //    fixture-data.js (lo renderiza index.html en el cliente). AIRA va atrasada
-  //    y mostraba fechas ya jugadas, por eso se migro al fixture.
+  //    y mostraba fechas ya jugadas, asi que su programacion solo se guarda como
+  //    respaldo (programacion.js) para cuando el fixture se queda sin jornadas.
+  //    Si alguna serie fallo, se conserva el archivo anterior.
+  if (programacionOk) {
+    escribirProgramacion(programacionMaristas);
+    console.log(`  Programacion AIRA: ${programacionMaristas.length} partido(s)`);
+  }
 
   // 6. Guardar
   fs.writeFileSync(HTML_FILE, html, 'utf8');
