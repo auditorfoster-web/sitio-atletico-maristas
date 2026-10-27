@@ -50,6 +50,7 @@ window.CUMPLEANOS = [
   { n:'Mario Espinoza', s:'Senior', d:9, m:5, y:1994 },
   { n:'Jose Saez', s:'Super Senior', d:11, m:5, y:1979 },
   { n:'Michael Roman', s:'Dorados', d:11, m:5, y:1970 },
+  { n:'Valentino Molina', s:'Infantil', d:17, m:5, y:1987 },
   { n:'Hugo Cerda', s:'Diamantes', d:18, m:5, y:1965 },
   { n:'Angel Gomez', s:'Super Senior', d:19, m:5, y:1978 },
   { n:'Francisco Montesinos', s:'Super Senior', d:23, m:5, y:1980 },
