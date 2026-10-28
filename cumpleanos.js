@@ -20,6 +20,7 @@ window.CUMPLEANOS = [
   { n:'Sebastian Rodriguez', s:'Super Senior', d:20, m:2, y:1987 },
   { n:'Tomas Fica', s:'Junior', d:21, m:2, y:2005 },
   { n:'Rene Ortiz', s:'Super Senior', d:26, m:2, y:1980 },
+  { n:'Felipe Mollo', s:'Infantil', d:27, m:2, y:2000 },
   { n:'Carlos Villalobos', s:'Diamantes', d:4, m:3, y:1960 },
   { n:'Leonardo Guarda', s:'Dorados', d:5, m:3, y:1969 },
   { n:'Flavio Jimenez', s:'Senior', d:8, m:3, y:1997 },
