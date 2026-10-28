@@ -111,6 +111,7 @@ window.CUMPLEANOS = [
   { n:'Martin Aroca', s:'Junior', d:5, m:12, y:2005 },
   { n:'Luis Elgueta', s:'Super Senior', d:10, m:12, y:1977 },
   { n:'Matias Guajardo', s:'Junior', d:14, m:12, y:2004 },
+  { n:'Camilo Salvatierra', s:'Infantil', d:17, m:12, y:2000 },
   { n:'Nicolas Maldonado', s:'Senior', d:17, m:12, y:1996 },
   { n:'Raul Coccio', s:'Dorados', d:19, m:12, y:1968 },
   { n:'Juan Castillo', s:'Senior', d:24, m:12, y:1994 },
