@@ -37,7 +37,6 @@ window.CUMPLEANOS = [
   { n:'Jose Rubio', s:'Super Senior', d:4, m:4, y:1987 },
   { n:'Victor Zamudio', s:'Super Senior', d:4, m:4, y:1985 },
   { n:'Cesar Castro', s:'Super Senior', d:10, m:4, y:1984 },
-  { n:'Felipe Fontecilla', s:'Super Senior', d:11, m:4, y:1988 },
   { n:'Rodrigo Riquelme', s:'Diamantes', d:11, m:4, y:1966 },
   { n:'Maximiliano Ansieta', s:'Junior', d:14, m:4, y:2005 },
   { n:'Isaac Martinez', s:'Junior', d:17, m:4, y:2001 },
