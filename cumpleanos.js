@@ -101,6 +101,7 @@ window.CUMPLEANOS = [
   { n:'Mauricio Perez', s:'Dorados', d:21, m:10, y:1971 },
   { n:'Vicente Hernandez', s:'Super Senior', d:22, m:10, y:1988 },
   { n:'Cristian Zurita', s:'Dorados', d:25, m:10, y:1973 },
+  { n:'Daniel Vidal', s:'Senior', d:28, m:10, y:1996 },
   { n:'Armin Torres', s:'Super Senior', d:31, m:10, y:1980 },
   { n:'Marcelo Cornejo', s:'Senior', d:2, m:11, y:1995 },
   { n:'Mauricio Yañez', s:'Dorados', d:3, m:11, y:1975 },
