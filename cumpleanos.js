@@ -107,6 +107,7 @@ window.CUMPLEANOS = [
   { n:'Marcelo Cornejo', s:'Senior', d:2, m:11, y:1995 },
   { n:'Mauricio Yañez', s:'Dorados', d:3, m:11, y:1975 },
   { n:'Marcelo Garrido', s:'Dorados', d:4, m:11, y:1969 },
+  { n:'Sergio Gomez', s:'Dorados', d:5, m:11, y:1973 },
   { n:'Miguel Hernandez', s:'Super Senior', d:6, m:11, y:1983 },
   { n:'Marco Perez', s:'Dorados', d:16, m:11, y:1967 },
   { n:'Daniel Santibañez', s:'Senior', d:19, m:11, y:1998 },
