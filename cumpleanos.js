@@ -33,8 +33,8 @@ window.CUMPLEANOS = [
   { n:'Victor Zamudio', s:'Dorados', d:23, m:3, y:1976 },
   { n:'Luis Becerra', s:'Dorados', d:24, m:3, y:1976 },
   { n:'Alonso Viscarra', s:'Junior', d:28, m:3, y:2000 },
-  { n:'Marcelo Guerra', s:'Junior', d:3, m:4, y:2000 },
   { n:'Ruben Gebhard', s:'Super Senior', d:3, m:4, y:1979 },
+  { n:'Marcelo Guerra', s:'Junior', d:3, m:4, y:2000 },
   { n:'Jose Rubio', s:'Super Senior', d:4, m:4, y:1987 },
   { n:'Victor Zamudio', s:'Super Senior', d:4, m:4, y:1985 },
   { n:'Cesar Castro', s:'Super Senior', d:10, m:4, y:1984 },
@@ -119,8 +119,8 @@ window.CUMPLEANOS = [
   { n:'Nicolas Maldonado', s:'Senior', d:17, m:12, y:1996 },
   { n:'Raul Coccio', s:'Dorados', d:19, m:12, y:1968 },
   { n:'Juan Castillo', s:'Senior', d:24, m:12, y:1994 },
-  { n:'Marcelo Aguirre', s:'Junior', d:27, m:12, y:2000 },
   { n:'Moises Martinez', s:'Dorados', d:27, m:12, y:1976 },
+  { n:'Marcelo Aguirre', s:'Junior', d:27, m:12, y:2000 },
   { n:'Luis Barrera', s:'Dorados', d:30, m:12, y:1974 },
   { n:'Gerard Aguirre', s:'Super Senior', d:31, m:12, y:1977 }
 ];
